@@ -11,21 +11,21 @@ import os.path
 from enum import Enum
 
 class Run_type(Enum):
-    automatic = 1
-    manual = 2
+    Automatic = 1
+    M = 2
 
 class Query_type(Enum):
-    title = 1
-    title_and_description = 2
-    description = 3
-    all = 4
-    other = 5
+    Title = 1
+    Title_and_description = 2
+    Description = 3
+    All = 4
+    Other = 5
 
 class Feedback_type(Enum):
     none = 1
-    pseudo = 2
-    relevance = 3
-    other = 4
+    Pseudo = 2
+    Relevance = 3
+    Other = 4
 
 
 # models
@@ -68,8 +68,8 @@ class Run(models.Model):
     description = models.TextField()
     result_file = models.FileField(upload_to='runs')
 
-    run_type = models.IntegerField(default=Run_type.automatic)
-    query_type = models.IntegerField(default=Query_type.title)
+    run_type = models.IntegerField(default=Run_type.Automatic)
+    query_type = models.IntegerField(default=Query_type.Title)
     feedback_type = models.IntegerField(default=Feedback_type.none)
 
     map = models.FloatField(null=True, blank=True)
