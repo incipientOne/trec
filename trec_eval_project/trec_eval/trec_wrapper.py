@@ -23,12 +23,12 @@ def trec_wrapper(qrel_file_path, run_file_path):
     # then return the 3rd, 6th and 9th elements as floats.
     return float(result_array[2]), float(result_array[5]), float(result_array[8])
 
-    # some code to test the above.
+# some code to test the above.
 
-    # this_files_path = os.path.dirname(os.path.abspath(__file__))
-    #
-    # test_qrel = os.path.join(this_files_path, 'qrels/aq.trec2005.qrels.txt')
-    # test_run = os.path.join(this_files_path, 'aq.trec.bm25.0.50.res.txt')
-    # result = trec_wrapper(test_qrel, test_run)
-    #
-    # print result
+#this_files_path = os.path.dirname(os.path.abspath(__file__))
+
+#test_qrel = os.path.join(this_files_path, 'qrels/aq.trec2005.qrels.txt')
+#test_run = os.path.join(this_files_path, 'aq.trec.bm25.0.50.res.txt')
+#result = trec_wrapper(test_qrel, test_run)
+
+#print result
