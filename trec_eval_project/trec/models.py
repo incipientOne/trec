@@ -6,6 +6,29 @@ from trec_eval_project.settings import MEDIA_ROOT
 import os.path
 
 
+# Enumerated types for Run:
+
+from enum import Enum
+
+class Run_type(Enum):
+    automatic = 1
+    manual = 2
+
+class Query_type(Enum):
+    title = 1
+    title_and_description = 2
+    description = 3
+    all = 4
+    other = 5
+
+class Feedback_type(Enum):
+    none = 1
+    pseudo = 2
+    relevance = 3
+    other = 4
+
+
+# models
 class Researcher(models.Model):
     user = models.OneToOneField(User, primary_key=True)
 
@@ -22,7 +45,7 @@ class Track(models.Model):
     title = models.CharField(max_length=128, unique=True)
     track_url = models.URLField()
     description = models.TextField()
-    genre = models.CharField(max_length=128)    # what's the genre even supposed to mean??
+    genre = models.CharField(max_length=128)
 
     def __unicode__(self):
         return self.title
@@ -45,9 +68,9 @@ class Run(models.Model):
     description = models.TextField()
     result_file = models.FileField(upload_to='runs')
 
-    run_type = models.CharField(max_length=128)       # need the right field type for these,
-    query_type = models.CharField(max_length=128)     # using CharField as temporary solution.
-    feedback_type = models.CharField(max_length=128)  #
+    run_type = models.IntegerField(default=Run_type.automatic)
+    query_type = models.IntegerField(default=Query_type.title)
+    feedback_type = models.IntegerField(default=Feedback_type.none)
 
     map = models.FloatField(null=True, blank=True)
     p10 = models.FloatField(null=True, blank=True)
