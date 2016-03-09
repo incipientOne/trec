@@ -5,14 +5,15 @@ from trec_eval.trec_wrapper import trec_wrapper
 from trec_eval_project.settings import MEDIA_ROOT
 import os.path
 
-
 # Enumerated types for Run:
 
 from enum import Enum
 
+
 class Run_type(Enum):
     Automatic = 1
     M = 2
+
 
 class Query_type(Enum):
     Title = 1
@@ -20,6 +21,7 @@ class Query_type(Enum):
     Description = 3
     All = 4
     Other = 5
+
 
 class Feedback_type(Enum):
     none = 1
@@ -50,6 +52,7 @@ class Track(models.Model):
     def __unicode__(self):
         return self.title
 
+
 class Task(models.Model):
     track = models.ForeignKey(Track)
     title = models.CharField(max_length=128)
@@ -60,6 +63,7 @@ class Task(models.Model):
 
     def __unicode__(self):
         return self.title
+
 
 class Run(models.Model):
     researcher = models.ForeignKey(Researcher)
@@ -87,7 +91,7 @@ class Run(models.Model):
         # calculate map, p_10, p_20.
         self.map, self.p10, self.p20 = trec_wrapper(qrel_path, results_path)
 
-        super(Run, self).save(*args, **kwargs)
+        super(Run, self).save()
 
     def __unicode__(self):
         return self.name
