@@ -17,8 +17,8 @@ def populate():
     test_qrel = os.path.join(BASE_DIR, 'pop script data', 'qrels', 'aq.trec2005.qrels.txt')
     test_run = os.path.join(BASE_DIR, 'pop script data', 'runs', 'aq.trec.bm25.0.50.res.txt')
 
-    # add superuer
-    User.objects.create_superuser('admin', '', 'temppass')
+    # add superuser
+    add_user('admin', '', 'adminpass', is_superuser=True)
 
     # requred example users.
     add_user('jill', '', 'jill')
@@ -45,9 +45,13 @@ def populate():
             Feedback_type.none)
 
 
-def add_user(username, email, password):
+def add_user(username, email, password, is_superuser=False):
     password = make_password(password) # get_or_create does not hash the password, so we do so here.
-    u = User.objects.get_or_create(username=username, email=email, password=password)[0]
+    defaults = {'email': email,
+                'password': password,
+                'is_staff': is_superuser,
+                'is_superuser': is_superuser}
+    u = User.objects.get_or_create(username=username, defaults=defaults)[0]
     return u
 
 

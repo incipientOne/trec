@@ -1,12 +1,13 @@
 import subprocess
 import os.path
+from trec_eval_project.settings import BASE_DIR
 
 
 # takes file paths for qrel and run files as strings,
 # returns map, p_10, p_20 as list of floats.
 def trec_wrapper(qrel_file_path, run_file_path):
     # trec_eval program is stored in the same directory as the wrapper
-    trec_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'trec_eval')
+    trec_path = os.path.join(BASE_DIR, 'trec_eval/', 'trec_eval')
 
     results = subprocess.check_output([trec_path,
                                        '-m', 'map',  # tell trec_eval to calculate map
@@ -25,10 +26,8 @@ def trec_wrapper(qrel_file_path, run_file_path):
 
 # some code to test the above.
 
-#this_files_path = os.path.dirname(os.path.abspath(__file__))
-
-#test_qrel = os.path.join(this_files_path, 'qrels/aq.trec2005.qrels.txt')
-#test_run = os.path.join(this_files_path, 'aq.trec.bm25.0.50.res.txt')
+#test_qrel = os.path.join(BASE_DIR, 'pop script data','qrels', 'aq.trec2005.qrels.txt')
+#test_run = os.path.join(BASE_DIR, 'pop script data', 'runs', 'aq.trec.bm25.0.50.res.txt')
 #result = trec_wrapper(test_qrel, test_run)
 
 #print result
