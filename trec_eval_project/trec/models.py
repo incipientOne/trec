@@ -9,13 +9,18 @@ import os.path
 
 from enum import Enum
 
+# Was playing around with app and got value serialisation error for enum types
+# Think found solution by doing an pip install for django-enumfield
+# Then import and changing Run class as shown in comments
 
-class Run_type(Enum):
+# from django_enumfield import enum
+
+class Run_type(Enum):		# class Run_type(enum.Enum):
     Automatic = 1
     M = 2
 
 
-class Query_type(Enum):
+class Query_type(Enum):		# class Query_type(enum.Enum):
     Title = 1
     Title_and_description = 2
     Description = 3
@@ -23,7 +28,7 @@ class Query_type(Enum):
     Other = 5
 
 
-class Feedback_type(Enum):
+class Feedback_type(Enum): 	# class Feedback_type(enum.Enum):
     none = 1
     Pseudo = 2
     Relevance = 3
@@ -73,8 +78,13 @@ class Run(models.Model):
     result_file = models.FileField(upload_to='runs')
 
     run_type = models.IntegerField(default=Run_type.Automatic)
+# 	run_type = enum.EnumField(Run_type, default=Run_type.Automatic)
+    
     query_type = models.IntegerField(default=Query_type.Title)
+#	query_type = enum.EnumField(Query_type, default=Query_type.Title)
+    
     feedback_type = models.IntegerField(default=Feedback_type.none)
+#	feedback_type = enum.EnumField(Feedback_type, default=Feedback_type.none)
 
     map = models.FloatField(null=True, blank=True)
     p10 = models.FloatField(null=True, blank=True)
