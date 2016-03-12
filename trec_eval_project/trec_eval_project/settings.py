@@ -13,8 +13,9 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+# Not sure which is correct - both seem to work - someone with more knowledge check
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+# BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -53,6 +54,9 @@ MIDDLEWARE_CLASSES = [
 
 ROOT_URLCONF = 'trec_eval_project.urls'
 
+# Not sure what this is for / wouldn't load templates with it
+# Commented out and added link as per Tango Tutorial and seemed fine though error message appears upon runserver
+"""
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -68,6 +72,11 @@ TEMPLATES = [
         },
     },
 ]
+"""
+
+TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
+
+TEMPLATE_DIRS = (TEMPLATE_PATH,)
 
 WSGI_APPLICATION = 'trec_eval_project.wsgi.application'
 
@@ -120,4 +129,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static', 'media')
-STATIC_URL = '/static/'
+#STATIC_URL = '/static/'
+
+STATIC_PATH = os.path.join(BASE_DIR,'static')
+
+STATIC_URL = '/static/' 
+
+STATICFILES_DIRS = (
+    STATIC_PATH,
+)
