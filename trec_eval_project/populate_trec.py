@@ -40,9 +40,9 @@ def populate():
             'test_run_1',
             'a test run',
             test_run,
-            Run_type.Automatic,
-            Query_type.Other,
-            Feedback_type.none)
+            Run_type.AUTOMATIC,
+            Query_type.OTHER,
+            Feedback_type.NONE)
 
 
 def add_user(username, email, password, is_superuser=False):

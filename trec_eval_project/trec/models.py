@@ -16,23 +16,23 @@ from enum import Enum
 # from django_enumfield import enum
 
 class Run_type(Enum):		# class Run_type(enum.Enum):
-    Automatic = 1
-    M = 2
+    AUTOMATIC = 1
+    MANUAL = 2
 
 
 class Query_type(Enum):		# class Query_type(enum.Enum):
-    Title = 1
-    Title_and_description = 2
-    Description = 3
-    All = 4
-    Other = 5
+    TITLE = 1
+    TITLE_AND_DESCRIPTION = 2
+    DESCRIPTION = 3
+    ALL = 4
+    OTHER = 5
 
 
 class Feedback_type(Enum): 	# class Feedback_type(enum.Enum):
-    none = 1
-    Pseudo = 2
-    Relevance = 3
-    Other = 4
+    NONE = 1
+    PSEUDO = 2
+    RELEVANCE = 3
+    OTHER = 4
 
 
 # models
@@ -77,13 +77,13 @@ class Run(models.Model):
     description = models.TextField()
     result_file = models.FileField(upload_to='runs')
 
-    run_type = models.IntegerField(default=Run_type.Automatic)
+    run_type = models.IntegerField(default=Run_type.AUTOMATIC)
 # 	run_type = enum.EnumField(Run_type, default=Run_type.Automatic)
     
-    query_type = models.IntegerField(default=Query_type.Title)
+    query_type = models.IntegerField(default=Query_type.TITLE)
 #	query_type = enum.EnumField(Query_type, default=Query_type.Title)
     
-    feedback_type = models.IntegerField(default=Feedback_type.none)
+    feedback_type = models.IntegerField(default=Feedback_type.NONE)
 #	feedback_type = enum.EnumField(Feedback_type, default=Feedback_type.none)
 
     map = models.FloatField(null=True, blank=True)
