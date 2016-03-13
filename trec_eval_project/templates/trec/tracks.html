@@ -15,7 +15,7 @@
         {% if track_list %}
             <ul>
                 {% for track in track_list %}
-                <li>{{ track.title }}</li>
+                <li><a href="/trec/task/{{ track.slug }}">{{ track.title }}</a></li>
                 {% endfor %}
             </ul>
         {% else %}

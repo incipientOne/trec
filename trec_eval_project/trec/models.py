@@ -6,21 +6,17 @@ from trec_eval_project.settings import MEDIA_ROOT
 import os.path
 
 # Enumerated types for Run:
-
 from enum import Enum
 
-# Was playing around with app and got value serialisation error for enum types
-# Think found solution by doing an pip install for django-enumfield
-# Then import and changing Run class as shown in comments
+# Needed to slug URLS 
+from django.template.defaultfilters import slugify
 
-# from django_enumfield import enum
-
-class Run_type(Enum):		# class Run_type(enum.Enum):
+class Run_type(Enum):	
     AUTOMATIC = 1
     MANUAL = 2
 
 
-class Query_type(Enum):		# class Query_type(enum.Enum):
+class Query_type(Enum):
     TITLE = 1
     TITLE_AND_DESCRIPTION = 2
     DESCRIPTION = 3
@@ -28,14 +24,14 @@ class Query_type(Enum):		# class Query_type(enum.Enum):
     OTHER = 5
 
 
-class Feedback_type(Enum): 	# class Feedback_type(enum.Enum):
+class Feedback_type(Enum):
     NONE = 1
     PSEUDO = 2
     RELEVANCE = 3
     OTHER = 4
 
 
-# models
+# Models
 class Researcher(models.Model):
     user = models.OneToOneField(User, primary_key=True)
 
@@ -53,6 +49,13 @@ class Track(models.Model):
     track_url = models.URLField()
     description = models.TextField()
     genre = models.CharField(max_length=128)
+    
+    slug = models.SlugField()
+    
+    # Slum Mckenzie up these URLS
+    def save(self, *args, **kwargs):
+    	self.slug = slugify(self.title)
+    	super(Track, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.title

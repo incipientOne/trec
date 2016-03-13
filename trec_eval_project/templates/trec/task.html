@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+{% load staticfiles %} 
+
+<html>
+
+    <head>
+        <title>Topics Title</title>
+    </head>
+
+    <body>
+        {% if task %}
+        
+        <h1>{{ task_name }}</h1>
+        
+            {% if tasks %}
+            <ul>
+                {% for task in tasks %}
+                <li>{{ task.title }}</a></li>
+                {% endfor %}
+            </ul>
+            {% else %}
+                <strong>No tasks currently in this track.</strong>
+            {% endif %}
+        
+        {% else %}
+            The track {{ task_title }} does not exist!
+        {% endif %}
+   
+   		<br / >
+   		 
+        <a href="/trec/about/">About</a><br />
+        <a href="/trec/">Home</a><br />
+        <a href="/trec/tracks">Tracks</a><br />
+    </body>
+
+</html>

@@ -52,6 +52,7 @@ def add_user(username, email, password, is_superuser=False):
                 'is_staff': is_superuser,
                 'is_superuser': is_superuser}
     u = User.objects.get_or_create(username=username, defaults=defaults)[0]
+    u.save()
     return u
 
 
@@ -63,6 +64,7 @@ def add_researcher(username, display_name, website='', organisation='', picture=
     user = User.objects.filter(username=username)[0]
     r = Researcher.objects.get_or_create(user=user,
                                          defaults=defaults)[0]
+    r.save()
     return r
 
 
@@ -71,6 +73,7 @@ def add_Track(title, url, description, genre):
                                     track_url=url,
                                     description=description,
                                     genre=genre)[0]
+    t.save()
     return t
 
 
@@ -83,6 +86,7 @@ def add_Task(track_title, title, url, description, year, qrel_file_path):
                 'year': year,
                 'judgements_file': qrel_file}
     t = Task.objects.get_or_create(title=title, defaults=defaults)[0]
+    t.save()
     return t
 
 
@@ -99,6 +103,7 @@ def add_run(researcher_name, task_title, name, description, results_file_path, r
                 'query_type': query_type,
                 'feedback_type': feedback_type}
     r = Run.objects.get_or_create(name=name, defaults=defaults)[0]
+    r.save()
     return r
 
 
