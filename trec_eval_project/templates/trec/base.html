@@ -19,11 +19,12 @@
     	
     	<div>
     		<ul>
-    		<!-- {% if user.is_authenticated %} -->
-    		<!-- {% else %} -->
-    		<!--	<li><a href="/trec/register">Register Here</a></li> -->    		
-    		<!-- {% endif %} -->
-    		
+    		{% if user.is_authenticated %}
+    			<li><a href="{% url 'auth_logout' %}?next=/trec/">Logout</a></li>
+    		{% else %}
+    			<li><a href="{% url 'register' %}">Register Here</a></li>
+    			<li><a href="{% url 'auth_login' %}">Login</a></li>    		
+    		{% endif %}
     		
     			<li><a href="{% url 'about' %}">About</a></li>
     			<li><a href="{% url 'home' %}">Home</a></li>

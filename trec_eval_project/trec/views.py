@@ -37,7 +37,8 @@ def task(request, task_title_slug):
 def home(request):
   context_dict = {'boldmessage': "Context Dict Message For Home Page"}
   return render(request, 'trec/home.html', context_dict)
-  
+
+
 # Used to register a user
 def register(request):
 	registered = False
