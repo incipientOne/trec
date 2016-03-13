@@ -11,6 +11,17 @@
     <body>
         <h1>Header 1 - Tracks</h1>
         This is the page for all the categories of tracks: <strong>{{ boldmessage }}</strong><br />
+        
+        {% if track_list %}
+            <ul>
+                {% for track in track_list %}
+                <li>{{ track.title }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>There are no tracks present.</strong><br / >
+        {% endif %}
+         
         <a href="/trec/about/">About</a><br />
         <a href="/trec/">Home</a><br />
         <img src="{% static "images/joke2.jpg" %}" alt="Your Missing The Joke" /> 

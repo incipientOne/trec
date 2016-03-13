@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from trec.models import Track
 
 # About FAQ page for the site
 def about(request):
@@ -15,5 +16,6 @@ def home(request):
 
 # The main tracks page
 def tracks(request):
-	context_dict = {'boldmessage': "Context Dict Message For Track Page"}
+	category_list = Track.objects.order_by("title")	
+	context_dict = {'boldmessage': "Context Dict Message For Tracks", 'track_list' : category_list}
 	return render(request, 'trec/tracks.html', context_dict) 
