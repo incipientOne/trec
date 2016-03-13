@@ -38,7 +38,7 @@ def home(request):
   context_dict = {'boldmessage': "Context Dict Message For Home Page"}
   return render(request, 'trec/home.html', context_dict)
   
-
+# Used to register a user
 def register(request):
 	registered = False
 	
@@ -72,11 +72,7 @@ def register(request):
 	return render(request,
 			'trec/register.html',
 			{'user_form':user_form, 'profile_form':profile_form, 'registered':registered})
-		
-		
-		
-		
-		
+			
 
 # The main tracks page
 def tracks(request):

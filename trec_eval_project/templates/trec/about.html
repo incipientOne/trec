@@ -1,19 +1,14 @@
-<!DOCTYPE html>
+{% extends 'trec/base.html' %}
 
 {% load staticfiles %} 
 
-<html>
+{% block title %}About Title{% endblock %}
 
-    <head>
-        <title>About Title</title>
-    </head>
-
-    <body>
-        <h1>Header 1 - About</h1>
-        About About About: <strong>{{ boldmessage }}</strong><br />
-        <a href="/trec/">Home</a><br />
-        <a href="/trec/tracks/">Tracks</a><br />
-        <img src="{% static "images/joke2.jpg" %}" alt="Your Missing The Joke" /> 
-    </body>
-
-</html>
+{% block body_block %}
+    <h1>About Header</h1>
+    
+    About About About: <strong>{{ boldmessage }}</strong><br />
+    <img src="{% static "images/joke2.jpg" %}" alt="Your Missing The Joke" /> 
+    
+{% endblock %}
+    

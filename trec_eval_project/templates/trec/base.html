@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+{% load staticfiles %} 
+
+<html>
+
+    <head lang="en">
+    	<meta charset="UTF-8">
+        <title>Trec - {% block title %}The Trec Evaluation Application!{% endblock %}</title>
+    </head>
+
+    <body>
+    	<!-- A Page's Body Goes Here -->
+    	<div>
+    	{% block body_block %}{% endblock %} 
+    	</div>
+    	
+    	<hr />
+    	
+    	<div>
+    		<ul>
+    		<!-- {% if user.is_authenticated %} -->
+    		<!-- {% else %} -->
+    		<!--	<li><a href="/trec/register">Register Here</a></li> -->    		
+    		<!-- {% endif %} -->
+    		
+    		
+    			<li><a href="{% url 'about' %}">About</a></li>
+    			<li><a href="{% url 'home' %}">Home</a></li>
+    			<li><a href="{% url 'tracks' %}">Tracks</a></li>
+    		</ul>
+    	</div>
+    </body>
+</html>
