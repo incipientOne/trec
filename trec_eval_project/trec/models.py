@@ -63,11 +63,18 @@ class Track(models.Model):
 
 class Task(models.Model):
     track = models.ForeignKey(Track)
-    title = models.CharField(max_length=128)
+    title = models.CharField(max_length=128, unique=True)
     task_url = models.URLField()
     description = models.TextField()
     year = models.IntegerField()
     judgements_file = models.FileField(upload_to='qrels')
+    
+    slug = models.SlugField()
+    
+    # Slum Mckenzie up these URLS
+    def save(self, *args, **kwargs):
+    	self.slug = slugify(self.title)
+    	super(Task, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.title
@@ -81,13 +88,10 @@ class Run(models.Model):
     result_file = models.FileField(upload_to='runs')
 
     run_type = models.IntegerField(default=Run_type.AUTOMATIC)
-# 	run_type = enum.EnumField(Run_type, default=Run_type.Automatic)
     
     query_type = models.IntegerField(default=Query_type.TITLE)
-#	query_type = enum.EnumField(Query_type, default=Query_type.Title)
     
     feedback_type = models.IntegerField(default=Feedback_type.NONE)
-#	feedback_type = enum.EnumField(Feedback_type, default=Feedback_type.none)
 
     map = models.FloatField(null=True, blank=True)
     p10 = models.FloatField(null=True, blank=True)

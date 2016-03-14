@@ -18,7 +18,7 @@
             	
         {% for task in tasks %}
         	<tr>
-                <td>{{ task.title }}</td>
+                <td><a href="{% url 'run' task.slug %}">{{ task.slug }}</a></td>
                 <td>{{ task.year }}</td>
                 <td>{{ task.description }}</td>
             </tr>

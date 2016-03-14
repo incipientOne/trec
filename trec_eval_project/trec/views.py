@@ -52,6 +52,31 @@ def register(request):
 			{'user_form':user_form, 'profile_form':profile_form, 'registered':registered})
 
 
+# Runs detail
+def run(request, run_title_slug):
+  context_dict = {}
+  
+  try:
+  # Get the specific track
+  	task = Task.objects.get(slug=run_title_slug)
+  	
+  	print task
+  
+  # Store its title
+  	context_dict['task_title'] = task.title
+  
+  # Get the specific tasks and store info context dict
+  	runs = Run.objects.filter(task=task)	
+  	context_dict['runs'] = runs
+  	
+  	context_dict['task'] = task
+  
+  except Task.DoesNotExist:
+  	pass
+  
+  return render(request, 'trec/run.html', context_dict)
+
+
 # One specific task
 def task(request, task_title_slug):
   context_dict = {}

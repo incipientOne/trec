@@ -1,0 +1,39 @@
+{% extends 'trec/base.html' %}
+
+{% load staticfiles %} 
+
+{% block title %}Run Title{% endblock %}
+
+{% block body_block %}
+
+{% if task %}
+        
+	<h1>{{ task_title }}</h1>
+        
+    Runs for a selected task and see the associated run table / graph
+        
+    {% if runs %}
+    
+    	<table border="1" style="width:100%">
+            	
+        {% for run in runs %}
+        	<tr>
+                <td>{{ run.name }}</td>
+                <td>{{ run.researcher }}</td>
+                <td>{{ run.map }}</td>
+                <td>{{ run.p10 }}</td>
+                <td>{{ run.p20 }}</td>
+            </tr>
+        {% endfor %}
+                
+        </table>
+            
+    {% else %}
+        <strong>No runs currently in this task.</strong>
+    {% endif %}
+        
+{% else %}
+    Shouldn't be here currently
+{% endif %}
+
+{% endblock %}
