@@ -29,10 +29,11 @@ def populate():
     jill = add_researcher('jill', 'jill', )
 
     # add tracks
-    add_Track('test_track_1', 'http://www.google.com', 'A simple track for tests.', 'tester')
+    add_Track('test_track_1', 'http://www.google.com', 'Description - A simple track for tests.', 'Genre - tester')
 
     # add tasks
-    add_Task('test_track_1', 'test_task_1', 'http://www.google.com', 'A simple task...', 1990, test_qrel)
+    add_Task('test_track_1', 'test_task_1', 'http://www.google.com', 'Description - A simple task...', 1990, test_qrel)
+    add_Task('test_track_1', 'test_task_2', 'http://www.google.com', 'Description - Testing purpose only', 1990, test_qrel)
 
     # add runs
     add_run('jill',

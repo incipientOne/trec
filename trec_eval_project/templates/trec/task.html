@@ -1,37 +1,37 @@
-<!DOCTYPE html>
+{% extends 'trec/base.html' %}
 
 {% load staticfiles %} 
 
-<html>
+{% block title %}Task Title{% endblock %}
 
-    <head>
-        <title>Topics Title</title>
-    </head>
+{% block body_block %}
 
-    <body>
-        {% if task %}
+{% if task %}
         
-        <h1>{{ task_name }}</h1>
+	<h1>{{ task_title }}</h1>
         
-            {% if tasks %}
-            <ul>
-                {% for task in tasks %}
-                <li>{{ task.title }}</a></li>
-                {% endfor %}
-            </ul>
-            {% else %}
-                <strong>No tasks currently in this track.</strong>
-            {% endif %}
+    This is the page for all of the tasks of a given track - select a task and see the associated run table / graph
         
-        {% else %}
-            The track {{ task_title }} does not exist!
-        {% endif %}
-   
-   		<br / >
-   		 
-        <a href="/trec/about/">About</a><br />
-        <a href="/trec/">Home</a><br />
-        <a href="/trec/tracks">Tracks</a><br />
-    </body>
+    {% if tasks %}
+    
+    	<table border="1" style="width:100%">
+            	
+        {% for task in tasks %}
+        	<tr>
+                <td>{{ task.title }}</td>
+                <td>{{ task.year }}</td>
+                <td>{{ task.description }}</td>
+            </tr>
+        {% endfor %}
+                
+        </table>
+            
+    {% else %}
+        <strong>No tasks currently in this track.</strong>
+    {% endif %}
+        
+{% else %}
+    The track {{ task_title }} does not exist!
+{% endif %}
 
-</html>
+{% endblock %}
