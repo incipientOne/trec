@@ -7,5 +7,6 @@ urlpatterns = patterns('',
         url(r'^tracks', views.tracks, name='tracks'),
         url(r'^task/(?P<task_title_slug>[\w\-]+)/$', views.task, name='task'),
         url(r'^run/(?P<run_title_slug>[\w\-]+)/$', views.run, name='run'),
+        url(r'^run_detail/(?P<run_detail_slug>[\w\-]+)/$', views.run_detail, name='run_detail'),
         url(r'^register/$', views.register, name='register'),
         )

@@ -86,6 +86,8 @@ class Run(models.Model):
     name = models.CharField(max_length=128)
     description = models.TextField()
     result_file = models.FileField(upload_to='runs')
+    
+    run_id = models.TextField(unique=True)
 
     run_type = models.IntegerField(default=Run_type.AUTOMATIC)
     
@@ -96,8 +98,13 @@ class Run(models.Model):
     map = models.FloatField(null=True, blank=True)
     p10 = models.FloatField(null=True, blank=True)
     p20 = models.FloatField(null=True, blank=True)
+    
+    slug = models.SlugField()
 
     def save(self, *args, **kwargs):
+        
+        self.slug = slugify(self.run_id)
+        
         # make sure that the result file is saved.
         super(Run, self).save(*args, **kwargs)
 

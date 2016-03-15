@@ -60,8 +60,6 @@ def run(request, run_title_slug):
   # Get the specific track
   	task = Task.objects.get(slug=run_title_slug)
   	
-  	print task
-  
   # Store its title
   	context_dict['task_title'] = task.title
   
@@ -75,6 +73,21 @@ def run(request, run_title_slug):
   	pass
   
   return render(request, 'trec/run.html', context_dict)
+
+
+# Runs detail
+def run_detail(request, run_detail_slug):
+  context_dict = {}
+  
+  try:
+  # Get the specific run and store in context-dict
+  	run = Run.objects.get(slug=run_detail_slug)
+  	context_dict['run'] = run
+  
+  except Run.DoesNotExist:
+  	pass
+  
+  return render(request, 'trec/run_detail.html', context_dict)
 
 
 # One specific task

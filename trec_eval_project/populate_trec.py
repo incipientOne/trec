@@ -14,6 +14,9 @@ from django.contrib.auth.models import User
 
 
 def populate():
+    
+    run_id = 0
+    
     test_qrel = os.path.join(BASE_DIR, 'pop script data', 'qrels', 'aq.trec2005.qrels.txt')
     test_run = os.path.join(BASE_DIR, 'pop script data', 'runs', 'aq.trec.bm25.0.50.res.txt')
 
@@ -35,6 +38,8 @@ def populate():
     add_Task('test_track_1', 'test_task_1', 'http://www.google.com', 'Description - A simple task...', 1990, test_qrel)
     add_Task('test_track_1', 'test_task_2', 'http://www.google.com', 'Description - Testing purpose only', 1990, test_qrel)
 
+    run_id = run_id + 1
+    
     # add runs
     add_run('jill',
             'test_task_1',
@@ -43,7 +48,8 @@ def populate():
             test_run,
             Run_type.AUTOMATIC,
             Query_type.OTHER,
-            Feedback_type.NONE)
+            Feedback_type.NONE,
+    		run_id)
 
 
 def add_user(username, email, password, is_superuser=False):
@@ -91,7 +97,7 @@ def add_Task(track_title, title, url, description, year, qrel_file_path):
     return t
 
 
-def add_run(researcher_name, task_title, name, description, results_file_path, run_type, query_type, feedback_type):
+def add_run(researcher_name, task_title, name, description, results_file_path, run_type, query_type, feedback_type, run_id):
     results_file = File(open(results_file_path))
     user = User.objects.filter(username=researcher_name)[0]
     researcher = Researcher.objects.filter(user=user)[0]
@@ -102,7 +108,8 @@ def add_run(researcher_name, task_title, name, description, results_file_path, r
                 'result_file': results_file,
                 'run_type': run_type,
                 'query_type': query_type,
-                'feedback_type': feedback_type}
+                'feedback_type': feedback_type,
+                'run_id': name+'-'+str(run_id)}
     r = Run.objects.get_or_create(name=name, defaults=defaults)[0]
     r.save()
     return r
