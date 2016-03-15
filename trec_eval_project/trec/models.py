@@ -31,7 +31,7 @@ class Feedback_type(Enum):
     OTHER = 4
 
 
-# Models
+# Models used
 class Researcher(models.Model):
     user = models.OneToOneField(User, primary_key=True)
 
@@ -86,7 +86,8 @@ class Run(models.Model):
     name = models.CharField(max_length=128)
     description = models.TextField()
     result_file = models.FileField(upload_to='runs')
-    
+# Combination of run name and a unique number, e.g. run_name-1
+# Used to slug the url
     run_id = models.TextField(unique=True)
 
     run_type = models.IntegerField(default=Run_type.AUTOMATIC)
@@ -94,7 +95,7 @@ class Run(models.Model):
     query_type = models.IntegerField(default=Query_type.TITLE)
     
     feedback_type = models.IntegerField(default=Feedback_type.NONE)
-
+# Values used in the graphs / tables - Table values = MAP, P10, P20
     map_val = models.FloatField(null=True, blank=True)
     
     p5 = models.FloatField(null=True, blank=True)

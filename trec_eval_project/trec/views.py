@@ -52,18 +52,18 @@ def register(request):
 			{'user_form':user_form, 'profile_form':profile_form, 'registered':registered})
 
 
-# Runs detail
+# All runs for a given task
 def run(request, run_title_slug):
   context_dict = {}
   
   try:
-  # Get the specific track
+  # Get the specific task
   	task = Task.objects.get(slug=run_title_slug)
   	
   # Store its title
   	context_dict['task_title'] = task.title
   
-  # Get the specific tasks and store info context dict
+  # Get the runs within that task and store into context dict along with task itself
   	runs = Run.objects.filter(task=task)	
   	context_dict['runs'] = runs
   	
@@ -75,7 +75,7 @@ def run(request, run_title_slug):
   return render(request, 'trec/run.html', context_dict)
 
 
-# Runs detail
+# One specific run's details page
 def run_detail(request, run_detail_slug):
   context_dict = {}
   
@@ -83,14 +83,14 @@ def run_detail(request, run_detail_slug):
   # Get the specific run and store in context-dict
   	run = Run.objects.get(slug=run_detail_slug)
   	context_dict['run'] = run
-  
+  	
   except Run.DoesNotExist:
   	pass
   
   return render(request, 'trec/run_detail.html', context_dict)
 
 
-# One specific task
+# Task view
 def task(request, task_title_slug):
   context_dict = {}
   
@@ -101,7 +101,7 @@ def task(request, task_title_slug):
   # Store its title
   	context_dict['task_title'] = track.title
   
-  # Get the specific tasks and store info context dict
+  # Get the tasks and store info context dict
   	tasks = Task.objects.filter(track=track)	
   	context_dict['tasks'] = tasks
   	
