@@ -50,6 +50,20 @@ def populate():
             Query_type.OTHER,
             Feedback_type.NONE,
     		run_id)
+    """		
+    run_id = run_id + 1
+    
+    # add runs
+    add_run('joe',
+            'test_task_1',
+            'test_run_2',
+            'a 2nd test run',
+            test_run,
+            Run_type.AUTOMATIC,
+            Query_type.OTHER,
+            Feedback_type.NONE,
+    		run_id)
+    """
 
 
 def add_user(username, email, password, is_superuser=False):

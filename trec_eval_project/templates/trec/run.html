@@ -18,11 +18,31 @@
             	
         {% for run in runs %}
         	<tr>
-                <td><a href="{% url 'run_detail' run.slug %}">{{ run.slug }}</a></td>
+                <td><a href="{% url 'run_detail' run.slug %}">{{ run.name }}</a></td>
                 <td>{{ run.researcher }}</td>
-                <td>{{ run.map }}</td>
+                <td>{{ run.map_val }}</td>
+                <td>{{ run.recall00 }}</td>
+                <td>{{ run.recall01 }}</td>
+                <td>{{ run.recall02 }}</td>
+                <td>{{ run.recall03 }}</td>
+                <td>{{ run.recall04 }}</td>
+                <td>{{ run.recall05 }}</td>
+                <td>{{ run.recall06 }}</td>
+                <td>{{ run.recall07 }}</td>
+                <td>{{ run.recall08 }}</td>
+                <td>{{ run.recall09 }}</td>
+                <td>{{ run.recall10 }}</td>
+            </tr>
+            <tr>
+                <td>{{ run.p5 }}</td>
                 <td>{{ run.p10 }}</td>
+                <td>{{ run.p15 }}</td>
                 <td>{{ run.p20 }}</td>
+                <td>{{ run.p30 }}</td>
+                <td>{{ run.p100 }}</td>
+                <td>{{ run.p200 }}</td>
+                <td>{{ run.p500 }}</td>
+                <td>{{ run.p1000 }}</td>
             </tr>
         {% endfor %}
                 

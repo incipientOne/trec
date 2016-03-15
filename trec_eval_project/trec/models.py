@@ -95,9 +95,29 @@ class Run(models.Model):
     
     feedback_type = models.IntegerField(default=Feedback_type.NONE)
 
-    map = models.FloatField(null=True, blank=True)
+    map_val = models.FloatField(null=True, blank=True)
+    
+    p5 = models.FloatField(null=True, blank=True)
     p10 = models.FloatField(null=True, blank=True)
+    p15 = models.FloatField(null=True, blank=True)
     p20 = models.FloatField(null=True, blank=True)
+    p30 = models.FloatField(null=True, blank=True)
+    p100 = models.FloatField(null=True, blank=True)
+    p200 = models.FloatField(null=True, blank=True)
+    p500 = models.FloatField(null=True, blank=True)
+    p1000 = models.FloatField(null=True, blank=True)
+    
+    recall00 = models.FloatField(null=True, blank=True)
+    recall01 = models.FloatField(null=True, blank=True)
+    recall02 = models.FloatField(null=True, blank=True)
+    recall03 = models.FloatField(null=True, blank=True)
+    recall04 = models.FloatField(null=True, blank=True)
+    recall05 = models.FloatField(null=True, blank=True)
+    recall06 = models.FloatField(null=True, blank=True)
+    recall07 = models.FloatField(null=True, blank=True)
+    recall08 = models.FloatField(null=True, blank=True)
+    recall09 = models.FloatField(null=True, blank=True)
+    recall10 = models.FloatField(null=True, blank=True)
     
     slug = models.SlugField()
 
@@ -113,7 +133,7 @@ class Run(models.Model):
         results_path = os.path.join(MEDIA_ROOT, self.result_file.url)
 
         # calculate map, p_10, p_20.
-        self.map, self.p10, self.p20 = trec_wrapper(qrel_path, results_path)
+        self.map_val, self.recall00, self.recall01, self.recall02, self.recall03, self.recall04, self.recall05, self.recall06, self.recall07, self.recall08, self.recall09, self.recall10, self.p5, self.p10, self.p15, self.p20, self.p30, self.p100, self.p200, self.p500, self.p1000 = trec_wrapper(qrel_path, results_path)
 
         super(Run, self).save()
 
