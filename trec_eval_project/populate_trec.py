@@ -12,36 +12,64 @@ django.setup()
 from trec.models import Researcher, Track, Task, Run, Run_type, Query_type, Feedback_type
 from django.contrib.auth.models import User
 
+# Used to get random index
+from random import randrange
 
 def populate():
     
     run_id = 0
     
-    test_qrel = os.path.join(BASE_DIR, 'pop script data', 'qrels', 'aq.trec2005.qrels.txt')
-    test_run = os.path.join(BASE_DIR, 'pop script data', 'runs', 'aq.trec.bm25.0.50.res.txt')
-
+    test_qrel = os.path.join(BASE_DIR, 'pop script data', 'qrels/robust/', 'aq.trec2005.qrels.txt')
+    test_run = os.path.join(BASE_DIR, 'pop script data', 'runs/robust/', 'input.ASUBE3.txt')
+    
+    test_path = os.path.join(BASE_DIR, 'pop script data', 'runs/robust/')
+    
+    qrel_path = os.path.join(BASE_DIR, 'pop script data', 'qrels/')
+    runs_path = os.path.join(BASE_DIR, 'pop script data', 'runs/')
+    
     # add superuser
     add_user('admin', '', 'adminpass', is_superuser=True)
 
     # requred example users.
     add_user('jill', '', 'jill')
-    add_user('jim', '', 'jim')
-    add_user('joe', '', 'jow')
+    add_user('bob', '', 'bob')
+    add_user('jen', '', 'jen')
 
-    # turn some users into researchers
-    jill = add_researcher('jill', 'jill-display',website='https://www.google.co.uk/', organisation='GoogleJill', )
-    jim = add_researcher('jim', 'jim-display',website='https://www.google.co.uk/', organisation='GoogleJim', )
-    joe = add_researcher('joe', 'joe-display',website='https://www.google.co.uk/', organisation='GoogleJoe', )
+    # turn users into "research gurus"
+    jill = add_researcher('jill', 'jill-display',website='https://www.google.co.uk/', organisation='Planet Express', )
+    bob = add_researcher('bob', 'bob-display',website='https://www.google.co.uk/', organisation='Planet Express', )
+    jen = add_researcher('jen', 'jen-display',website='https://www.google.co.uk/', organisation='MomCorp', )
     
+    user_list = [jill, bob, jen]
+    
+    # Add all tracks in qrel folder
+    # Also fill tracks with qrel tasks
+    for track in os.listdir(qrel_path):
+    	if not track.startswith('.'):
+    		add_Track(track, 'http://www.google.com', 'Description - A simple track for searching about ' + track, 'Genre: ' + track)
+    		
+    		for task in os.listdir(qrel_path+track):
+    			if task.endswith('qrels.txt'):
+    				add_Task(track, task, 'http://www.google.com', 'Description - A task from the world of tomorrow!', 2005, qrel_path+track+'/'+task)
+    			
+    			 
     # add tracks
-    add_Track('test_track_1', 'http://www.google.com', 'Description - A simple track for tests.', 'Genre - tester')
+    # add_Track('test_track_1', 'http://www.google.com', 'Description - A simple track for tests.', 'Genre - tester')
 
     # add tasks
-    add_Task('test_track_1', 'test_task_1', 'http://www.google.com', 'Description - A simple task...', 1990, test_qrel)
-    add_Task('test_track_1', 'test_task_2', 'http://www.google.com', 'Description - Testing purpose only', 1990, test_qrel)
-
-    run_id = run_id + 1
+    # add_Task('test_track_1', 'test_task_1', 'http://www.google.com', 'Description - A simple task...', 1990, test_qrel)
+    # add_Task('test_track_1', 'test_task_2', 'http://www.google.com', 'Description - Testing purpose only', 1990, test_qrel)
     
+    # add_Task('test_track_1', 'test_task_1', 'http://www.google.com', 'Description - A simple task...', 1990, test_qrel)
+
+	# Now go in search of runs all tracks / tasks and upload to database
+    for track in os.listdir(runs_path): 
+    	if not track.startswith('.'):
+    		for run in os.listdir(runs_path+track):
+    			if not run.startswith('.'):
+    				run_id = run_id + 1
+    				add_run(get_rand_user(user_list), get_task_name(qrel_path, track), 'test_run'+str(run_id), 'Description of run', runs_path+track+'/'+run, Run_type.AUTOMATIC, Query_type.OTHER, Feedback_type.NONE, run_id)
+    """
     # add runs
     add_run('jill',
             'test_task_1',
@@ -52,20 +80,21 @@ def populate():
             Query_type.OTHER,
             Feedback_type.NONE,
     		run_id)
-    """		
-    run_id = run_id + 1
-    
-    # add runs
-    add_run('joe',
-            'test_task_1',
-            'test_run_2',
-            'a 2nd test run',
-            test_run,
-            Run_type.AUTOMATIC,
-            Query_type.OTHER,
-            Feedback_type.NONE,
-    		run_id)
     """
+
+def get_rand_user(user_list):
+	random_index = randrange(0,len(user_list))
+	return user_list[random_index]
+
+# Joseph - probably a better way of getting the name
+# of a task a run is submitted to 
+def get_task_name(qrel_path, track):
+	task = "No qrel task"
+	
+	for t in os.listdir(qrel_path + track):
+		if t.endswith('qrels.txt'):
+			task = t
+	return task
 
 
 def add_user(username, email, password, is_superuser=False):
@@ -133,3 +162,9 @@ def add_run(researcher_name, task_title, name, description, results_file_path, r
 
 if __name__ == '__main__':
     populate()
+    
+    
+# Creator comments (Joseph) - thanks Michelle for setting this up
+# butchered / hacked it to fill database with random assignment of
+# runs to users - wait that could be bad - will do two versions.
+# Also sort of guessing at what to run a run on - this seems to work fine - someone please check
