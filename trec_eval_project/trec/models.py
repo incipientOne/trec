@@ -134,7 +134,7 @@ class Run(models.Model):
         results_path = os.path.join(MEDIA_ROOT, self.result_file.url)
 
         # calculate map, p_10, p_20.
-        self.map_val, self.recall00, self.recall01, self.recall02, self.recall03, self.recall04, self.recall05, self.recall06, self.recall07, self.recall08, self.recall09, self.recall10, self.p5, self.p10, self.p15, self.p20, self.p30, self.p100, self.p200, self.p500, self.p1000 = trec_wrapper(qrel_path, results_path)
+        self.map_val, self.recall00, self.recall01, self.recall02, self.recall03, self.recall04, self.recall05, self.recall06, self.recall07, self.recall08, self.recall09, self.recall10, self.p5, self.p10, self.p15, self.p20, self.p30, self.p100, self.p200, self.p500, self.p1000 = tuple(trec_wrapper(qrel_path, results_path))
 
         super(Run, self).save()
 

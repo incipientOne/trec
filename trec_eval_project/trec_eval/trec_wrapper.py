@@ -41,12 +41,9 @@ def trec_wrapper(qrel_file_path, run_file_path):
     # map 
     # recall0.0 - recall0.1 - recall0.2 - recall0.3 - recall0.4 - recall0.5 - recall0.6 - recall0.7 - recall0.8 - recall0.9 - recall1.0
     # p5 - p10 - p15 - p20 - p30 - p100 - p200 - p500 - p1000
-    return float(result_array[2]), float(result_array[5]), float(result_array[8]), float(result_array[11]), float(result_array[14]), float(result_array[17]) ,float(result_array[20]), float(result_array[23]), float(result_array[26]), float(result_array[29]), float(result_array[32]), float(result_array[35]), float(result_array[38]), float(result_array[41]), float(result_array[44]), float(result_array[47]), float(result_array[50]), float(result_array[53]), float(result_array[56]), float(result_array[59]), float(result_array[62])
-
-# some code to test the above.
-
-#test_qrel = os.path.join(BASE_DIR, 'pop script data','qrels', 'aq.trec2005.qrels.txt')
-#test_run = os.path.join(BASE_DIR, 'pop script data', 'runs', 'aq.trec.bm25.0.50.res.txt')
-#result = trec_wrapper(test_qrel, test_run)
-
-#print result
+    returnArray = [];
+    i = 2;
+    while (i < len(result_array)):
+        returnArray.append(float(resultArray[i]))
+        i = i + 3
+    return returnArray
