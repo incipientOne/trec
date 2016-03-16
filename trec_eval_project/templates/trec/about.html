@@ -5,10 +5,51 @@
 {% block title %}About Title{% endblock %}
 
 {% block body_block %}
-    <h1>About Header</h1>
-    
-    About About About: <strong>{{ boldmessage }}</strong><br />
-    <img src="{% static "images/joke2.jpg" %}" alt="Your Missing The Joke" /> 
-    
+<html lang="en">
+<HEAD>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<LINK REL=STYLESHEET TYPE="text/css" HREF="css/bootstrap.min.css"> 
+<LINK REL=STYLESHEET TYPE="text/css" HREF="about.css"> 
+</HEAD>
+
+ 
+<div class="btn-group pull-centre" role="group" aria-label="...">
+   <button type="button" class="btn btn-primary btn-lg"><a href="   Home.html" style="text-decoration : none; color : white"> Home </a></button>
+  
+  <button type="button" class="btn btn-primary btn-lg"><a href="  users.html" style="text-decoration : none; color : white"> Users </a></button>
+  
+  <button type="button" class="btn btn-primary btn-lg"><a href="  Tracks.html" style="text-decoration : none; color : white"> Tracks </a></button>
+  
+  <button type="button" class="btn btn-primary btn-lg active"><a href="  About.html" style="text-decoration : none; color : white"> About </a></button>
+  
+  <button type="button" class="btn btn-success btn-lg"><a href="  \registration\login.html" style="text-decoration : none; color : white"> Sign In/Register </button>
+  
+</div>
+
+<H1> About </H1>
+<BODY>
+
+<H2>
+What is TREC? <br>
+<p>TREC's aim is to increase and support the research community focused on large-scale information evaluation and retrieval by providing a community of users an easy means of comparing their results under a common set of evaluation methods. </p>
+
+What is P_10, P_20 and MAP? <br>
+P_10= The relevancy of the first 10 results displayed by the search engine.<br>
+P_20= The relevancy of the first 20 results displayed by the search engine.<br>
+MAP=  MAP stands for Mean Average Precision which is the overall average.<br><br>
+
+How do I upload a run file?<br>
+After a user has registered and signed in to the website, a run file can be uploaded by the "Upload a run file here" button in the user profile page.<br>
+<br>
+What does a track consist of?<br>
+A TREC track/task consists of:<br>
+A Title , URL to track, year, description of the track, task type, a judgements file (qrels), a list of official measures and notes.
+
+</H2>
+
+</BODY>
+
+
+</html>
 {% endblock %}
     

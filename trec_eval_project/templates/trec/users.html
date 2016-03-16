@@ -12,14 +12,14 @@
 <HEAD>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <LINK REL=STYLESHEET TYPE="text/css" HREF="css/bootstrap.min.css"> 
-<LINK REL=STYLESHEET TYPE="text/css" HREF="run.css"> 
+<LINK REL=STYLESHEET TYPE="text/css" HREF="users.css"> 
 </HEAD>
 
  
 <div class="btn-group pull-centre" role="group" aria-label="...">
    <button type="button" class="btn btn-primary btn-lg"><a href="   Home.html" style="text-decoration : none; color : white"> Home </a></button>
   
-  <button type="button" class="btn btn-primary btn-lg"><a href="  Home.html" style="text-decoration : none; color : white"> Users </a></button>
+  <button type="button" class="btn btn-primary btn-lg active"><a href="  users.html" style="text-decoration : none; color : white"> Users </a></button>
   
   <button type="button" class="btn btn-primary btn-lg "><a href="  tracks.html" style="text-decoration : none; color : white"> Tracks </a></button>
   
@@ -29,34 +29,43 @@
   
 </div>
 
-<H1> Run </H1>
+<H1> Users </H1>
         
-    <H2>Runs for a selected task and see the associated run table / graph</H2>
+
+	
+	<H2>	
+	Filter By: <br>
+	<label class="radio-inline">
+  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> Name 
+</label>
+<label class="radio-inline">
+  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> No. of Runs
+</label>
+<label class="radio-inline">
+  <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> Institute
+  </label>	
+ </H2> 
         
-    {% if runs %}
+    {% if users %}
     
     	<table class="table table-hover">
             	
-        {% for run in runs %}
+        {% for user in users %}
 		<tr>
-		<th>Detail</th>
-		<th>Researcher</th>
-		<th>MAP</th>
-		<th>P10</th>
-		<th>P20</th>
+		<th>Name</th>
+		<th>No. of Runs</th>
+		<th>Institute</th>
         	<tr>
-                <td><a href="{% url 'run_detail' run.slug %}">{{ run.slug }}</a></td>
-                <td>{{ run.researcher }}</td>
-                <td>{{ run.map }}</td>
-                <td>{{ run.p10 }}</td>
-                <td>{{ run.p20 }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
         {% endfor %}
                 
         </table>
             
     {% else %}
-        <strong>No runs currently in this task.</strong>
+        <strong>No users currently</strong>
     {% endif %}
         
 {% else %}

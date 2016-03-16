@@ -1,0 +1,30 @@
+{% extends "trec/base.html" %}
+
+{% block body_block %}
+<html lang="en">
+<HEAD>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<LINK REL=STYLESHEET TYPE="text/css" HREF="css/bootstrap.min.css"> 
+<LINK REL=STYLESHEET TYPE="text/css" HREF="upload.css"> 
+</HEAD>
+<H1>
+Upload a Problem:
+</H1>
+
+<H2>
+Please enter your details:
+</H2>
+<H3>
+Problem Description:
+<textarea class="form-control" rows="3"></textarea>
+
+<div class="form-group">
+    <label for="exampleInputFile">File Upload</label>
+    <input type="file" id="exampleInputFile">
+    <p class="help-block">...</p>
+  </div>
+	<button type="button" class="btn btn-primary btn-lg">Save</button><br><br>
+	<a href="profile.html">Go Back</a>
+</H3>
+
+{% endblock %}
