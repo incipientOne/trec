@@ -9,6 +9,28 @@
         <title>Trec - {% block title %}The Trec Evaluation Application!{% endblock %}</title>
     </head>
 
+	<html lang="en">
+<HEAD>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<LINK REL=STYLESHEET TYPE="text/css" HREF="css/bootstrap.min.css">
+<LINK REL=STYLESHEET TYPE="text/css" HREF="home.css">
+</HEAD>
+
+
+<div class="btn-group pull-centre" role="group" aria-label="...">
+ <button type="button" class="btn btn-primary btn-lg active"><a href="   /trec" style="text-decoration : none; color : black"> Home </a></button>
+
+  <button type="button" class="btn btn-primary btn-lg"><a href="  /trec/users" style="text-decoration : none; color : black"> Users </a></button>
+
+  <button type="button" class="btn btn-primary btn-lg"><a href="  /trec/tracks" style="text-decoration : none; color : black"> Tracks </a></button>
+
+  <button type="button" class="btn btn-primary btn-lg"><a href="  /trec/about" style="text-decoration : none; color : black"> About </a></button>
+	{% if user.is_authenticated %}
+  <button type="button" class="btn btn-success btn-lg"><a href=" /trec/logout" style="text-decoration : none; color : black"> Sign out </button>
+	{% else %}
+	  <button type="button" class="btn btn-success btn-lg"><a href=" /trec/login" style="text-decoration : none; color : black"> Sign In/Register </button>
+	{% endif %}
+</div>
     <body>
     	<!-- A Page's Body Goes Here -->
     	<div>
@@ -16,21 +38,5 @@
     	</div>
     	
     	<hr />
-    	
-    	<div>
-    		<ul>
-    		{% if user.is_authenticated %}
-    			<li><a href="{% url 'auth_logout' %}?next=/trec/">Logout</a></li>
-    			<li><a href="{% url 'profile' %}">Profile</a></li>	
-    		{% else %}
-    			<li><a href="{% url 'register' %}">Register Here</a></li>
-    			<li><a href="{% url 'auth_login' %}">Login</a></li>    		
-    		{% endif %}
-    		
-    			<li><a href="{% url 'about' %}">About</a></li>
-    			<li><a href="{% url 'home' %}">Home</a></li>
-    			<li><a href="{% url 'tracks' %}">Tracks</a></li>
-    		</ul>
-    	</div>
     </body>
 </html>
