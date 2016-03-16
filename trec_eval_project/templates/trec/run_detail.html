@@ -6,40 +6,145 @@
 
 {% block body_block %}
 
-<h1>{{ run.name }}</h1>
+<h1>{{ run.name }} Details</h1>
+<h3>Credited to {{ run.researcher }}</h3>
 
-<div id="recall_chart_div" style="width: 500px; height: 500px"></div>
+<!--Table and divs that hold the pie charts-->
+<table class="columns">
+    <tr>
+        <td><div id="recall_chart_div" style="width: 500px; height: 500px"></div></td>
+        <td><div id="pn_chart_div" style="width: 500px; height: 500px"></div></td>
+    </tr>
+</table>
 
-<div id="pn_chart_div" style="width: 500px; height: 500px"></div>
 
-This is one specific run detail: GRAPHS: Pie chart of miss-hit-fault ration / precision recall curve
+
+
+
+This is one specific run detail: {{run.description}}
 <table border="1" style="width:100%">
-         	<tr>
-                <td>{{ run.researcher }}</td>
-                <td>{{ run.map_val }}</td>
-                <td>{{ run.recall00 }}</td>
-                <td>{{ run.recall01 }}</td>
-                <td>{{ run.recall02 }}</td>
-                <td>{{ run.recall03 }}</td>
-                <td>{{ run.recall04 }}</td>
-                <td>{{ run.recall05 }}</td>
-                <td>{{ run.recall06 }}</td>
-                <td>{{ run.recall07 }}</td>
-                <td>{{ run.recall08 }}</td>
-                <td>{{ run.recall09 }}</td>
-                <td>{{ run.recall10 }}</td>
+
+			<tr>
+                <th COLSPAN=2>Document Level Averages</th>
             </tr>
-            <tr>
-                <td>{{ run.p5 }}</td>
+
+         	<tr>
+                <td></td>
+                <td>Precision</td>
+            </tr>
+            
+         	<tr>
+		        <td>At 5 docs</td>
+                <td>{{ run.p5}}</td>
+            </tr>
+         	
+         	<tr>
+		        <td>At 10 docs</td>
                 <td>{{ run.p10 }}</td>
+            </tr>
+         	
+         	<tr>
+		        <td>At 15 docs</td>
                 <td>{{ run.p15 }}</td>
+            </tr>
+         	
+         	<tr>
+		        <td>At 20 docs</td>
                 <td>{{ run.p20 }}</td>
+            </tr>
+         	
+         	<tr>
+		        <td>At 30 docs</td>
                 <td>{{ run.p30 }}</td>
+            </tr>
+
+         	<tr>
+		        <td>At 100 docs</td>
                 <td>{{ run.p100 }}</td>
+            </tr>
+            
+            <tr>
+		        <td>At 200 docs</td>
                 <td>{{ run.p200 }}</td>
+            </tr>
+            
+            <tr>
+		        <td>At 500 docs</td>
                 <td>{{ run.p500 }}</td>
+            </tr>
+            
+            <tr>
+		        <td>At 1000 docs</td>
                 <td>{{ run.p1000 }}</td>
             </tr>
+</table>
 
-        </table>
+</br></br>
+
+<table border="1" style="width:100%">
+
+			<tr>
+                <th COLSPAN=2>Recall Level Precision Averages</th>
+            </tr>
+
+         	<tr>
+                <td>Recall</td>
+                <td>Precision</td>
+            </tr>
+            
+         	<tr>
+		        <td>0.00</td>
+                <td>{{ run.recall00}}</td>
+            </tr>
+         	
+         	<tr>
+		        <td>0.10</td>
+                <td>{{ run.recall01 }}</td>
+            </tr>
+         	
+         	<tr>
+		        <td>0.20</td>
+                <td>{{ run.recall02 }}</td>
+            </tr>
+         	
+         	<tr>
+		        <td>0.30</td>
+                <td>{{ run.recall03 }}</td>
+            </tr>
+         	
+         	<tr>
+		        <td>0.40</td>
+                <td>{{ run.recall04 }}</td>
+            </tr>
+
+         	<tr>
+		        <td>0.50</td>
+                <td>{{ run.recall05 }}</td>
+            </tr>
+            
+            <tr>
+		        <td>0.60</td>
+                <td>{{ run.recall06 }}</td>
+            </tr>
+            
+            <tr>
+		        <td>0.70</td>
+                <td>{{ run.recall07 }}</td>
+            </tr>
+            
+            <tr>
+		        <td>0.80</td>
+                <td>{{ run.recall08 }}</td>
+            </tr>
+            
+            <tr>
+		        <td>0.90</td>
+                <td>{{ run.recall09 }}</td>
+            </tr>
+            
+            <tr>
+		        <td>1.00</td>
+                <td>{{ run.recall10 }}</td>
+            </tr>
+</table>
 {% endblock %}

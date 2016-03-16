@@ -22,6 +22,7 @@ def home(request):
 def register(request):
 	registered = False
 	
+	# Get the required info from the user and add as new researcher to database
 	if request.method == 'POST':
 		user_form = UserForm(data=request.POST)
 		profile_form = UserProfileForm(data=request.POST)
@@ -125,12 +126,14 @@ def tracks(request):
 	return render(request, 'trec/tracks.html', context_dict) 
 
 
+# View for personal user profile page
+# Find User / Researcher and return info in dict.
 def profile(request):
     username = request.user
-    user = Researcher.objects.get(user=username)
-    user2 = User.objects.get(username=username)
+    research = Researcher.objects.get(user=username)
+    user = User.objects.get(username=username)
     
-    context_dict = {'user': user2, 'researcher':user}
+    context_dict = {'user': user, 'researcher': research}
 
     return render(request, 'trec/profile.html', context_dict)
 

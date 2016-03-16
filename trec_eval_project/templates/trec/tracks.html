@@ -13,6 +13,12 @@
     
             <table border="1" style="width:100%">
             	
+				<tr>
+                <td>Track Title</a></td>
+                <td>Track Genre</td>
+                <td>Track Description</td>
+                </tr>
+            	
                 {% for track in track_list %}
                 <tr>
                 <td><a href="{% url 'task' track.slug %}">{{ track.title }}</a></td>
