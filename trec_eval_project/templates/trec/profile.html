@@ -6,55 +6,14 @@
 
 {% block body_block %}
 
-<html lang="en">
-<HEAD>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<LINK REL=STYLESHEET TYPE="text/css" HREF="css/bootstrap.min.css"> 
-<LINK REL=STYLESHEET TYPE="text/css" HREF="profile.css"> 
-</HEAD>
+<h1>Researcher Personal Profile - Header</h1>
 
- 
-<div class="btn-group pull-centre" role="group" aria-label="...">
-  <button type="button" class="btn btn-primary btn-lg"><a href="   Home.html" style="text-decoration : none; color : white"> Home </a></button>
-  
-  <button type="button" class="btn btn-primary btn-lg"><a href="  users.html" style="text-decoration : none; color : white"> Users </a></button>
-  
-  <button type="button" class="btn btn-primary btn-lg"><a href="  tracks.html" style="text-decoration : none; color : white"> Tracks </a></button>
-  
-  <button type="button" class="btn btn-primary btn-lg"><a href="  About.html" style="text-decoration : none; color : white"> About </a></button>
-  
-  <button type="button" class="btn btn-success btn-lg active">My Profile</button>
-  
-</div>
+{% if user %}
 
-<H1> My Profile </H1>
-<button type="button" class="btn btn-primary btn-lg"><a href=" registration/logout.html" style="text-decoration : none; color : white"> Log Out </a></button><br><br>
-<button type="button" class="btn btn-primary btn-lg"><a href="editprofile.html" style="text-decoration : none; color : white"> Edit Info </a></button>
-<BODY>
+This is a researchers own personal profile page.
 
-<H2>
-Name: <br>
-Affiliation:<br>
-Email:<br>
-Phone Number:<br>
-Contact Adress:<br>
-About:<br>
-<button type="button" class="btn btn-primary btn-lg"><a href="  upload.html" style="text-decoration : none; color : white"> Upload a run file here </a></button>
-</H2>
+{{ researcher.website }}
 
-<H3>
-Problems Worked On<br>
-<table class="table table-hover">
-  <tr>
-  <th>Title</th>
-  <th>ID</th>
-  <th>#runs</th>
-  <th>Description</th>
-</table>
-</H3>
+{% endif %}
 
-</BODY>
-
-
-</html>
 {% endblock %}

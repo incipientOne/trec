@@ -39,7 +39,7 @@ class Researcher(models.Model):
     website = models.URLField(blank=True)
     display_name = models.CharField(max_length=128)
     organisation = models.CharField(max_length=128)
-
+    
     def __unicode__(self):
         return self.user.username
 

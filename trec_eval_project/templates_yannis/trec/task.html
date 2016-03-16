@@ -5,25 +5,31 @@
 {% block title %}Task Title{% endblock %}
 
 {% block body_block %}
+<html lang="en">
+<HEAD>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<LINK REL=STYLESHEET TYPE="text/css" HREF="css/bootstrap.min.css"> 
+<LINK REL=STYLESHEET TYPE="text/css" HREF="task.css"> 
+</HEAD>
 
 {% if task %}
-        
-	<h1>{{ task_title }}</h1>
+    
+    <h1>Task</h1>
+	<h2>{{ task_title }}</h2>
         
     This is the page for all of the tasks of a given track - select a task and see the associated run table / graph
         
     {% if tasks %}
-    
-    	<table border="1" style="width:100%">
 
-        	<tr>
-                <td>Task Title</td>
-                <td>Year</td>
-                <td>Description</td>
-            </tr>
+    	<table class="table table-hover">
             	
         {% for task in tasks %}
         	<tr>
+			<th>Task</th>
+			<th>Year</th>
+			<th>Description</th>
+			</tr>
+			<tr>
                 <td><a href="{% url 'run' task.slug %}">{{ task.slug }}</a></td>
                 <td>{{ task.year }}</td>
                 <td>{{ task.description }}</td>

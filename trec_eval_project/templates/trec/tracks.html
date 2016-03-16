@@ -5,62 +5,24 @@
 {% block title %}Tracks Title{% endblock %}
 
 {% block body_block %}
-<html lang="en">
-<HEAD>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<LINK REL=STYLESHEET TYPE="text/css" HREF="css/bootstrap.min.css"> 
-<LINK REL=STYLESHEET TYPE="text/css" HREF="tracks.css"> 
-</HEAD>
-
- 
-<div class="btn-group pull-centre" role="group" aria-label="...">
-   <button type="button" class="btn btn-primary btn-lg"><a href="   Home.html" style="text-decoration : none; color : white"> Home </a></button>
-  
-  <button type="button" class="btn btn-primary btn-lg"><a href="  users.html" style="text-decoration : none; color : white"> Users </a></button>
-  
-  <button type="button" class="btn btn-primary btn-lg active"><a href="  tracks.html" style="text-decoration : none; color : white"> Tracks </a></button>
-  
-  <button type="button" class="btn btn-primary btn-lg"><a href="  About.html" style="text-decoration : none; color : white"> About </a></button>
-  
-  <button type="button" class="btn btn-success btn-lg"><a href="  \registration\login.html" style="text-decoration : none; color : white"> Sign In/Register </button>
-  
-</div>
-
-<H1> Tracks </H1>
+    <h1>Track Header</h1>
     
     This is the page for all the categories of tracks: <strong>{{ boldmessage }}</strong><br />
-<H2>	
-	Filter By: <br>
-	<label class="radio-inline">
-  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> Title
-</label>
-<label class="radio-inline">
-  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> ID
-</label>
-<label class="radio-inline">
-  <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> No. of Runs
-</label>
-	
- </H2> 
-
     
     {% if track_list %}
     
-            <table class="table table-hover">
+            <table border="1" style="width:100%">
+            	
+				<tr>
+                <td>Track Title</a></td>
+                <td>Track Genre</td>
+                <td>Track Description</td>
+                </tr>
             	
                 {% for track in track_list %}
                 <tr>
-				<th>Title</th>
-				<th>ID</th>
-				<th>Genre</th>
-				<th>#runs</th>
-				<th>Description</th>
-				</tr>
-				<tr>
                 <td><a href="{% url 'task' track.slug %}">{{ track.title }}</a></td>
-				<th>{{ track.id }} </td>
                 <td>{{ track.genre }}</td>
-				<td></td>
                 <td>{{ track.description }}</td>
                 </tr>
                 {% endfor %}

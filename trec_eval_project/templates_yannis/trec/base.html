@@ -2,9 +2,12 @@
 
 {% load staticfiles %} 
 
-<html>
-
-    <head lang="en">
+<html lang="en">
+<HEAD>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<LINK REL=STYLESHEET TYPE="text/css" HREF="css/bootstrap.min.css"> 
+<LINK REL=STYLESHEET TYPE="text/css" HREF="base.css"> 
+</HEAD>
     	<meta charset="UTF-8">
         <title>Trec - {% block title %}The Trec Evaluation Application!{% endblock %}</title>
     </head>
@@ -21,7 +24,6 @@
     		<ul>
     		{% if user.is_authenticated %}
     			<li><a href="{% url 'auth_logout' %}?next=/trec/">Logout</a></li>
-    			<li><a href="{% url 'profile' %}">Profile</a></li>	
     		{% else %}
     			<li><a href="{% url 'register' %}">Register Here</a></li>
     			<li><a href="{% url 'auth_login' %}">Login</a></li>    		

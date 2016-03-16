@@ -1,0 +1,33 @@
+{% extends 'trec/base.html' %}
+
+{% load staticfiles %} 
+
+{% block title %}Run-Detail Title{% endblock %}
+
+{% block body_block %}
+<html lang="en">
+<HEAD>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<LINK REL=STYLESHEET TYPE="text/css" HREF="css/bootstrap.min.css"> 
+<LINK REL=STYLESHEET TYPE="text/css" HREF="run.css"> 
+</HEAD>
+
+ 
+<div class="btn-group pull-centre" role="group" aria-label="...">
+   <button type="button" class="btn btn-primary btn-lg"><a href="   Home.html" style="text-decoration : none; color : white"> Home </a></button>
+  
+  <button type="button" class="btn btn-primary btn-lg"><a href="  Home.html" style="text-decoration : none; color : white"> Users </a></button>
+  
+  <button type="button" class="btn btn-primary btn-lg "><a href="  tracks.html" style="text-decoration : none; color : white"> Tracks </a></button>
+  
+  <button type="button" class="btn btn-primary btn-lg"><a href="  About.html" style="text-decoration : none; color : white"> About </a></button>
+  
+  <button type="button" class="btn btn-success btn-lg"><a href="  \registration\login.html" style="text-decoration : none; color : white"> Sign In/Register </button>
+  
+</div>
+
+<H1> Run Detail </H1>
+
+<H2>This is one specific run detail: GRAPHS: Pie chart of miss-hit-fault ration / precision recall curve</H2>
+
+{% endblock %}
