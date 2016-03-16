@@ -4,6 +4,8 @@ from trec.models import Track, Task, Researcher, Run, User
 
 from trec.forms import UserForm, UserProfileForm
 
+from populate_trec import add_researcher
+
 # About FAQ page for the site
 def about(request):
   context_dict = {'boldmessage': "Context Dict Message For About Page"}
@@ -39,6 +41,8 @@ def register(request):
 			profile.save()
 			
 			registered = True
+			
+			add_researcher(user, user)
 		
 		else: 
 			print user_form.errors, profile_form.errors
