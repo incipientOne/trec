@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from trec.models import Track, Task, Researcher, Run
+from trec.models import Track, Task, Researcher, Run, User
 
 from trec.forms import UserForm, UserProfileForm
 
@@ -121,8 +121,14 @@ def tracks(request):
 	return render(request, 'trec/tracks.html', context_dict) 
 
 
+def profile(request):
+    username = request.user
+    user = Researcher.objects.get(user=username)
+    user2 = User.objects.get(username=username)
+    
+    context_dict = {'user': user2, 'researcher':user}
 
-
+    return render(request, 'trec/profile.html', context_dict)
 
 
 

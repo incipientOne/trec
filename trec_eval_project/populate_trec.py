@@ -29,7 +29,7 @@ def populate():
     add_user('joe', '', 'jow')
 
     # turn some users into researchers
-    jill = add_researcher('jill', 'jill', )
+    jill = add_researcher('jill', 'jill-display',website='https://www.google.co.uk/', organisation='Google', )
 
     # add tracks
     add_Track('test_track_1', 'http://www.google.com', 'Description - A simple track for tests.', 'Genre - tester')
