@@ -22,7 +22,6 @@ from registration.backends.simple.views import RegistrationView
 class MyRegistrationView(RegistrationView):
     def get_success_url(self,request, user):
         return '/trec/'
-        # Joseph's note: try this to fix error return ('/trec/', (), {})
         
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
