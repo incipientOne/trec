@@ -19,11 +19,6 @@ def populate():
     
     run_id = 0
     
-    test_qrel = os.path.join(BASE_DIR, 'pop script data', 'qrels/robust/', 'aq.trec2005.qrels.txt')
-    test_run = os.path.join(BASE_DIR, 'pop script data', 'runs/robust/', 'input.ASUBE3.txt')
-    
-    test_path = os.path.join(BASE_DIR, 'pop script data', 'runs/robust/')
-    
     qrel_path = os.path.join(BASE_DIR, 'pop script data', 'qrels/')
     runs_path = os.path.join(BASE_DIR, 'pop script data', 'runs/')
     
