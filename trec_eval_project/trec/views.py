@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from trec.models import Track, Task, Researcher, Run, User, Recall_val, P_value
+from trec.models import Track, Task, Researcher, Run, User, Recall_val, P_value, Run_type, Query_type, Feedback_type
 
-from trec.forms import UserForm, UserProfileForm, EditUserInfoForm
+from trec.forms import UserForm, UserProfileForm, EditUserInfoForm, AddRun
 
-from populate_trec import add_researcher
+from populate_trec import add_researcher, add_run
 
 # About FAQ page for the site
 def about(request):
@@ -151,6 +151,42 @@ def user_profile(request, researcher_detail_slug):
 
 	return render(request, "trec/user_profile.html", context_dict)
 
+    
+# Requires user log in 
+# Handles user profile editing by fetching researcher data and altering the database
+def add_run(request, task_slug):
+    context_dict = {}
+    username = request.user
+    user = User.objects.get(username=username)
+    research = Researcher.objects.get(user=user)
+    task = Task.objects.get(slug=task_slug)
+    run_id = len(Run.objects.all()) + 1
+
+    # Get the info via the edit user form and update the researcher in question
+    if request.method == 'POST':
+        profile_form = AddRun(data=request.POST)
+
+        if profile_form.is_valid():
+            profile = profile_form.save(commit=False)
+            
+            # Handle profile picture change - test this as unsure if working
+            
+            profile.result_file = request.FILES['result_file']
+            
+            add_run(research, task, profile.name, profile.description, profile.result_file_path, Run_type.AUTOMATIC, Query_type.OTHER, Feedback_type.NONE,
+            run_id)
+            
+            print "run added"      
+        else:
+            print profile_form.errors
+        
+    else:
+        profile_form = AddRun(instance=request.user)
+
+    context_dict['profile_form'] = profile_form
+    context_dict['researcher'] = research
+    
+    return render(request, "trec/add_run.html", context_dict) 
     
 # Requires user log in 
 # Handles user profile editing by fetching researcher data and altering the database

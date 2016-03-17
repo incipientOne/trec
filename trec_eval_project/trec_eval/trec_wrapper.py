@@ -12,16 +12,6 @@ def trec_wrapper(qrel_file_path, run_file_path):
 
     results = subprocess.check_output([trec_path, qrel_file_path, run_file_path])
     
-    """
-    out = []
-    
-    for i in results.split():
-    	out = out + [i]
-    	if len(out) % 3 == 0:
-    		print out
-    		out = []
-    """
-    
     results = subprocess.check_output([trec_path,
                                        '-m', 'map',  # tell trec_eval to calculate map
                                        '-m', 'P.5,10,15,20,30,100,200,500,1000',  # and P_10, P_20

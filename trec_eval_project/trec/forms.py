@@ -19,3 +19,10 @@ class EditUserInfoForm(forms.ModelForm):
     class Meta:
         model = Researcher
         fields = ('display_name', 'website', 'organisation', 'profile_picture')
+        
+        
+# to edit user info
+class AddRun(forms.ModelForm):
+    class Meta:
+        model = Run
+        fields = ('name', 'description', 'result_file')

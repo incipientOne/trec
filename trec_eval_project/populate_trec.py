@@ -68,18 +68,6 @@ def populate():
                     add_run(get_rand_user(user_list), get_task_name(qrel_path, track), 'test_run' + str(run_id),
                             'Description of run', runs_path + track + '/' + run, Run_type.AUTOMATIC, Query_type.OTHER,
                             Feedback_type.NONE, run_id)
-    """
-    # add runs
-    add_run('jill',
-            'test_task_1',
-            'test_run_1',
-            'a test run',
-            test_run,
-            Run_type.AUTOMATIC,
-            Query_type.OTHER,
-            Feedback_type.NONE,
-    		run_id)
-    """
 
 
 def get_rand_user(user_list):
