@@ -22,9 +22,8 @@
       // draws it.
       function drawRecallChart() {
   
-  		var data = google.visualization.arrayToDataTable([
-    		['Recall', 'Precision'],
-    		[0,{{ run.recall00 }}], [0.1, {{ run.recall01 }}], [0.2, {{ run.recall02 }}], [0.3, {{ run.recall03 }}], [0.4, {{ run.recall04 }}], [0.5, {{ run.recall05 }}], [0.6, {{ run.recall06 }}], [0.7, {{ run.recall07 }}], [0.8, {{ run.recall08 }}], [0.9, {{ run.recall09 }}], [1.0, {{ run.recall10 }}]]);
+  		var data = google.visualization.arrayToDataTable(
+    		{{recall_data|safe}});
 
   		var options = {
     		title: 'Recall-Precision Curve',
@@ -46,9 +45,8 @@
 		
 	function drawPNChart() {
   
-  		var data = google.visualization.arrayToDataTable([
-    		['Number of Documents', 'Precision'],
-    		[5,{{ run.p5 }}], [10, {{ run.p10 }}], [15, {{ run.p15 }}], [20, {{ run.p20 }}], [100, {{ run.p100 }}], [200, {{ run.p200 }}], [500, {{ run.p500 }}], [1000, {{ run.p1000 }}]]);
+  		var data = google.visualization.arrayToDataTable(
+    		{{p_data|safe}});
 
   		var options = {
     		title: 'Document Level Averages',

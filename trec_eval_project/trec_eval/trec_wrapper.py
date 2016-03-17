@@ -41,9 +41,18 @@ def trec_wrapper(qrel_file_path, run_file_path):
     # map 
     # recall0.0 - recall0.1 - recall0.2 - recall0.3 - recall0.4 - recall0.5 - recall0.6 - recall0.7 - recall0.8 - recall0.9 - recall1.0
     # p5 - p10 - p15 - p20 - p30 - p100 - p200 - p500 - p1000
-    returnArray = [];
-    i = 2;
-    while (i < len(result_array)):
-        returnArray.append(float(resultArray[i]))
-        i = i + 3
-    return returnArray
+    mapVal = float(result_array[2])
+    pMap = {}
+    rMap = {}
+    i = 5
+    while i < len(result_array):
+        val = float(result_array[i])
+        name = result_array[i-2]
+        if name[0] == "i":
+            r_num = float(name[16:])
+            rMap[r_num] = val
+        else:
+            p_num = int(name[2:])
+            pMap[p_num] = val
+        i += 3
+    return mapVal, rMap, pMap
