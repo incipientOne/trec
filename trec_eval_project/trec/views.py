@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from trec.models import Track, Task, Researcher, Run, User, Recall_val, P_value
 
-from trec.forms import UserForm, UserProfileForm
+from trec.forms import UserForm, UserProfileForm, EditUserInfoForm
 
 from populate_trec import add_researcher
 
@@ -149,3 +149,48 @@ def profile(request):
     context_dict = {'user': user, 'researcher': research}
 
     return render(request, 'trec/profile.html', context_dict)
+    
+    
+    
+
+def edit_profile(request):
+    """Handles user profile editing by fetching form data and altering the database"""
+    context_dict = {}
+
+    username = request.user
+    user = User.objects.get(username=username)
+    research = Researcher.objects.get(user=user)
+
+
+    # alter db
+    if request.method == 'POST':
+        # user_form = EditUserInfoForm(data=request.POST)
+
+        profile_form = EditUserInfoForm(data=request.POST)
+
+        if profile_form.is_valid():
+            profile = profile_form.save(commit=False)
+            research.display_name = profile.display_name
+            research.save()
+			
+     #      user = profile_form.save(commit=False)
+            # handle picture change
+     #       if 'picture' in request.FILES:
+      #          profile.picture = request.FILES['picture']
+
+            # save changes
+         #   user.save()
+            profile.save()
+            print "Profile saved"
+        else:
+          #  print user_form.errors
+            print profile_form.errors
+        
+    else:
+        # user_form = EditUserInfoForm(instance=request.user)
+        profile_form = UserProfileForm(instance=request.user)
+
+    # context_dict['user_form'] = user_form
+    context_dict['profile_form'] = profile_form
+    # context_dict['picture'] = request.user.userprofile.picture
+    return render(request, "trec/profile.html", context_dict)

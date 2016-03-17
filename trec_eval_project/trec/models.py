@@ -41,12 +41,6 @@ class Researcher(models.Model):
     display_name = models.CharField(max_length=128)
     organisation = models.CharField(max_length=128)
     
-    slug = models.SlugField()
-    
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.user.username)
-        super(Researcher, self).save(*args, **kwargs)
-
     def __unicode__(self):
         return self.user.username
 
