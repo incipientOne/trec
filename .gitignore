@@ -1,3 +1,4 @@
 *.pyc
 trec_eval_project/static/media/runs/*
 trec_eval_project/static/media/qrels/*
+trec_eval_project/db.sqlite3
