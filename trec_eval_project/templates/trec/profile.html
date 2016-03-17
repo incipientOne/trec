@@ -5,14 +5,19 @@
 {% block title %}Edit profile{% endblock %}
 
 {% block body_block %}
-    {% csrf_token %}
     
-    <h1>Your profile:</h1>
-    
-    {{ user.website }}
     
     <form id="profile_form" method="post" action="{% url 'profile' %}" enctype="multipart/form-data">
-        {{ profile_form.as_p }}
+    	
+    
+    {% csrf_token %}
+    
+    <h2>Edit your profile: {{ researcher.display_name }}</h2>
+    <h3>Current website: {{ researcher.website }}</h3>
+    <h3>Current organisation: {{ researcher.organisation }}</h3>
+    
+    {{ profile_form.as_p }}
+    
     <input type="submit" name="submit" value="Edit profile"/>
 	
 	</form>

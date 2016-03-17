@@ -186,4 +186,5 @@ def edit_profile(request):
         profile_form = UserProfileForm(instance=request.user)
 
     context_dict['profile_form'] = profile_form
+    context_dict['researcher'] = research
     return render(request, "trec/profile.html", context_dict)
