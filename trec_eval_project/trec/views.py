@@ -6,7 +6,6 @@ from trec.forms import UserForm, UserProfileForm, EditUserInfoForm
 
 from populate_trec import add_researcher
 
-
 # About FAQ page for the site
 def about(request):
     context_dict = {'boldmessage': "Context Dict Message For About Page"}
@@ -44,7 +43,7 @@ def register(request):
 
             registered = True
 
-            add_researcher(user, user)
+            add_researcher(user, user)					# Add as researcher to db
 
         else:
             print user_form.errors, profile_form.errors
@@ -86,9 +85,10 @@ def run_detail(request, run_detail_slug):
     context_dict = {}
 
     try:
-        # Get the specific run and store in context-dict
+        # Get the specific run and store in context-dict: including all scores for graphs
         run = Run.objects.get(slug=run_detail_slug)
         context_dict['run'] = run
+        context_dict['researcher'] = run.researcher
         recalls = Recall_val.objects.filter(run=run)
         recall_data = []
         for r in recalls:
@@ -110,7 +110,7 @@ def run_detail(request, run_detail_slug):
     return render(request, 'trec/run_detail.html', context_dict)
 
 
-# Task view
+# Task view to display all the tasks within a track
 def task(request, task_title_slug):
     context_dict = {}
 
@@ -133,47 +133,46 @@ def task(request, task_title_slug):
     return render(request, 'trec/task.html', context_dict)
 
 
-# The main tracks page
+# The main tracks page - get all the tracks ordered alphabetically
 def tracks(request):
     category_list = Track.objects.order_by("title")
     context_dict = {'boldmessage': "Context Dict Message For Tracks", 'track_list': category_list}
     return render(request, 'trec/tracks.html', context_dict)
 
+   
+# User profile view for non-logged in users wishing to view
+# the profile details of a user who has uploaded a run
+def user_profile(request, researcher_detail_slug):
+	
+	context_dict = {}
+	user = User.objects.get(username=researcher_detail_slug)
+	research = Researcher.objects.get(user=user)
+	context_dict["researcher"] = research
 
-# View for personal user profile page
-# Find User / Researcher and return info in dict.
-def profile(request):
-    username = request.user
-    research = Researcher.objects.get(user=username)
-    user = User.objects.get(username=username)
+	return render(request, "trec/user_profile.html", context_dict)
 
-    context_dict = {'user': user, 'researcher': research}
-
-    return render(request, 'trec/profile.html', context_dict)
     
-    
-    
-
+# Requires user log in 
+# Handles user profile editing by fetching researcher data and altering the database
 def edit_profile(request):
-    """Handles user profile editing by fetching form data and altering the database"""
     context_dict = {}
-
     username = request.user
     user = User.objects.get(username=username)
     research = Researcher.objects.get(user=user)
 
-
-    # alter db
+    # Get the info via the edit user form and update the researcher in question
     if request.method == 'POST':
         profile_form = EditUserInfoForm(data=request.POST)
 
         if profile_form.is_valid():
             profile = profile_form.save(commit=False)
-            # handle picture change
+            
+            # Handle profile picture change - test this as unsure if working
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
                 research.profile_picture = profile.picture
-            	
+            
+            # Update other categories before saving to db and returning
             research.display_name = profile.display_name
             research.website = profile.website
             research.organisation = profile.organisation
@@ -187,4 +186,5 @@ def edit_profile(request):
 
     context_dict['profile_form'] = profile_form
     context_dict['researcher'] = research
+    
     return render(request, "trec/profile.html", context_dict)

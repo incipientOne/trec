@@ -6,10 +6,8 @@
 
 {% block body_block %}
     
-    
     <form id="profile_form" method="post" action="{% url 'profile' %}" enctype="multipart/form-data">
     	
-    
     {% csrf_token %}
     
     <h2>Edit your profile: {{ researcher.display_name }}</h2>

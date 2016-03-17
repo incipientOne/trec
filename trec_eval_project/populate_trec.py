@@ -168,5 +168,4 @@ if __name__ == '__main__':
 
 # Creator comments (Joseph) - thanks Michelle for setting this up
 # butchered / hacked it to fill database with random assignment of
-# runs to users - wait that could be bad - will do two versions.
-# Also sort of guessing at what to run a run on - this seems to work fine - someone please check
+# runs to users

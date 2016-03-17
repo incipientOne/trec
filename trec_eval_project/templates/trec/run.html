@@ -30,7 +30,7 @@
         {% for run in runs %}
         	<tr>
                 <td><a href="{% url 'run_detail' run.slug %}">{{ run.name }}</a></td>
-                <td>{{ run.researcher }}</td>
+                <td><a href="{% url 'user_profile' run.researcher.slug %}">{{ run.researcher }}</a></td>
                 <td>{{ run.map_val }}</td>
                 <td>{{ run.p10 }}</td>
                 <td>{{ run.p20 }}</td>
