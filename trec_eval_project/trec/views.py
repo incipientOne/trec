@@ -88,6 +88,7 @@ def run_detail(request, run_detail_slug):
     try:
         # Get the specific run and store in context-dict
         run = Run.objects.get(slug=run_detail_slug)
+        context_dict['run'] = run
         recalls = Recall_val.objects.filter(run=run)
         recall_data = []
         for r in recalls:
