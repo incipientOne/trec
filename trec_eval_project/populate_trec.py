@@ -68,18 +68,6 @@ def populate():
                     add_run(get_rand_user(user_list), get_task_name(qrel_path, track), 'test_run' + str(run_id),
                             'Description of run', runs_path + track + '/' + run, Run_type.AUTOMATIC, Query_type.OTHER,
                             Feedback_type.NONE, run_id)
-    """
-    # add runs
-    add_run('jill',
-            'test_task_1',
-            'test_run_1',
-            'a test run',
-            test_run,
-            Run_type.AUTOMATIC,
-            Query_type.OTHER,
-            Feedback_type.NONE,
-    		run_id)
-    """
 
 
 def get_rand_user(user_list):
@@ -168,5 +156,4 @@ if __name__ == '__main__':
 
 # Creator comments (Joseph) - thanks Michelle for setting this up
 # butchered / hacked it to fill database with random assignment of
-# runs to users - wait that could be bad - will do two versions.
-# Also sort of guessing at what to run a run on - this seems to work fine - someone please check
+# runs to users

@@ -1,0 +1,24 @@
+{% extends 'trec/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Add Run profile{% endblock %}
+
+{% block body_block %}
+    
+    Test Test Test
+    
+    <form id="profile_form" method="post" action="{% url 'add_run' %}" enctype="multipart/form-data">
+    	
+    {% csrf_token %}
+    
+    <h3>Please add a new run:</h3>
+    
+    {{ profile_form.as_p }}
+    
+    <input type="submit" name="submit" value="Add new run"/>
+	
+	</form>
+
+
+{% endblock %}

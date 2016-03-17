@@ -1,19 +1,23 @@
 {% extends 'trec/base.html' %}
 
-{% load staticfiles %} 
+{% load staticfiles %}
 
-{% block title %}Personal Profile Title{% endblock %}
+{% block title %}Edit profile{% endblock %}
 
 {% block body_block %}
-
-<h1>Researcher Personal Profile - Header</h1>
-
-{% if user %}
-
-This is a researchers own personal profile page.
-
-{{ researcher.website }}
-
-{% endif %}
+    
+    <form id="profile_form" method="post" action="{% url 'profile' %}" enctype="multipart/form-data">
+    	
+    {% csrf_token %}
+    
+    <h2>Edit your profile: {{ researcher.display_name }}</h2>
+    <h3>Current website: {{ researcher.website }}</h3>
+    <h3>Current organisation: {{ researcher.organisation }}</h3>
+    
+    {{ profile_form.as_p }}
+    
+    <input type="submit" name="submit" value="Edit profile"/>
+	
+	</form>
 
 {% endblock %}
