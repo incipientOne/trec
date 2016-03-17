@@ -164,33 +164,26 @@ def edit_profile(request):
 
     # alter db
     if request.method == 'POST':
-        # user_form = EditUserInfoForm(data=request.POST)
-
         profile_form = EditUserInfoForm(data=request.POST)
 
         if profile_form.is_valid():
             profile = profile_form.save(commit=False)
-            research.display_name = profile.display_name
-            research.save()
-			
-     #      user = profile_form.save(commit=False)
             # handle picture change
-     #       if 'picture' in request.FILES:
-      #          profile.picture = request.FILES['picture']
-
-            # save changes
-         #   user.save()
-            profile.save()
-            print "Profile saved"
+            # if 'picture' in request.FILES:
+            #    profile.picture = request.FILES['picture']
+            
+            
+            research.display_name = profile.display_name
+            research.website = profile.website
+            research.organisation = profile.organisation
+            # research.profile_picture = profile.picture
+            research.save()
+            
         else:
-          #  print user_form.errors
             print profile_form.errors
         
     else:
-        # user_form = EditUserInfoForm(instance=request.user)
         profile_form = UserProfileForm(instance=request.user)
 
-    # context_dict['user_form'] = user_form
     context_dict['profile_form'] = profile_form
-    # context_dict['picture'] = request.user.userprofile.picture
     return render(request, "trec/profile.html", context_dict)
