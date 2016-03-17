@@ -169,14 +169,13 @@ def edit_profile(request):
         if profile_form.is_valid():
             profile = profile_form.save(commit=False)
             # handle picture change
-            # if 'picture' in request.FILES:
-            #    profile.picture = request.FILES['picture']
-            
-            
+            if 'picture' in request.FILES:
+                profile.picture = request.FILES['picture']
+                research.profile_picture = profile.picture
+            	
             research.display_name = profile.display_name
             research.website = profile.website
             research.organisation = profile.organisation
-            # research.profile_picture = profile.picture
             research.save()
             
         else:
