@@ -158,8 +158,8 @@ def add_run(request, task_slug):
 
     # Get the info via the edit user form and update the researcher in question
     if request.method == 'POST':
-        profile_form = AddRun(data=request.POST)
-
+        profile_form = AddRun(request.POST, request.FILES)
+        #profile_form = UploadFileForm(request.POST, request.FILES)
         if profile_form.is_valid():
             profile = profile_form.save(commit=False)
             
@@ -179,6 +179,7 @@ def add_run(request, task_slug):
 
     context_dict['profile_form'] = profile_form
     context_dict['researcher'] = research
+    context_dict['task'] = task
     
     return render(request, "trec/add_run.html", context_dict) 
     

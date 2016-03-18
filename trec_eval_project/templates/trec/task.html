@@ -9,10 +9,13 @@
 {% endblock %}
 
 {% block content %}
-
+	
 	{% if task %}
 		<div class="larger-text"> Runs for task "{{ task.title }}"</div>
 					
+		{% if user.is_authenticated %}
+        	<a href="{% url 'add_run' task.slug %}">Have some fun and add a run {{ run.researcher.display_name }}</a>
+        {% endif %}
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				Runs for a selected task and see the associated run table / graph
