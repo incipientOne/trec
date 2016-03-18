@@ -22,13 +22,23 @@
 		padding-left: 0;
 		padding-right: 0;
 	}
+
+	.basic-form {
+		margin-left: 20%;
+		margin-right: 20%;
+	}
 }
 
 @media(min-width:1200px){
 	.content {
-		margin-left:15%; 
-		margin-right:15%;
+		margin-left:10%; 
+		margin-right:10%;
 	} 
+
+	.basic-form {
+		margin-left: 30%;
+		margin-right: 30%;
+	}
 }
 
 /*

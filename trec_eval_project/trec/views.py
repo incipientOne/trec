@@ -195,7 +195,8 @@ def edit_profile(request):
     username = request.user
     user = User.objects.get(username=username)
     research = Researcher.objects.get(user=user)
-
+    context_dict['edit'] = True
+    
     # Get the info via the edit user form and update the researcher in question
     if request.method == 'POST':
         profile_form = EditUserInfoForm(data=request.POST)
@@ -213,6 +214,8 @@ def edit_profile(request):
             research.website = profile.website
             research.organisation = profile.organisation
             research.save()
+
+            context_dict['edit'] = False
             
         else:
             print profile_form.errors
@@ -223,4 +226,13 @@ def edit_profile(request):
     context_dict['profile_form'] = profile_form
     context_dict['researcher'] = research
     
+    
     return render(request, "trec/profile.html", context_dict)
+
+def profile(request):
+    username = request.user
+    user = User.objects.get(username=username)
+    context_dict = {}
+    context_dict['researcher'] = Researcher.objects.get(user=user)
+    
+    return render(request, "trec/profile.html", context_dict)    

@@ -12,5 +12,6 @@ urlpatterns = patterns('',
 	url(r'^register/$', views.register, name='register'),														# To register new users
 	url(r'^add_run/(?P<task_slug>[\w\-]+)/$', views.add_run, name='add_run'),									# For users to add a run for a task
 	url(r'^add_run/', views.add_run, name='add_run'),
-	url(r'^profile/', views.edit_profile, name='profile'),														# For users to edit their profile details
+	url(r'^profile/edit', views.edit_profile, name='edit_profile'),		
+	url(r'^profile/', views.profile, name='profile'),															# For users to edit their profile details
 )
