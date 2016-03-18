@@ -1,4 +1,6 @@
-{% extends 'trec/core/base.html' %}
+{% extends 'core/base.html' %}
+
+{% load staticfiles %} 
 
 {% block title %}Home{% endblock %}
 
@@ -8,6 +10,6 @@ Join TREC by creating a profile!</h1>
 
 <h2>
 <p>Upload run files and compare your results with others!</p>
-<img src="trec.jpg" alt="Keep Calm And TREC On">
+<img src="{% static 'trec.jpg' %}" alt="Keep Calm And TREC On">
 </h2>    
 {% endblock %}

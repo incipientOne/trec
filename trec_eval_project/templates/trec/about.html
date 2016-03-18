@@ -1,6 +1,12 @@
-{% extends 'trec/core/base.html' %}
+{% extends 'core/base.html' %}
 
 {% block title %}About{% endblock %}
+
+{% load staticfiles %} 
+{% block resources %}
+	{{ block.super }}
+	<link rel="stylesheet" type="text/css" href='{% static 'about.css' %}'>
+{% endblock %}
 
 {% block content %}
 <H1> About </H1>

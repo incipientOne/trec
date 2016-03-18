@@ -25,9 +25,18 @@
 				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li>
-					<a href="{% url 'register' %}">Sign in/register</a>
-				</li>
+				{% if user.is_authenticated %}
+					<li>
+						<a href="{% url 'auth_logout' %}?next=/trec/">Logout</a>
+					</li>
+				{% else %}
+					<li>
+						<a href="{% url 'register' %}">Register Here</a>
+					</li>
+					<li>
+						<a href="{% url 'auth_login' %}">Login</a>
+					</li>    		
+				{% endif %}
 			</ul>
 		</div>
 	</div>
@@ -42,5 +51,5 @@
   
   <button type="button" class="btn btn-primary btn-lg"><a href="  About.html" style="text-decoration : none; color : white"> About </a></button>
   
-  <button type="button" class="btn btn-success btn-lg"><a href="../registration/login.html" style="text-decoration : none; color : white"> Sign In/Register </button>
+  <button type="button" class="btn btn-success btn-lg"><a href="../registration/login.html" style="text-decoration : none; color : white"> Sign In/Register </a></button>
 </div-->

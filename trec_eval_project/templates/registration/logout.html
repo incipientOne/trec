@@ -1,23 +1,14 @@
-{% endblock %}
-</html>
-{% extends "trec/base.html" %}
+{% extends "core/base.html" %}
 
-{% block body_block %}
-<html lang="en">
-<HEAD>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<LINK REL=STYLESHEET TYPE="text/css" HREF="css/bootstrap.min.css"> 
-<LINK REL=STYLESHEET TYPE="text/css" HREF="logout.css"> 
-</HEAD>
-<H1>
-LOG OUT
-</H1>
+{% block content %}
+	<H1>
+	LOG OUT
+	</H1>
 
-<h2>
-You are now logged out.<br><br>
+	<h2>
+	You are now logged out.<br><br>
 
-<a "../trec/home.html">Go Back</a>
+	<a "../trec/home.html">Go Back</a>
 
-</h2>
-
+	</h2>
 {% endblock %}

@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'trec',
     'registration',
-    'djangobower'
+    'djangobower',
+    'url_tools',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -56,6 +57,8 @@ MIDDLEWARE_CLASSES = [
 
 STATICFILES_FINDERS = [
 	'djangobower.finders.BowerFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 
 ROOT_URLCONF = 'trec_eval_project.urls'
@@ -83,6 +86,14 @@ TEMPLATES = [
 TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 
 TEMPLATE_DIRS = (TEMPLATE_PATH,)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.template.context_processors.debug',
+    'django.template.context_processors.request',
+    'django.contrib.auth.context_processors.auth',
+    'django.contrib.messages.context_processors.messages',
+    'url_tools.context_processors.current_url',
+)
 
 BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'components')
 
@@ -142,13 +153,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static', 'media')
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_PATH = os.path.join(BASE_DIR, 'static')
+MEDIA_URL = '/media/' 
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/' 
 
 STATICFILES_DIRS = (
-    STATIC_PATH,
+    os.path.join(STATIC_ROOT, 'css'),
+    os.path.join(STATIC_ROOT, 'bootstrap', 'dist'),
+    os.path.join(STATIC_ROOT, 'jquery', 'dist'),
+    os.path.join(STATIC_ROOT, 'images'),
 )
 
 
