@@ -1,15 +1,20 @@
 {% extends 'core/base.html' %}
 
-{% block title %}Task{% endblock %}
+{% block title %}Tasks{% endblock %}
+
+{% block breadcrumbs %}
+<li><a href="{% url 'tracks' %}">Tracks</a> </li>
+<li class="active">"{{ task_title }}"</li>
+{% endblock %}
 
 {% block content %}
-	{% if task %}
+	{% if track %}
 		
-		<h1>Task</h1>
-		<h2>{{ task_title }}</h2>
-			
-		This is the page for all of the tasks of a given track - select a task and see the associated run table / graph
-			
+		<div class="larger-text">Tasks for track "{{ task_title }}"</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				This is the page for all of the tasks of a given track - select a task and see the associated run table / graph
+			</div>
 		{% if tasks %}
 
 			<table class="table table-hover">
@@ -21,12 +26,11 @@
 				
 				{% for task in tasks %}
 					<tr>
-						<td><a href="{% url 'run' task.slug %}">{{ task.slug }}</a></td>
+						<td><a href="{% url 'run' task.slug %}">{{ task.title }}</a></td>
 						<td>{{ task.year }}</td>
 						<td>{{ task.description }}</td>
 					</tr>
 				{% endfor %}
-					
 			</table>
 				
 		{% else %}

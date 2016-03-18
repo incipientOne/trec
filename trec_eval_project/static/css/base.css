@@ -45,10 +45,15 @@
 * Regular css code for all resolutions
 */
 
+* {
+	border-radius: 0px !important;
+}
+
 body {
 	background-color: #4863A0;
 	color: #4863A0;
 	font-family:"Arial";
+	
 }
 
 .content {
@@ -104,4 +109,11 @@ body {
 
 .larger-text {
 	font-size: 1.5em;
+}
+
+.breadcrumb {
+	text-align: left;
+	background: transparent;
+	border-radius: 0px;
+	display: block;
 }

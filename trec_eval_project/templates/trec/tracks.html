@@ -2,45 +2,55 @@
 
 {% block title %}Tracks{% endblock %}
 
+{% block breadcrumbs %}
+<li class="active">Tracks</li>
+{% endblock %}
+
 {% block content %}
 	<H1> Tracks </H1>
-	This is the page for all the categories of tracks: <strong>{{ boldmessage }}</strong><br />
-	<H2>	
-		Filter By: <br>
-		<label class="radio-inline">
-		<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> Title
-	</label>
-	<label class="radio-inline">
-		<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> ID
-	</label>
-	<label class="radio-inline">
-		<input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> No. of Runs
-	</label>
-		
-	</H2> 
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			This is the page for all the categories of tracks: <strong>{{ boldmessage }}</strong><br />
+		</div>
 
-	{% if track_list %}
-		<table class="table table-hover">
-			<tr>
-				<th>Title</th>
-				<th>ID</th>
-				<th>Genre</th>
-				<th>#runs</th>
-				<th>Description</th>
-			</tr>	
+		<div class="panel-body">
+			Filter By: <br>
+			<label class="radio-inline">
+				<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> Title
+			</label>
+			<label class="radio-inline">
+				<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> ID
+			</label>
+			<label class="radio-inline">
+				<input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> No. of Runs
+			</label>
+		</div>
 
-			{% for track in track_list %}
+		{% if track_list %}
+			<table class="table table-hover">
 				<tr>
-					<td><a href="{% url 'task' track.slug %}">{{ track.title }}</a></td>
-					<td>{{ track.id }} </td>
-					<td>{{ track.genre }}</td>
-					<td></td>
-					<td>{{ track.description }}</td>
-				</tr>
-			{% endfor %}
-		</table>
-	{% else %}
-		<strong>There are no tracks present.</strong><br / >
-	{% endif %}
+					<th>Title</th>
+					<th>ID</th>
+					<th>Genre</th>
+					<th>#runs</th>
+					<th>Description</th>
+				</tr>	
+
+				{% for track in track_list %}
+					<tr>
+						<td><a href="{% url 'task' track.slug %}">{{ track.title }}</a></td>
+						<td>{{ track.id }} </td>
+						<td>{{ track.genre }}</td>
+						<td></td>
+						<td>{{ track.description }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		{% else %}
+			<div class="panel-body">
+				<strong>There are no tracks present.</strong><br / >
+			</div>
+		{% endif %}
+	</div>
 		
 {% endblock %}

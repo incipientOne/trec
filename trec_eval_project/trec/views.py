@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from trec.models import Track, Task, Researcher, Run, User, Recall_val, P_value, Run_type, Query_type, Feedback_type
 
@@ -65,9 +65,6 @@ def run(request, run_title_slug):
         # Get the specific task
         task = Task.objects.get(slug=run_title_slug)
 
-        # Store its title
-        context_dict['task_title'] = task.title
-
         # Get the runs within that task and store into context dict along with task itself
         runs = Run.objects.filter(task=task)
         context_dict['runs'] = runs
@@ -125,7 +122,7 @@ def task(request, task_title_slug):
         tasks = Task.objects.filter(track=track)
         context_dict['tasks'] = tasks
 
-        context_dict['task'] = track
+        context_dict['track'] = track
 
     except Track.DoesNotExist:
         pass
@@ -196,7 +193,7 @@ def edit_profile(request):
     user = User.objects.get(username=username)
     research = Researcher.objects.get(user=user)
     context_dict['edit'] = True
-    
+
     # Get the info via the edit user form and update the researcher in question
     if request.method == 'POST':
         profile_form = EditUserInfoForm(data=request.POST)
@@ -215,7 +212,7 @@ def edit_profile(request):
             research.organisation = profile.organisation
             research.save()
 
-            context_dict['edit'] = False
+            return redirect('profile')
             
         else:
             print profile_form.errors

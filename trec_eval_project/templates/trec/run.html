@@ -5,35 +5,38 @@
 {% block content %}
 
 	{% if task %}
-		<H1> Run </H1>
+		<div class="larger-text"> Runs for task "{{ task.title }}"</div>
 					
-		<H2>Runs for a selected task and see the associated run table / graph</H2>
-				
-		{% if runs %}
-		
-			<table class="table table-hover">		
-				<tr>
-					<th>Detail</th>
-					<th>Researcher</th>
-					<th>MAP</th>
-					<th>P10</th>
-					<th>P20</th>
-				</tr>
-
-				{% for run in runs %}
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Runs for a selected task and see the associated run table / graph
+			</div>
+					
+			{% if runs %}
+				<table class="table table-hover">		
 					<tr>
-						<td><a href="{% url 'run_detail' run.slug %}">{{ run.slug }}</a></td>
-						<td>{{ run.researcher }}</td>
-						<td>{{ run.map }}</td>
-						<td>{{ run.p10 }}</td>
-						<td>{{ run.p20 }}</td>
+						<th>Detail</th>
+						<th>Researcher</th>
+						<th>MAP</th>
+						<th>P10</th>
+						<th>P20</th>
 					</tr>
-				{% endfor %}
-			</table>
-						
-		{% else %}
-				<strong>No runs currently in this task.</strong>
-		{% endif %}
+
+					{% for run in runs %}
+						<tr>
+							<td><a href="{% url 'run_detail' run.slug %}">{{ run.title }}</a></td>
+							<td>{{ run.researcher }}</td>
+							<td>{{ run.map }}</td>
+							<td>{{ run.p10 }}</td>
+							<td>{{ run.p20 }}</td>
+						</tr>
+					{% endfor %}
+				</table>
+							
+			{% else %}
+					<strong>No runs currently in this task.</strong>
+			{% endif %}
+		</div>
 				
 	{% else %}
 			Shouldn't be here currently

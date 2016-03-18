@@ -21,6 +21,10 @@
 		<div class = "content">
 			{% include 'core/header.html'%}
 
+			<ol class="breadcrumb">
+		  		<li><a href="{% url 'home' %}">TREC</a></li>
+		  		{% block breadcrumbs %}{% endblock %}
+			</ol>
 			{% block content %}{% endblock %} 
 		</div>
 	</body>
