@@ -18,9 +18,13 @@ This application is used to manage trec eval data. Follow the guidelines below t
 
 ### Setting up ###
 
+Firstly make sure you are working on a clean pip environment.
+
 `git pull` or `git clone` repo
 
-`ls trec_eval_project/`
+`pip install -r requirements.txt --upgrade` in the root of pulled repo
+
+`cd trec_eval_project/`
 
 `python manage.py migrate`
 
