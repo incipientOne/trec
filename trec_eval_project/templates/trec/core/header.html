@@ -1,0 +1,46 @@
+<nav class="navbar navbar-default" id="main-nav">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-row" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+
+		<div class="collapse navbar-collapse" id="nav-row">
+			<ul class="nav navbar-nav">
+				<li>
+					<a href="{% url 'home' %}">Home</a>
+				</li>
+				<li>
+					<a href="{% url 'home' %}">Users</a>
+				</li>
+				<li>
+					<a href="{% url 'tracks' %}">Tracks</a>
+				</li>
+				<li>
+					<a href="{% url 'about' %}">About</a>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="{% url 'register' %}">Sign in/register</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<!--div class="btn-group pull-centre" role="group" aria-label="...">
+ <button type="button" class="btn btn-primary btn-lg active"><a href="   Home.html" style="text-decoration : none; color : white"> Home </a></button>
+  
+  <button type="button" class="btn btn-primary btn-lg"><a href="  users.html" style="text-decoration : none; color : white"> Users </a></button>
+  
+  <button type="button" class="btn btn-primary btn-lg"><a href="  tracks.html" style="text-decoration : none; color : white"> Tracks </a></button>
+  
+  <button type="button" class="btn btn-primary btn-lg"><a href="  About.html" style="text-decoration : none; color : white"> About </a></button>
+  
+  <button type="button" class="btn btn-success btn-lg"><a href="../registration/login.html" style="text-decoration : none; color : white"> Sign In/Register </button>
+</div-->

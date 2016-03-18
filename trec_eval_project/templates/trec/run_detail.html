@@ -1,60 +1,11 @@
-{% extends 'trec/rd_graph_base.html' %}
+{% extends 'trec/core/base.html' %}
 
-{% load staticfiles %} 
+{% block title %}Run-Detail{% endblock %}
 
-{% block title %}Run-Detail Title{% endblock %}
+{% block content %}
 
-{% block body_block %}
+	<H1> Run Detail </H1>
 
-<h1>{{ run.name }} Details</h1>
-<h3>Credited to <a href="{% url 'user_profile' researcher.slug %}">{{ run.researcher }}</a></h3>
+	<H2>This is one specific run detail: GRAPHS: Pie chart of miss-hit-fault ration / precision recall curve</H2>
 
-<!--Table and divs that hold the pie charts-->
-<table class="columns">
-    <tr>
-        <td><div id="recall_chart_div" style="width: 500px; height: 500px"></div></td>
-        <td><div id="pn_chart_div" style="width: 500px; height: 500px"></div></td>
-    </tr>
-</table>
-
-
-This is one specific run detail: {{ run.description}}
-<table border="1" style="width:100%">
-
-			<tr>
-                <th COLSPAN=2>Document Level Averages</th>
-            </tr>
-
-         	<tr>
-                <td></td>
-                <td>Precision</td>
-            </tr>
-
-            {% for datum in p_data|slice:"1:" %}
-            <tr>
-		        <td>At {{ datum.0 }} docs</td>
-                <td>{{ datum.1 }}</td>
-            </tr>
-            {% endfor %}
-</table>
-
-</br></br>
-
-<table border="1" style="width:100%">
-
-			<tr>
-                <th COLSPAN=2>Recall Level Precision Averages</th>
-            </tr>
-
-         	<tr>
-                <td>Recall</td>
-                <td>Precision</td>
-            </tr>
-            {% for datum in recall_data|slice:"1:" %}
-            <tr>
-		        <td>{{ datum.0 }}</td>
-                <td>{{ datum.1 }}</td>
-            </tr>
-            {% endfor %}
-</table>
 {% endblock %}

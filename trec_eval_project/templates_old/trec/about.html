@@ -1,0 +1,14 @@
+{% extends 'trec/base.html' %}
+
+{% load staticfiles %} 
+
+{% block title %}About Title{% endblock %}
+
+{% block body_block %}
+    <h1>About Header</h1>
+    
+    About About About: <strong>{{ boldmessage }}</strong><br />
+    <img src="{% static "images/joke2.jpg" %}" alt="Your Missing The Joke" /> 
+    
+{% endblock %}
+    

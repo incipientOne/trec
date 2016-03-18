@@ -1,55 +1,42 @@
-{% extends 'trec/base.html' %}
+{% extends 'trec/core/base.html' %}
 
-{% load staticfiles %} 
+{% block title %}Run{% endblock %}
 
-{% block title %}Run Title{% endblock %}
+{% block content %}
 
-{% block body_block %}
+	{% if task %}
+		<H1> Run </H1>
+					
+		<H2>Runs for a selected task and see the associated run table / graph</H2>
+				
+		{% if runs %}
+		
+			<table class="table table-hover">		
+				<tr>
+					<th>Detail</th>
+					<th>Researcher</th>
+					<th>MAP</th>
+					<th>P10</th>
+					<th>P20</th>
+				</tr>
 
-        {% if user.is_authenticated %}
-        <a href="{% url 'add_run' task.slug %}">Have some fun and add a run {{ run.researcher.display_name }}</a>
-        {% endif %}
-
-{% if task %}
-        
-	<h1>{{ task_title }}</h1>
-        
-        Yo there's going to be a graph on this page plotting all the MAP scores (scattergraph google api)
-        </br>
-        Highlight signed in user's runs within the table too.
-        </br></br>
-
-                
-    {% if runs %}
-    
-    	<table border="1" style="width:100%">
-            
-            <tr>
-                <td>Run Name</td>
-                <td>Researcher</td>
-                <td>MAP Score</td>
-                <td>P10 Score</td>
-                <td>P20 Score</td>
-            </tr>
-            	
-        {% for run in runs %}
-        	<tr>
-                <td><a href="{% url 'run_detail' run.slug %}">{{ run.name }}</a></td>
-                <td><a href="{% url 'user_profile' run.researcher.slug %}">{{ run.researcher }}</a></td>
-                <td>{{ run.map_val }}</td>
-                <td>{{ run.p10 }}</td>
-                <td>{{ run.p20 }}</td>
-            </tr>
-        {% endfor %}
-                
-        </table>
-            
-    {% else %}
-        <strong>No runs currently in this task.</strong>
-    {% endif %}
-        
-{% else %}
-    Shouldn't be here currently
-{% endif %}
+				{% for run in runs %}
+					<tr>
+						<td><a href="{% url 'run_detail' run.slug %}">{{ run.slug }}</a></td>
+						<td>{{ run.researcher }}</td>
+						<td>{{ run.map }}</td>
+						<td>{{ run.p10 }}</td>
+						<td>{{ run.p20 }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+						
+		{% else %}
+				<strong>No runs currently in this task.</strong>
+		{% endif %}
+				
+	{% else %}
+			Shouldn't be here currently
+	{% endif %}
 
 {% endblock %}

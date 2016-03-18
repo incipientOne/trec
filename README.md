@@ -1,29 +1,26 @@
-# README #
+# Trec eval app #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+This application is used to manage trec eval data. Follow the guidelines below to setup the project.
 
-### What is this repository for? ###
+### What can users do? ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* Non-logged user
+    * Can view different tracks/runs/users
+    * Can compare, filter, and sort different items in tables
 
-### How do I get set up? ###
+* Logged user (researcher)
+    * Can do the same things as non-logged user
+    * Can crate his own profile and upload runs to different tasks
+    * The results are marked for the user as to distinguish them in tables
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+* Admin
+    * Can declare new tasks and upload qrel files for trec comparison.
 
-### Contribution guidelines ###
+### Setting up ###
 
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+* Pull this repo
+* Go to trec_eval_project/
+* run `python manage.py migrate` to set up basic server data
+* run `python manage.py bower install` to set up front-end dependencies
+* run `python manage.py collectstatic` to copy and prepare front-end
+* You can now run the server

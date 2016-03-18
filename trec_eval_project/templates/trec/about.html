@@ -1,14 +1,27 @@
-{% extends 'trec/base.html' %}
+{% extends 'trec/core/base.html' %}
 
-{% load staticfiles %} 
+{% block title %}About{% endblock %}
 
-{% block title %}About Title{% endblock %}
+{% block content %}
+<H1> About </H1>
+<BODY>
 
-{% block body_block %}
-    <h1>About Header</h1>
-    
-    About About About: <strong>{{ boldmessage }}</strong><br />
-    <img src="{% static "images/joke2.jpg" %}" alt="Your Missing The Joke" /> 
-    
+<H2>
+What is TREC? <br>
+<p>TREC's aim is to increase and support the research community focused on large-scale information evaluation and retrieval by providing a community of users an easy means of comparing their results under a common set of evaluation methods. </p>
+
+What is P_10, P_20 and MAP? <br>
+P_10= The relevancy of the first 10 results displayed by the search engine.<br>
+P_20= The relevancy of the first 20 results displayed by the search engine.<br>
+MAP=  MAP stands for Mean Average Precision which is the overall average.<br><br>
+
+How do I upload a run file?<br>
+After a user has registered and signed in to the website, a run file can be uploaded by the "Upload a run file here" button in the user profile page.<br>
+<br>
+What does a track consist of?<br>
+A TREC track/task consists of:<br>
+A Title , URL to track, year, description of the track, task type, a judgements file (qrels), a list of official measures and notes.
+
+</H2>
 {% endblock %}
     

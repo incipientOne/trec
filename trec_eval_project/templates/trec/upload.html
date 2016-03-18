@@ -1,0 +1,23 @@
+{% extends "trec/core/base.html" %}
+
+{% block content %}
+	<H1>
+	Upload a Problem:
+	</H1>
+
+	<H2>
+	Please enter your details:
+	</H2>
+	<H3>
+	Problem Description:
+	<textarea class="form-control" rows="3"></textarea>
+
+	<div class="form-group">
+	    <label for="exampleInputFile">File Upload</label>
+	    <input type="file" id="exampleInputFile">
+	    <p class="help-block">...</p>
+	  </div>
+		<button type="button" class="btn btn-primary btn-lg">Save</button><br><br>
+		<a href="profile.html">Go Back</a>
+	</H3>
+{% endblock %}

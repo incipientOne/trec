@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+{% load staticfiles %} 
+
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="UTF-8">
+
+		<script type="text/javascript" src='{% static 'jquery/dist/jquery.min.js' %}'></script>
+		<script type="text/javascript" src='{% static 'bootstrap/dist/js/bootstrap.min.js' %}'></script>
+		<link rel="stylesheet" type="text/css" href='{% static 'bootstrap/dist/css/bootstrap.min.css' %}'>
+		<link rel="stylesheet" type="text/css" href='{% static 'bootstrap/dist/css/bootstrap-theme.min.css' %}'>
+
+		<title>TREC | {% block title %}{% endblock %}</title>
+	</head>
+
+	<body>
+		{% include "trec/core/header.html" %}
+
+		{% block content %}{% endblock %} 
+	</body>
+
+	<!--body>
+		<div>
+		{% block body_block %}{% endblock %} 
+		</div>
+		
+		<hr />
+		
+		<div>
+			<ul>
+			{% if user.is_authenticated %}
+				<li><a href="{% url 'auth_logout' %}?next=/trec/">Logout</a></li>
+			{% else %}
+				<li><a href="{% url 'register' %}">Register Here</a></li>
+				<li><a href="{% url 'auth_login' %}">Login</a></li>    		
+			{% endif %}
+			
+				<li><a href="{% url 'about' %}">About</a></li>
+				<li><a href="{% url 'home' %}">Home</a></li>
+				<li><a href="{% url 'tracks' %}">Tracks</a></li>
+			</ul>
+		</div>
+	</body-->
+</html>

@@ -1,0 +1,35 @@
+{% extends 'trec/base.html' %}
+
+{% load staticfiles %} 
+
+{% block title %}Tracks Title{% endblock %}
+
+{% block body_block %}
+    <h1>Track Header</h1>
+    
+    This is the page for all the categories of tracks: <strong>{{ boldmessage }}</strong><br />
+    
+    {% if track_list %}
+    
+            <table border="1" style="width:100%">
+            	
+				<tr>
+                <td>Track Title</a></td>
+                <td>Track Genre</td>
+                <td>Track Description</td>
+                </tr>
+            	
+                {% for track in track_list %}
+                <tr>
+                <td><a href="{% url 'task' track.slug %}">{{ track.title }}</a></td>
+                <td>{{ track.genre }}</td>
+                <td>{{ track.description }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+    
+    {% else %}
+            <strong>There are no tracks present.</strong><br / >
+    {% endif %}
+    
+{% endblock %}

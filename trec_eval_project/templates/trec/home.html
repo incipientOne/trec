@@ -1,12 +1,13 @@
-{% extends 'trec/base.html' %}
+{% extends 'trec/core/base.html' %}
 
-{% load staticfiles %} 
+{% block title %}Home{% endblock %}
 
-{% block title %}Home Page Title{% endblock %}
+{% block content %}
+<h1> WELCOME TO TREC <br>
+Join TREC by creating a profile!</h1>
 
-{% block body_block %}
-    <h1>Home - Header 1</h1>
-    
-    Home Page - Home Page - Home Page: <strong>{{ boldmessage }}</strong><br /> 
-    
+<h2>
+<p>Upload run files and compare your results with others!</p>
+<img src="trec.jpg" alt="Keep Calm And TREC On">
+</h2>    
 {% endblock %}
