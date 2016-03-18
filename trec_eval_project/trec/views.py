@@ -58,12 +58,12 @@ def register(request):
 
 
 # All runs for a given task
-def run(request, run_title_slug):
+def task(request, task_slug):
     context_dict = {}
 
     try:
         # Get the specific task
-        task = Task.objects.get(slug=run_title_slug)
+        task = Task.objects.get(slug=task_slug)
 
         # Get the runs within that task and store into context dict along with task itself
         runs = Run.objects.filter(task=task)
@@ -74,16 +74,16 @@ def run(request, run_title_slug):
     except Task.DoesNotExist:
         pass
 
-    return render(request, 'trec/run.html', context_dict)
+    return render(request, 'trec/task.html', context_dict)
 
 
 # One specific run's details page
-def run_detail(request, run_detail_slug):
+def run(request, run_slug):
     context_dict = {}
 
     try:
         # Get the specific run and store in context-dict: including all scores for graphs
-        run = Run.objects.get(slug=run_detail_slug)
+        run = Run.objects.get(slug=run_slug)
         context_dict['run'] = run
         context_dict['researcher'] = run.researcher
         recalls = Recall_val.objects.filter(run=run)
@@ -104,19 +104,16 @@ def run_detail(request, run_detail_slug):
     except Run.DoesNotExist:
         pass
 
-    return render(request, 'trec/run_detail.html', context_dict)
+    return render(request, 'trec/run.html', context_dict)
 
 
 # Task view to display all the tasks within a track
-def task(request, task_title_slug):
+def track(request, track_slug):
     context_dict = {}
 
     try:
         # Get the specific track
-        track = Track.objects.get(slug=task_title_slug)
-
-        # Store its title
-        context_dict['task_title'] = track.title
+        track = Track.objects.get(slug=track_slug)
 
         # Get the tasks and store info context dict
         tasks = Task.objects.filter(track=track)
@@ -127,14 +124,14 @@ def task(request, task_title_slug):
     except Track.DoesNotExist:
         pass
 
-    return render(request, 'trec/task.html', context_dict)
+    return render(request, 'trec/track.html', context_dict)
 
 
 # The main tracks page - get all the tracks ordered alphabetically
-def tracks(request):
+def tracks_list(request):
     category_list = Track.objects.order_by("title")
     context_dict = {'boldmessage': "Context Dict Message For Tracks", 'track_list': category_list}
-    return render(request, 'trec/tracks.html', context_dict)
+    return render(request, 'trec/tracks_list.html', context_dict)
 
    
 # User profile view for non-logged in users wishing to view

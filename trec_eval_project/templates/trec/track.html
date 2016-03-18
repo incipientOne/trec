@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Task{% endblock %}
+
+{% block breadcrumbs %}
+<li><a href="{% url 'tracks' %}">Tracks</a></li>
+<li class="active">Track "{{ track.title }}"</li>
+{% endblock %}
+
+{% block content %}
+    {% if track %}
+        <div class="larger-text"> Tasks for track "{{ track.title }}"</div>
+                    
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                This is the page for all of the tasks of a given track - select a task and see the associated run table / graph
+            </div>
+                    
+            {% if tasks %}
+                <table class="table table-hover">       
+                    <tr>
+                        <th>Task Title</th>
+                        <th>Year</th>
+                        <th>Description</th>
+                    </tr>
+
+                    {% for task in tasks %}
+                        <tr>
+                            <td><a href="{% url 'task' task.slug %}">{{ task.slug }}</a></td>
+                            <td>{{ task.year }}</td>
+                            <td>{{ task.description }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                            
+            {% else %}
+                    <strong>No tasks currently in this track.</strong>
+            {% endif %}
+        </div>
+    {% else %}
+        The track {{ track.title }} does not exist!
+    {% endif %}
+{% endblock %}

@@ -1,45 +1,18 @@
 {% extends 'core/base.html' %}
 
-{% block title %}Run{% endblock %}
+{% block title %}Run Detail{% endblock %}
+
+{% block breadcrumbs %}
+<li><a href="{% url 'tracks' %}">Tracks</a></li>
+<li><a href="{% url 'track' run.task.track.slug %}">"{{ run.task.track.title }}"</a></li>
+<li><a href="{% url 'task' run.task.slug%}">Task "{{ run.task.title }}"</a></li>
+<li class="active">Run "{{ run.title }}"</li>
+{% endblock %}
 
 {% block content %}
 
-	{% if task %}
-		<div class="larger-text"> Runs for task "{{ task.title }}"</div>
-					
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				Runs for a selected task and see the associated run table / graph
-			</div>
-					
-			{% if runs %}
-				<table class="table table-hover">		
-					<tr>
-						<th>Detail</th>
-						<th>Researcher</th>
-						<th>MAP</th>
-						<th>P10</th>
-						<th>P20</th>
-					</tr>
+	<H1> Run Detail </H1>
 
-					{% for run in runs %}
-						<tr>
-							<td><a href="{% url 'run_detail' run.slug %}">{{ run.title }}</a></td>
-							<td>{{ run.researcher }}</td>
-							<td>{{ run.map }}</td>
-							<td>{{ run.p10 }}</td>
-							<td>{{ run.p20 }}</td>
-						</tr>
-					{% endfor %}
-				</table>
-							
-			{% else %}
-					<strong>No runs currently in this task.</strong>
-			{% endif %}
-		</div>
-				
-	{% else %}
-			Shouldn't be here currently
-	{% endif %}
+	<H2>This is one specific run detail: GRAPHS: Pie chart of miss-hit-fault ration / precision recall curve</H2>
 
 {% endblock %}
