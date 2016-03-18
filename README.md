@@ -18,9 +18,14 @@ This application is used to manage trec eval data. Follow the guidelines below t
 
 ### Setting up ###
 
-* Pull this repo
-* Go to trec_eval_project/
-* run `python manage.py migrate` to set up basic server data
-* run `python manage.py bower install` to set up front-end dependencies
-* run `python manage.py collectstatic` to copy and prepare front-end
-* You can now run the server
+`git pull` or `git clone` repo
+
+`ls trec_eval_project/`
+
+`python manage.py migrate`
+
+`python manage.py bower install`
+
+`python manage.py collectstatic`
+
+Now you can run server/do stuff.
