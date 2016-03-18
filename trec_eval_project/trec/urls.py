@@ -17,5 +17,4 @@ urlpatterns = patterns('',
 	url(r'^register/$', views.register, name='register'),														# To register new users
 	url(r'^profile/edit', views.edit_profile, name='edit_profile'),		
 	url(r'^profile/', views.profile, name='profile'),															# For users to edit their profile details
-	url(r'^user_profile/(?P<researcher_detail_slug>[\w\-]+)/$', views.user_profile, name='user_profile'),															# For users to edit their profile details
 )
