@@ -39,8 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'trec',
-    'registration',
-    'djangobower'
+    'registration'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -55,7 +54,6 @@ MIDDLEWARE_CLASSES = [
 ]
 
 STATICFILES_FINDERS = [
-	'djangobower.finders.BowerFinder',
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
