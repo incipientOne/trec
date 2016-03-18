@@ -1,3 +1,7 @@
+{% url 'home' as url_home %}
+{% url 'tracks' as url_tracks %}
+{% url 'about' as url_about %}
+
 <nav class="navbar navbar-default" id="main-nav">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -10,30 +14,30 @@
 		</div>
 
 		<div class="collapse navbar-collapse" id="nav-row">
-			<ul class="nav navbar-nav">
-				<li>
+			<ul class="nav navbar-nav menu-tiles">
+				<li {% if url_home == request.path %}class = "active-tile"{% endif %}>
 					<a href="{% url 'home' %}">Home</a>
 				</li>
 				<li>
 					<a href="{% url 'home' %}">Users</a>
 				</li>
-				<li>
+				<li {% if url_tracks == request.path %}class = "active-tile"{% endif %}>
 					<a href="{% url 'tracks' %}">Tracks</a>
 				</li>
-				<li>
+				<li {% if url_about == request.path %}class = "active-tile"{% endif %}>
 					<a href="{% url 'about' %}">About</a>
 				</li>
 			</ul>
-			<ul class="nav navbar-nav navbar-right">
+			<ul class="nav navbar-nav navbar-right menu-tiles">
 				{% if user.is_authenticated %}
 					<li>
 						<a href="{% url 'auth_logout' %}?next=/trec/">Logout</a>
 					</li>
 				{% else %}
 					<li>
-						<a href="{% url 'register' %}">Register Here</a>
+						<a href="{% url 'register' %}">Register</a>
 					</li>
-					<li>
+					<li class="menu-tile-green">
 						<a href="{% url 'auth_login' %}">Login</a>
 					</li>    		
 				{% endif %}
@@ -41,15 +45,3 @@
 		</div>
 	</div>
 </nav>
-
-<!--div class="btn-group pull-centre" role="group" aria-label="...">
- <button type="button" class="btn btn-primary btn-lg active"><a href="   Home.html" style="text-decoration : none; color : white"> Home </a></button>
-  
-  <button type="button" class="btn btn-primary btn-lg"><a href="  users.html" style="text-decoration : none; color : white"> Users </a></button>
-  
-  <button type="button" class="btn btn-primary btn-lg"><a href="  tracks.html" style="text-decoration : none; color : white"> Tracks </a></button>
-  
-  <button type="button" class="btn btn-primary btn-lg"><a href="  About.html" style="text-decoration : none; color : white"> About </a></button>
-  
-  <button type="button" class="btn btn-success btn-lg"><a href="../registration/login.html" style="text-decoration : none; color : white"> Sign In/Register </a></button>
-</div-->

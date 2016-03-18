@@ -40,8 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'trec',
     'registration',
-    'djangobower',
-    'url_tools',
+    'djangobower'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -88,11 +87,9 @@ TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 TEMPLATE_DIRS = (TEMPLATE_PATH,)
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.template.context_processors.debug',
     'django.template.context_processors.request',
     'django.contrib.auth.context_processors.auth',
-    'django.contrib.messages.context_processors.messages',
-    'url_tools.context_processors.current_url',
+    'django.contrib.messages.context_processors.messages'
 )
 
 BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'components')
