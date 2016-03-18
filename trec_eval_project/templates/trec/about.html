@@ -9,25 +9,28 @@
 {% endblock %}
 
 {% block content %}
-<H1> About </H1>
-<BODY>
+<div class="large-title"> About </div>
 
-<H2>
-What is TREC? <br>
+<div class="larger-text">What is TREC? </div>
 <p>TREC's aim is to increase and support the research community focused on large-scale information evaluation and retrieval by providing a community of users an easy means of comparing their results under a common set of evaluation methods. </p>
 
-What is P_10, P_20 and MAP? <br>
-P_10= The relevancy of the first 10 results displayed by the search engine.<br>
-P_20= The relevancy of the first 20 results displayed by the search engine.<br>
-MAP=  MAP stands for Mean Average Precision which is the overall average.<br><br>
+<div class="larger-text">What is P_10, P_20 and MAP? </div>
+<p>
+	P_10= The relevancy of the first 10 results displayed by the search engine.<br>
+	P_20= The relevancy of the first 20 results displayed by the search engine.<br>
+	MAP=  MAP stands for Mean Average Precision which is the overall average.
+</p>
 
-How do I upload a run file?<br>
-After a user has registered and signed in to the website, a run file can be uploaded by the "Upload a run file here" button in the user profile page.<br>
-<br>
-What does a track consist of?<br>
-A TREC track/task consists of:<br>
-A Title , URL to track, year, description of the track, task type, a judgements file (qrels), a list of official measures and notes.
+<div class="larger-text">How do I upload a run file?</div>
+<p>
+	After a user has registered and signed in to the website, a run file can be uploaded by the "Upload a run file here" button in the user profile page.
+</p>
 
-</H2>
+<div class="larger-text">What does a track consist of?</div>
+<p>
+	A TREC track/task consists of:<br>
+	A Title , URL to track, year, description of the track, task type, a judgements file (qrels), a list of official measures and notes.
+</p>
+
 {% endblock %}
     

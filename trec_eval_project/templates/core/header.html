@@ -1,6 +1,8 @@
 {% url 'home' as url_home %}
 {% url 'tracks' as url_tracks %}
 {% url 'about' as url_about %}
+{% url 'register' as url_register %}
+{% url 'profile' as url_profile %}
 
 <nav class="navbar navbar-default" id="main-nav">
 	<div class="container-fluid">
@@ -30,11 +32,14 @@
 			</ul>
 			<ul class="nav navbar-nav navbar-right menu-tiles">
 				{% if user.is_authenticated %}
+					<li {% if url_profile == request.path %}class = "active-tile"{% endif %}>
+					<a href="{% url 'profile' %}">Profile</a>
+					</li>	
 					<li>
 						<a href="{% url 'auth_logout' %}?next=/trec/">Logout</a>
 					</li>
 				{% else %}
-					<li>
+					<li {% if url_register == request.path %}class = "active-tile"{% endif %}>
 						<a href="{% url 'register' %}">Register</a>
 					</li>
 					<li class="menu-tile-green">

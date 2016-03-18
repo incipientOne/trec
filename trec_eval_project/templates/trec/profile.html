@@ -4,19 +4,19 @@
 
 {% block content %}
 	<H1> My Profile </H1>
-	<button type="button" class="btn btn-primary btn-lg"><a href=" registration/logout.html" style="text-decoration : none; color : white"> Log Out </a></button><br><br>
-	<button type="button" class="btn btn-primary btn-lg"><a href="editprofile.html" style="text-decoration : none; color : white"> Edit Info </a></button>
-	<BODY>
 
-	<H2>
-	Name: <br>
-	Affiliation:<br>
-	Email:<br>
-	Phone Number:<br>
-	Contact Adress:<br>
-	About:<br>
-	<button type="button" class="btn btn-primary btn-lg"><a href="  upload.html" style="text-decoration : none; color : white"> Upload a run file here </a></button>
-	</H2>
+    <h2>Edit your profile: {{ researcher.display_name }}</h2>
+    <h3>Current website: {{ researcher.website }}</h3>
+    <h3>Current organisation: {{ researcher.organisation }}</h3>
+	<form id="profile_form" method="post" action="{% url 'profile' %}" enctype="multipart/form-data">
+    	
+    {% csrf_token %}
+    
+    {{ profile_form.as_p }}
+    
+    <input type="submit" name="submit" value="Edit profile"/>
+	
+	</form>
 
 	<H3>
 	Problems Worked On<br>
@@ -28,4 +28,6 @@
 		<th>Description</th>
 	</table>
 	</H3>
+
+	
 {% endblock %}
