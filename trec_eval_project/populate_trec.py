@@ -21,7 +21,7 @@ def populate():
 
     qrel_path = os.path.join(BASE_DIR, 'pop script data', 'qrels/')
     runs_path = os.path.join(BASE_DIR, 'pop script data', 'runs/')
-
+    
     # add superuser
     add_user('admin', '', 'adminpass', is_superuser=True)
 
@@ -59,7 +59,7 @@ def populate():
 
                     # add_Task('test_track_1', 'test_task_1', 'http://www.google.com', 'Description - A simple task...', 1990, test_qrel)
 
-                # Now go in search of runs all tracks / tasks and upload to database
+    # Now go in search of runs all tracks / tasks and upload to database
     for track in os.listdir(runs_path):
         if not track.startswith('.'):
             for run in os.listdir(runs_path + track):

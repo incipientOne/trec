@@ -9,7 +9,11 @@ def trec_wrapper(qrel_file_path, run_file_path):
     
     # trec_eval program is stored in the same directory as the wrapper
     trec_path = os.path.join(BASE_DIR, 'trec_eval/', 'trec_eval')
-
+    
+    # This fixes pop script but someone should look into properly
+    qrel_file_path = 'static' + qrel_file_path
+    run_file_path = 'static' + run_file_path
+    
     results = subprocess.check_output([trec_path, qrel_file_path, run_file_path])
     
     results = subprocess.check_output([trec_path,
