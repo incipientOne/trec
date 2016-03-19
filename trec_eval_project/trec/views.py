@@ -77,11 +77,10 @@ def task(request, task_slug):
         context_dict['runs'] = runs
         context_dict['task'] = task
         
-        i = 0
         map_vals = [['', 'MAP Score']]
         for run in runs:
-        	i = i + 1
-        	map_vals.append([i, run.map_val])
+        	map_vals.append([str(run.name), run.map_val])
+        	
         context_dict['map_vals'] = map_vals
     
     except Task.DoesNotExist:
@@ -133,7 +132,7 @@ def track(request, track_slug):
         context_dict['tasks'] = tasks
         context_dict['track'] = track
         
-        task_average = [['X','Average MAP Score:']]
+        task_average = [['','Average MAP Score:']]
         
         for task in tasks:
         	average = 0
