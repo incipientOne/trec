@@ -14,5 +14,55 @@
 	<H1> Run Detail </H1>
 
 	<H2>This is one specific run detail: GRAPHS: Pie chart of miss-hit-fault ration / precision recall curve</H2>
+	
+	<div class="panel panel-default">
+			<div class="panel-heading">
+				Document Level Averages
+			</div>
+					
+			{% if run %}
 
+			<table class="table table-hover">		
+			<tr>
+			<td>Precision</td>
+            </tr>
+            
+            {% for datum in p_data|slice:"1:" %}
+            
+            <tr>
+		        <td>At {{ datum.0 }} docs</td>
+                <td>{{ datum.1 }}</td>
+            </tr>
+    
+            {% endfor %}
+			</table>				
+			
+			<div class="panel-heading">
+				Recall Level Precision Averages
+			</div>
+	
+			<table class="table table-hover">		
+			<tr>
+                <td>Recall</td>
+                <td>Precision</td>
+            </tr>
+            
+            {% for datum in recall_data|slice:"1:" %}
+            
+            <tr>
+		        <td>{{ datum.0 }}</td>
+                <td>{{ datum.1 }}</td>
+            </tr>
+            
+            {% endfor %}		
+            </table>				
+			
+			
+			{% else %}
+					<strong>No runs currently in this task.</strong>
+			{% endif %}
+			
+	</div>
+
+	    
 {% endblock %}
