@@ -6,6 +6,9 @@ from trec.forms import UserForm, UserProfileForm, EditUserInfoForm, AddRun
 
 from populate_trec import add_researcher, add_run
 
+# Used to get random index
+from random import randrange
+
 # About FAQ page for the site
 def about(request):
     context_dict = {'boldmessage': "Context Dict Message For About Page"}
@@ -14,7 +17,11 @@ def about(request):
 
 # The home / main page for the site
 def home(request):
-    context_dict = {'boldmessage': "Context Dict Message For Home Page"}
+    
+    run_list = Run.objects.all()
+    rand_num = randrange(0, len(run_list))
+    
+    context_dict = {'random_run': run_list[rand_num]}
     return render(request, 'trec/home.html', context_dict)
 
 
