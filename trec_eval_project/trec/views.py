@@ -75,9 +75,15 @@ def task(request, task_slug):
         # Get the runs within that task and store into context dict along with task itself
         runs = Run.objects.filter(task=task)
         context_dict['runs'] = runs
-
         context_dict['task'] = task
-
+        
+        i = 0
+        map_vals = [['', 'MAP Score']]
+        for run in runs:
+        	i = i + 1
+        	map_vals.append([i, run.map_val])
+        context_dict['map_vals'] = map_vals
+    
     except Task.DoesNotExist:
         pass
 
@@ -125,8 +131,23 @@ def track(request, track_slug):
         # Get the tasks and store info context dict
         tasks = Task.objects.filter(track=track)
         context_dict['tasks'] = tasks
-
         context_dict['track'] = track
+        
+        i = 0
+        task_average = [['Task', 'MAP Score']]
+        
+        for task in tasks:
+        	average = 0
+        	i += 1
+        	runs = Run.objects.filter(task=task)
+        	for run in runs:
+        		average += run.map_val
+        	average = average / len(runs)
+        	task_average.append([i, average])
+        
+        print task_average
+        
+        context_dict['task_average'] = task_average
 
     except Track.DoesNotExist:
         pass

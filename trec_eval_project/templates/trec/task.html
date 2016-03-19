@@ -1,5 +1,32 @@
 {% extends 'core/base.html' %}
 
+{% block resources %}
+ <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+    google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+      
+      	var data = google.visualization.arrayToDataTable(
+    		{{map_vals|safe}});
+      
+        var options = {
+          title: 'MAP Score Visualisation',
+          hAxis: {title: '', minValue: 0, maxValue: data.length+1},
+          vAxis: {title: 'MAP Score', minValue: 0, maxValue: 1},
+          legend: 'none'
+        };
+
+        var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+      }
+    </script>
+{% endblock %}
+
+
 {% block title %}Task{% endblock %}
 
 {% block breadcrumbs %}
@@ -11,6 +38,9 @@
 {% block content %}
 	
 	{% if task %}
+		
+		<div id="chart_div" style="width: 500px; height: 500px"></div>
+		
 		<div class="larger-text"> Runs for task "{{ task.title }}"</div>
 					
 		{% if user.is_authenticated %}
