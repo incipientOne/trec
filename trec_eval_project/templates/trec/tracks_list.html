@@ -1,5 +1,37 @@
 {% extends 'core/base.html' %}
 
+{% block resources %}
+ <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawBasic);
+
+function drawBasic() {
+
+      var data = google.visualization.arrayToDataTable({{track_average|safe}});
+
+      var options = {
+        title: 'Average MAP Per Track',
+        chartArea: {width: '50%'},
+        hAxis: {
+          title: 'Average MAP Score',
+          minValue: 0
+        },
+        vAxis: {
+          title: 'Tracks'
+        }
+      };
+
+      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+
+      chart.draw(data, options);
+    }
+    </script>
+{% endblock %}
+
+
 {% block title %}Tracks{% endblock %}
 
 {% block breadcrumbs %}
@@ -7,6 +39,9 @@
 {% endblock %}
 
 {% block content %}
+	
+	<div id="chart_div"></div>
+
 	<H1> Tracks </H1>
 	<div class="panel panel-default">
 		<div class="panel-heading">

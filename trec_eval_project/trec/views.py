@@ -155,7 +155,26 @@ def track(request, track_slug):
 # The main tracks page - get all the tracks ordered alphabetically
 def tracks_list(request):
     category_list = Track.objects.order_by("title")
-    context_dict = {'boldmessage': "Context Dict Message For Tracks", 'track_list': category_list}
+    context_dict = {'track_list': category_list}
+    
+    track_average = [['', 'Average Track MAP']]
+    
+    for track in category_list:
+    	average = 0
+    	final = 0
+    	tasks = Task.objects.filter(track=track)
+    	for task in tasks:
+    		runs = Run.objects.filter(task=task)
+    		for run in runs:
+    			average = average + run.map_val
+    		average = average / len(runs)
+    		final = final + average
+    	final = final / len(tasks)
+    	track_average.append([str(track.title), final])
+    
+    context_dict['track_average'] = track_average
+    print track_average
+    	
     return render(request, 'trec/tracks_list.html', context_dict)
 
    
