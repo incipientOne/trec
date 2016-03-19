@@ -5,25 +5,29 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
 
-    google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-	
-    function drawChart() {
-      
-      	var data = google.visualization.arrayToDataTable(
-    		{{task_average|safe}});
-      
-        var options = {
-          title: 'MAP Score Visualisation',
-          hAxis: {title: '', minValue: 0, maxValue: data.length+1},
-          vAxis: {title: 'MAP Score', minValue: 0, maxValue: 1},
-          legend: 'none'
-        };
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawBasic);
 
-        var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+function drawBasic() {
 
-        chart.draw(data, options);
-      }
+      var data = google.visualization.arrayToDataTable({{task_average|safe}});
+
+      var options = {
+        title: 'Average MAP Score Per Task',
+        chartArea: {width: '50%'},
+        hAxis: {
+          title: 'Average MAP Score',
+          minValue: 0
+        },
+        vAxis: {
+          title: 'Tasks'
+        }
+      };
+
+      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+
+      chart.draw(data, options);
+    }
     </script>
 {% endblock %}
 
@@ -38,7 +42,7 @@
 {% block content %}
     {% if track %}
     	
-    	<div id="chart_div" style="width: 900px; height: 300px;"></div>
+    	<div id="chart_div"></div>
     
         <div class="larger-text"> Tasks for track "{{ track.title }}"</div>
                     

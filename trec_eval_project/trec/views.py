@@ -133,17 +133,15 @@ def track(request, track_slug):
         context_dict['tasks'] = tasks
         context_dict['track'] = track
         
-        i = 0
-        task_average = [['Task', 'MAP Score']]
+        task_average = [['X','Average MAP Score:']]
         
         for task in tasks:
         	average = 0
-        	i += 1
         	runs = Run.objects.filter(task=task)
         	for run in runs:
         		average += run.map_val
         	average = average / len(runs)
-        	task_average.append([i, average])
+        	task_average.append([str(task.title), average])
         
         print task_average
         
