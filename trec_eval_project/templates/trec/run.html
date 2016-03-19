@@ -6,7 +6,7 @@
 <li><a href="{% url 'tracks' %}">Tracks</a></li>
 <li><a href="{% url 'track' run.task.track.slug %}">"{{ run.task.track.title }}"</a></li>
 <li><a href="{% url 'task' run.task.slug%}">Task "{{ run.task.title }}"</a></li>
-<li class="active">Run "{{ run.title }}"</li>
+<li class="active">Run "{{ run.name }}"</li>
 {% endblock %}
 
 {% block content %}

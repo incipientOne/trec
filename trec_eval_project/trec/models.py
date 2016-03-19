@@ -105,6 +105,8 @@ class Run(models.Model):
     feedback_type = models.IntegerField(default=Feedback_type.NONE)
     # Values used in the graphs / tables - Table values = MAP, P10, P20
     map_val = models.FloatField(null=True, blank=True)
+    p10_val = models.FloatField(null=True, blank=True)
+    p20_val = models.FloatField(null=True, blank=True)
 
     slug = models.SlugField()
 
@@ -131,6 +133,8 @@ class Run(models.Model):
             # calculate map, p_10, p_20.
             map, rMap, pMap = trec_wrapper(qrel_path, results_path)
             run.map_val = map
+            run.p10_val = pMap.get(10)
+            run.p20_val = pMap.get(20)
             for key in rMap:
                 r = Recall_val.objects.create(run=self, score=rMap[key], recall_number=key)
                 r.save()
