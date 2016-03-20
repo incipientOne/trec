@@ -26,11 +26,8 @@ Firstly make sure you are working on a clean pip environment.
 
 `cd trec_eval_project/`
 
-install a compiled copy of the trec_eval program in the trec_eval directory called trec_eval
-```
-#!python
+install a compiled copy of the trec_eval program in the 'trec_eval' directory called 'trec_eval'
 
-```
 `python manage.py migrate`
 
 `python manage.py bower install`
