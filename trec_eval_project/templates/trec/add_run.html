@@ -9,7 +9,6 @@
 <li class="active">Add a New Run</li>
 {% endblock %}
 
-
 {% block content %}    
     <form id="profile_form" method="post" action="{% url 'add_run' task.slug %}" enctype="multipart/form-data">
     	
@@ -18,8 +17,8 @@
     <h3>Please add a new run:</h3>
     
     {{ profile_form.as_p }}
-    	
-	<input type="submit" value="Add new run" name="submit" 
+    
+    <input type="submit" name="submit" value="Add new run">
 	
 	</form>
 
