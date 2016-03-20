@@ -3,7 +3,7 @@
 {% block title %}Run{% endblock %}
 
 {% block content %}
-	{% if task %}
+
 		<H1> Users </H1>
 		<H2>	
 			Filter By: <br>
@@ -22,15 +22,15 @@
 		
 			<table class="table table-hover">
 				<tr>
-			<th>Name</th>
+			<th>Researcher Display Name</th>
 			<th>No. of Runs</th>
-			<th>Institute</th>
+			<th>Organisation</th>
 			</tr>	
 			{% for user in users %}
 				<tr>
+					<td><a href="{% url 'user' user.slug %}">{{ user.display_name }}</a> </td>
 					<td></td>
-					<td></td>
-					<td></td>
+					<td>{{ user.organisation }}</td>
 				</tr>
 			{% endfor %}
 					
@@ -40,7 +40,4 @@
 			<strong>No users currently</strong>
 		{% endif %}
 			
-	{% else %}
-		Shouldn't be here currently
-	{% endif %}
 {% endblock %}

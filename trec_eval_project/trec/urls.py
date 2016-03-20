@@ -13,7 +13,9 @@ urlpatterns = patterns('',
 	url(r'^add_run/(?P<task_slug>[\w\-]+)/$', views.add_run, name='add_run'),									# For users to add a run for a task
 	url(r'^add_run/', views.add_run, name='add_run'),
 
-	url(r'^user_profile/(?P<researcher_detail_slug>[\w\-]+)/$', views.user_profile, name='user_profile'),		# Run detail url for details of specific runs within a task
+	url(r'^users/', views.users, name='users'),																	# Master list of all users
+	url(r'^user/(?P<researcher_detail_slug>[\w\-]+)/$', views.user, name='user'),		# Run detail url for details of specific runs within a task
+	
 	url(r'^register/$', views.register, name='register'),														# To register new users
 	url(r'^profile/edit', views.edit_profile, name='edit_profile'),		
 	url(r'^profile/', views.profile, name='profile'),															# For users to edit their profile details

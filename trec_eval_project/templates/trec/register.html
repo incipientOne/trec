@@ -11,7 +11,8 @@
 		<a href="/trec/">Return to the homepage.</a><br />
 
 	{% else %}
-		You are currently not registered so sign up here and have a trec-tastic time!<br />
+		You are currently not registered so sign up here and have a trec-tastic time!<br/>
+		Don't worry you can set a profile picture / update these details later.
 		<form id="user_form" method="post" action="/trec/register/" enctype="multipart/form-data">
 
 			{% csrf_token %}

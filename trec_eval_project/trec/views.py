@@ -23,7 +23,10 @@ def home(request):
 
     context_dict = {'random_run': run_list[rand_num]}
     return render(request, 'trec/home.html', context_dict)
+    
 
+def users(request):
+	return render(request, 'trec/users.html', {'users': Researcher.objects.all()})
 
 # Used to register a user
 def register(request):
@@ -176,7 +179,7 @@ def tracks_list(request):
 
 # User profile view for non-logged in users wishing to view
 # the profile details of a user who has uploaded a run
-def user_profile(request, researcher_detail_slug):
+def user(request, researcher_detail_slug):
     context_dict = {}
     user = User.objects.get(username=researcher_detail_slug)
     research = Researcher.objects.get(user=user)
@@ -229,7 +232,7 @@ def edit_profile(request):
 
     # Get the info via the edit user form and update the researcher in question
     if request.method == 'POST':
-        profile_form = EditUserInfoForm(data=request.POST)
+        profile_form = EditUserInfoForm(request.POST, request.FILES)
 
         if profile_form.is_valid():
             profile = profile_form.save(commit=False)
