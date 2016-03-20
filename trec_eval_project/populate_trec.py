@@ -151,6 +151,8 @@ def add_run(researcher_name, task_title, name, description, results_file_path, r
                 'run_id': name + '-' + str(run_id)}
     r = Run.objects.get_or_create(name=name, defaults=defaults)[0]
     r.save()
+    r.populate_with_trec_eval_data()
+    r.save()
     return r
 
 

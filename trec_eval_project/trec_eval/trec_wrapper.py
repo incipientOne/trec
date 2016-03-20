@@ -1,5 +1,8 @@
 import subprocess
 import os.path
+
+from django.core.exceptions import ValidationError
+
 from trec_eval_project.settings import BASE_DIR
 
 
@@ -13,9 +16,7 @@ def trec_wrapper(qrel_file_path, run_file_path):
     # This fixes pop script but someone should look into properly
     qrel_file_path = 'static' + qrel_file_path
     run_file_path = 'static' + run_file_path
-    
-    results = subprocess.check_output([trec_path, qrel_file_path, run_file_path])
-    
+
     results = subprocess.check_output([trec_path,
                                        '-m', 'map',  # tell trec_eval to calculate map
                                        '-m', 'P.5,10,15,20,30,100,200,500,1000',  # and P_10, P_20

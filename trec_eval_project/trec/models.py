@@ -111,30 +111,24 @@ class Run(models.Model):
     slug = models.SlugField()
 
     def save(self, *args, **kwargs):
-
-        self.slug = slugify(self.run_id)
-
-        # make sure that the result file is saved.
-        super(Run, self).save(*args, **kwargs)
-
-        self.populate_with_trec_eval_data(self)
-
         super(Run, self).save()
+
+        self.slug = slugify(self.run_id)    
 
     def __unicode__(self):
         return self.name
 
-    def populate_with_trec_eval_data(self, run):
-        if run.map_val == None:
+    def populate_with_trec_eval_data(self):
+        if self.map_val == None:
             # file paths for the qrel and results files.
             qrel_path = os.path.join(MEDIA_ROOT, self.task.judgements_file.url)
             results_path = os.path.join(MEDIA_ROOT, self.result_file.url)
 
             # calculate map, p_10, p_20.
             map, rMap, pMap = trec_wrapper(qrel_path, results_path)
-            run.map_val = map
-            run.p10_val = pMap.get(10)
-            run.p20_val = pMap.get(20)
+            self.map_val = map
+            self.p10_val = pMap.get(10)
+            self.p20_val = pMap.get(20)
             for key in rMap:
                 r = Recall_val.objects.create(run=self, score=rMap[key], recall_number=key)
                 r.save()

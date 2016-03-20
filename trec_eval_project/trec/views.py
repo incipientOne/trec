@@ -1,3 +1,7 @@
+import subprocess
+
+from django.core.exceptions import ValidationError
+from django.forms.utils import ErrorList
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from trec.models import Track, Task, Researcher, Run, User, Recall_val, P_value, Run_type, Query_type, Feedback_type
@@ -202,13 +206,23 @@ def add_run(request, task_slug):
         # profile_form = UploadFileForm(request.POST, request.FILES)
         if profile_form.is_valid():
             profile = profile_form.save(commit=False)
-
+            profile.task = task
             profile.researcher = researcher
             profile.run_id = run_id
-            profile.task = task
 
+            # we save this before calling trec_eval, as trec_eval needs the files to be stored in the file system.
             profile.save();
 
+            try:
+                # attempt to calculate stats with trec_eval.
+                profile.populate_with_trec_eval_data()
+                profile.save();
+
+            except subprocess.CalledProcessError:
+                # add error message for user.
+                profile_form._errors['result_file'] = ErrorList(["Could not process run file."])
+                # clean up the attempt to add a run.
+                profile.delete()
     else:
         profile_form = AddRun(instance=request.user)
 
