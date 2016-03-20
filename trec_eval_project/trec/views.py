@@ -49,8 +49,8 @@ def register(request):
             profile.save()
 
             registered = True
-
-            add_researcher(user, user)					# Add as researcher to db
+			# Add as researcher to db
+            add_researcher(user, user)					
 
         else:
             print user_form.errors, profile_form.errors
