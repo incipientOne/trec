@@ -12,6 +12,7 @@
 {% endblock %}
 
 {% block content %}
+
 	{% if edit %}
 		<div class="large-title"> Edit Profile </div>
 
@@ -38,7 +39,7 @@
 		
 		</form>
 	{% else %}
-
+		
 		<div class="large-title">Profile</div>
 		<a href="{% url 'edit_profile' %}">Edit</a>
 			<div class="row">
@@ -78,7 +79,7 @@
 						    <h3 class="panel-title">Profile picture</h3>
 						  </div>
 						  <div class="panel-body">
-						    Picture
+						  	<img src="{{ researcher.profile_picture.url }}" class="avatar img-circle" alt="This user is either a vampire, ghost or private.">
 						  </div>
 					</div>
 				</div>

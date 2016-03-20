@@ -142,8 +142,6 @@ def track(request, track_slug):
         	average = average / len(runs)
         	task_average.append([str(task.title), average])
         
-        print task_average
-        
         context_dict['task_average'] = task_average
 
     except Track.DoesNotExist:
@@ -273,5 +271,4 @@ def profile(request):
     user = User.objects.get(username=username)
     context_dict = {}
     context_dict['researcher'] = Researcher.objects.get(user=user)
-    
     return render(request, "trec/profile.html", context_dict)    

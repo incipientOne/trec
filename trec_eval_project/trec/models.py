@@ -36,7 +36,7 @@ class Feedback_type(Enum):
 class Researcher(models.Model):
     user = models.OneToOneField(User, primary_key=True)
 
-    profile_picture = models.ImageField(upload_to='profile_images', blank=True)
+    profile_picture = models.ImageField(upload_to='profile_images', blank=True, default='profile_images/default.png')
     website = models.URLField(blank=True)
     display_name = models.CharField(max_length=128)
     organisation = models.CharField(max_length=128)

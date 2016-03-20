@@ -97,7 +97,7 @@ def add_user(username, email, password, is_superuser=False):
     return u
 
 
-def add_researcher(username, display_name, website='', organisation='', picture=None):
+def add_researcher(username, display_name, website='', organisation='', picture='profile_images/default.png'):
     defaults = {'website': website,
                 'organisation': organisation,
                 'display_name': display_name,
