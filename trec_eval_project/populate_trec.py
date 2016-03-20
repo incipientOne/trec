@@ -67,7 +67,7 @@ def populate():
                     run_id = run_id + 1
                     add_run(get_rand_user(user_list), get_task_name(qrel_path, track), 'test_run' + str(run_id),
                             'Description of run', runs_path + track + '/' + run, Run_type.AUTOMATIC, Query_type.OTHER,
-                            Feedback_type.NONE, run_id)
+                            Feedback_type.NONE, run_id, False)
 
 
 def get_rand_user(user_list):
@@ -132,8 +132,12 @@ def add_Task(track_title, title, url, description, year, qrel_file_path):
 
 
 def add_run(researcher_name, task_title, name, description, results_file_path, run_type, query_type, feedback_type,
-            run_id):
-    results_file = File(open(results_file_path))
+            run_id, new):
+    if new:
+    	results_file = results_file_path
+    else:
+    	results_file = File(open(results_file_path))
+    
     user = User.objects.filter(username=researcher_name)[0]
     researcher = Researcher.objects.filter(user=user)[0]
     task = Task.objects.filter(title=task_title)[0]

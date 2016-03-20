@@ -4,7 +4,7 @@ from trec.models import Track, Task, Researcher, Run, User, Recall_val, P_value,
 
 from trec.forms import UserForm, UserProfileForm, EditUserInfoForm, AddRun
 
-from populate_trec import add_researcher, add_run
+import populate_trec
 
 # Used to get random index
 from random import randrange
@@ -50,7 +50,7 @@ def register(request):
 
             registered = True
 			# Add as researcher to db
-            add_researcher(user, user)					
+            populate_trec.add_researcher(user, user)					
 
         else:
             print user_form.errors, profile_form.errors
@@ -209,10 +209,9 @@ def add_run(request, task_slug):
             
             profile.result_file = request.FILES['result_file']
             
-            add_run(research, task, profile.name, profile.description, profile.result_file_path, Run_type.AUTOMATIC, Query_type.OTHER, Feedback_type.NONE,
-            run_id)
-            
-            print "run added"      
+            populate_trec.add_run(research, task, profile.name, profile.description, profile.result_file, Run_type.AUTOMATIC, Query_type.OTHER, Feedback_type.NONE,
+            run_id, True)
+                
         else:
             print profile_form.errors
         
