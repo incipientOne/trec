@@ -9,6 +9,7 @@ import populate_trec
 # Used to get random index
 from random import randrange
 
+
 # About FAQ page for the site
 def about(request):
     context_dict = {'boldmessage': "Context Dict Message For About Page"}
@@ -17,10 +18,9 @@ def about(request):
 
 # The home / main page for the site
 def home(request):
-    
     run_list = Run.objects.all()
     rand_num = randrange(0, len(run_list))
-    
+
     context_dict = {'random_run': run_list[rand_num]}
     return render(request, 'trec/home.html', context_dict)
 
@@ -49,8 +49,8 @@ def register(request):
             profile.save()
 
             registered = True
-			# Add as researcher to db
-            populate_trec.add_researcher(user, user)					
+            # Add as researcher to db
+            populate_trec.add_researcher(user, user)
 
         else:
             print user_form.errors, profile_form.errors
@@ -76,13 +76,13 @@ def task(request, task_slug):
         runs = Run.objects.filter(task=task)
         context_dict['runs'] = runs
         context_dict['task'] = task
-        
+
         map_vals = [['', 'MAP Score']]
         for run in runs:
-        	map_vals.append([str(run.name), run.map_val])
-        	
+            map_vals.append([str(run.name), run.map_val])
+
         context_dict['map_vals'] = map_vals
-    
+
     except Task.DoesNotExist:
         pass
 
@@ -102,15 +102,14 @@ def run(request, run_slug):
         recall_data = []
         for r in recalls:
             recall_data.append([r.recall_number, r.score])
-        recall_data = [['Recall', 'Precision']] + sorted(recall_data, key=lambda i:i[0])
+        recall_data = [['Recall', 'Precision']] + sorted(recall_data, key=lambda i: i[0])
         context_dict['recall_data'] = recall_data
-
 
         p_vals = P_value.objects.filter(run=run)
         p_data = []
         for p in p_vals:
             p_data.append([p.p_number, p.score])
-        p_data = [['Number of Documents', 'Precision']] + sorted(p_data, key=lambda i:i[0])
+        p_data = [['Number of Documents', 'Precision']] + sorted(p_data, key=lambda i: i[0])
         context_dict['p_data'] = p_data
 
     except Run.DoesNotExist:
@@ -131,17 +130,17 @@ def track(request, track_slug):
         tasks = Task.objects.filter(track=track)
         context_dict['tasks'] = tasks
         context_dict['track'] = track
-        
-        task_average = [['','Average MAP Score:']]
-        
+
+        task_average = [['', 'Average MAP Score:']]
+
         for task in tasks:
-        	average = 0
-        	runs = Run.objects.filter(task=task)
-        	for run in runs:
-        		average += run.map_val
-        	average = average / len(runs)
-        	task_average.append([str(task.title), average])
-        
+            average = 0
+            runs = Run.objects.filter(task=task)
+            for run in runs:
+                average += run.map_val
+            average = average / len(runs)
+            task_average.append([str(task.title), average])
+
         context_dict['task_average'] = task_average
 
     except Track.DoesNotExist:
@@ -154,76 +153,71 @@ def track(request, track_slug):
 def tracks_list(request):
     category_list = Track.objects.order_by("title")
     context_dict = {'track_list': category_list}
-    
+
     track_average = [['', 'Average Track MAP']]
-    
+
     for track in category_list:
-    	average = 0
-    	final = 0
-    	tasks = Task.objects.filter(track=track)
-    	for task in tasks:
-    		runs = Run.objects.filter(task=task)
-    		for run in runs:
-    			average = average + run.map_val
-    		average = average / len(runs)
-    		final = final + average
-    	final = final / len(tasks)
-    	track_average.append([str(track.title), final])
-    
+        average = 0
+        final = 0
+        tasks = Task.objects.filter(track=track)
+        for task in tasks:
+            runs = Run.objects.filter(task=task)
+            for run in runs:
+                average = average + run.map_val
+            average = average / len(runs)
+            final = final + average
+        final = final / len(tasks)
+        track_average.append([str(track.title), final])
+
     context_dict['track_average'] = track_average
-    	
+
     return render(request, 'trec/tracks_list.html', context_dict)
 
-   
+
 # User profile view for non-logged in users wishing to view
 # the profile details of a user who has uploaded a run
 def user_profile(request, researcher_detail_slug):
-	
-	context_dict = {}
-	user = User.objects.get(username=researcher_detail_slug)
-	research = Researcher.objects.get(user=user)
-	context_dict["researcher"] = research
-	context_dict["runs"] = Run.objects.filter(researcher=research)
+    context_dict = {}
+    user = User.objects.get(username=researcher_detail_slug)
+    research = Researcher.objects.get(user=user)
+    context_dict["researcher"] = research
+    context_dict["runs"] = Run.objects.filter(researcher=research)
 
-	return render(request, "trec/user_profile.html", context_dict)
+    return render(request, "trec/user_profile.html", context_dict)
 
-    
+
 # Requires user log in 
-# Handles user profile editing by fetching researcher data and altering the database
+# Handles adding a new run to a task.
 def add_run(request, task_slug):
     context_dict = {}
     username = request.user
     user = User.objects.get(username=username)
-    research = Researcher.objects.get(user=user)
+    researcher = Researcher.objects.get(user=user)
     task = Task.objects.get(slug=task_slug)
     run_id = len(Run.objects.all()) + 1
 
-    # Get the info via the edit user form and update the researcher in question
+    # Get the info via the AddRun form and create a new run.
     if request.method == 'POST':
         profile_form = AddRun(request.POST, request.FILES)
-        #profile_form = UploadFileForm(request.POST, request.FILES)
+        # profile_form = UploadFileForm(request.POST, request.FILES)
         if profile_form.is_valid():
             profile = profile_form.save(commit=False)
-            
-            # Handle profile picture change - test this as unsure if working
-            
-            profile.result_file = request.FILES['result_file']
-            
-            populate_trec.add_run(research, task, profile.name, profile.description, profile.result_file, Run_type.AUTOMATIC, Query_type.OTHER, Feedback_type.NONE,
-            run_id, True)
-                
-        else:
-            print profile_form.errors
-        
+
+            profile.researcher = researcher
+            profile.run_id = run_id
+            profile.task = task
+
+            profile.save();
+
     else:
         profile_form = AddRun(instance=request.user)
 
     context_dict['profile_form'] = profile_form
-    context_dict['researcher'] = research
     context_dict['task'] = task
-    
-    return render(request, "trec/add_run.html", context_dict) 
-    
+
+    return render(request, "trec/add_run.html", context_dict)
+
+
 # Requires user log in 
 # Handles user profile editing by fetching researcher data and altering the database
 def edit_profile(request):
@@ -239,12 +233,12 @@ def edit_profile(request):
 
         if profile_form.is_valid():
             profile = profile_form.save(commit=False)
-            
+
             # Handle profile picture change - test this as unsure if working
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
                 research.profile_picture = profile.picture
-            
+
             # Update other categories before saving to db and returning
             research.display_name = profile.display_name
             research.website = profile.website
@@ -252,18 +246,18 @@ def edit_profile(request):
             research.save()
 
             return redirect('profile')
-            
+
         else:
             print profile_form.errors
-        
+
     else:
         profile_form = UserProfileForm(instance=request.user)
 
     context_dict['profile_form'] = profile_form
     context_dict['researcher'] = research
-    
-    
+
     return render(request, "trec/profile.html", context_dict)
+
 
 def profile(request):
     username = request.user
@@ -272,4 +266,4 @@ def profile(request):
     context_dict = {}
     context_dict['researcher'] = research
     context_dict["runs"] = Run.objects.filter(researcher=research)
-    return render(request, "trec/profile.html", context_dict)    
+    return render(request, "trec/profile.html", context_dict)
