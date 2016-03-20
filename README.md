@@ -30,7 +30,6 @@ install a compiled copy of the trec_eval program in the trec_eval directory call
 ```
 #!python
 
-trec_eval/
 ```
 `python manage.py migrate`
 
