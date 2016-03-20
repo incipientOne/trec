@@ -16,7 +16,7 @@ class UserForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = Researcher
-        fields = ('display_name', 'website', 'organisation', 'profile_picture')
+        fields = ('display_name', 'website', 'organisation')
 
 
 # to edit user info

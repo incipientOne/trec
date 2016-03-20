@@ -58,9 +58,10 @@ body {
 
 .content {
 	background-color: white;
-	text-align:center; 
+	text-align:left; 
 	padding: 0 10px 10px 10px;
 }
+
 
 #main-nav {
 	margin: 0 -10px 0 -10px;
@@ -101,6 +102,7 @@ body {
 
 .large-title {
 	font-size: 3em;
+	text-align: center
 }
 
 .medium-title {
@@ -109,6 +111,13 @@ body {
 
 .larger-text {
 	font-size: 1.5em;
+	text-align: center
+}
+
+.medium-text {
+	font-size: 1.25em;
+	font-weight: bold;
+	text-align: left
 }
 
 .breadcrumb {

@@ -21,7 +21,7 @@
 					<a href="{% url 'home' %}">Home</a>
 				</li>
 				<li>
-					<a href="{% url 'home' %}">Users</a>
+					<a href="{% url 'users' %}">Users</a>
 				</li>
 				<li {% if url_tracks == request.path %}class = "active-tile"{% endif %}>
 					<a href="{% url 'tracks' %}">Tracks</a>

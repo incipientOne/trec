@@ -30,8 +30,6 @@ install a compiled copy of the trec_eval program in the 'trec_eval' directory ca
 
 `python manage.py migrate`
 
-`python manage.py bower install`
-
 `python manage.py collectstatic`
 
 Now you can run server/do stuff.

@@ -4,6 +4,11 @@
 
 {% block title %}User Profile{% endblock %}
 
+{% block breadcrumbs %}
+<li><a href="{% url 'users' %}">Users</a></li>
+<li class="active">User Profile "{{ researcher.slug }}"</li>
+{% endblock %}
+
 {% block content %}
 
 <div class="large-title">Profile</div>

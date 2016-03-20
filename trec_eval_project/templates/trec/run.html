@@ -76,9 +76,13 @@
 
 {% block content %}
 
-	<H1> Run Detail </H1>
-
-	<H2>This is one specific run detail: GRAPHS: Pie chart of miss-hit-fault ration / precision recall curve</H2>
+	<div class="medium-title"> {{ run.name }} </div>
+	
+	Uploader: <a href="{% url 'user' run.researcher.slug %}">{{ run.researcher }}</a> 
+	
+	</br>
+	
+	Description: {{ run.description }}
 	
 	<table class="columns">
     <tr>
@@ -106,6 +110,7 @@
             </tr>
     
             {% endfor %}
+            
 			</table>				
 			
 			<div class="panel-heading">
