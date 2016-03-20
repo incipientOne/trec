@@ -171,7 +171,6 @@ def tracks_list(request):
     	track_average.append([str(track.title), final])
     
     context_dict['track_average'] = track_average
-    print track_average
     	
     return render(request, 'trec/tracks_list.html', context_dict)
 
@@ -184,6 +183,7 @@ def user_profile(request, researcher_detail_slug):
 	user = User.objects.get(username=researcher_detail_slug)
 	research = Researcher.objects.get(user=user)
 	context_dict["researcher"] = research
+	context_dict["runs"] = Run.objects.filter(researcher=research)
 
 	return render(request, "trec/user_profile.html", context_dict)
 
@@ -268,6 +268,8 @@ def edit_profile(request):
 def profile(request):
     username = request.user
     user = User.objects.get(username=username)
+    research = Researcher.objects.get(user=user)
     context_dict = {}
-    context_dict['researcher'] = Researcher.objects.get(user=user)
+    context_dict['researcher'] = research
+    context_dict["runs"] = Run.objects.filter(researcher=research)
     return render(request, "trec/profile.html", context_dict)    

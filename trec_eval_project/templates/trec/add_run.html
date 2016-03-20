@@ -1,6 +1,14 @@
 {% extends 'core/base.html' %}
 
-{% block title %}Add a new run{% endblock %}
+{% block title %}Add a New Run{% endblock %}
+
+{% block breadcrumbs %}
+<li><a href="{% url 'tracks' %}">Tracks</a></li>
+<li><a href="{% url 'track' task.track.slug %}">Track "{{ task.track.title }}"</a></li>
+<li><a href="{% url 'task' task.slug %}">Track "{{ task.title }}"</a></li>
+<li class="active">Add a New Run</li>
+{% endblock %}
+
 
 {% block content %}    
     <form id="profile_form" method="post" action="{% url 'add_run' task.slug %}" enctype="multipart/form-data">
@@ -10,8 +18,8 @@
     <h3>Please add a new run:</h3>
     
     {{ profile_form.as_p }}
-    
-    <a href="{% url 'home' %}"><input type="submit" name="submit" value="Add new run"></a>
+    	
+	<input type="submit" value="Add new run" name="submit" 
 	
 	</form>
 

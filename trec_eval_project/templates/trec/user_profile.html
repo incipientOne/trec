@@ -9,6 +9,18 @@
 <div class="large-title">Profile</div>
 
 			<div class="row">
+			
+			<div class="col-sm-3">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+						    <h3 class="panel-title">Profile picture</h3>
+						  </div>
+						  <div class="panel-body">
+						  	<img src="{{ researcher.profile_picture.url }}" alt="This user is either a vampire, ghost or private." width="200" height="200">
+						  </div>
+					</div>
+				</div>
+				
 				<div class="col-sm-3">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
@@ -19,6 +31,7 @@
 						  </div>
 					</div>
 				</div>
+			
 				<div class="col-sm-3">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
@@ -29,6 +42,7 @@
 						  </div>
 					</div>
 				</div>
+				
 				<div class="col-sm-3">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
@@ -39,32 +53,44 @@
 						  </div>
 					</div>
 				</div>
-				<div class="col-sm-3">
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-						    <h3 class="panel-title">Profile picture</h3>
-						  </div>
-						  <div class="panel-body">
-						    <img src="{{ researcher.profile_picture.url }}" alt="This user is either a vampire, ghost or private." width="200" height="200">
-						  </div>
-					</div>
-				</div>
+			
 			</div>
-
+			
 
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					Problems Worked On
+					Uploaded Runs
 				</div>
 
-				<table class="table table-hover">
-					<tr>
-					<th>Title</th>
-					<th>ID</th>
-					<th>#runs</th>
+		
+		{% if runs %}
+			<table class="table table-hover">
+				<tr>
+					<th>Run Name</th>
+					<th>Track</th>
+					<th>Task</th>
+					<th>MAP Score</th>
+					<th>P10 Score</th>
+					<th>P20 Score</th>
 					<th>Description</th>
-				</table>
+				</tr>	
 
+				{% for run in runs %}
+					<tr>
+						<td><a href="{% url 'run' run.slug %}">{{ run.name }}</a></td>
+						<td><a href="{% url 'track' run.task.track.slug %}">"{{ run.task.track.title }}"</a></td>
+						<td><a href="{% url 'task' run.task.slug%}">"{{ run.task.title }}"</a></td>
+						<td>{{ run.map_val }} </td>
+						<td>{{ run.p10_val }}</td>
+						<td>{{ run.p20_val }}</td>
+						<td>{{ run.description }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		{% else %}
+			<div class="panel-body">
+				<strong>This user is too afraid to participate in TREC.</br> Don't be like him.</br> Upload a run.</strong><br / >
 			</div>
+		{% endif %}
 
 {% endblock %}

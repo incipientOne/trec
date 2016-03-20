@@ -56,9 +56,6 @@ function drawBasic() {
 			<label class="radio-inline">
 				<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> ID
 			</label>
-			<label class="radio-inline">
-				<input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> No. of Runs
-			</label>
 		</div>
 
 		{% if track_list %}
@@ -67,7 +64,6 @@ function drawBasic() {
 					<th>Title</th>
 					<th>ID</th>
 					<th>Genre</th>
-					<th>#runs</th>
 					<th>Description</th>
 				</tr>	
 
@@ -76,7 +72,6 @@ function drawBasic() {
 						<td><a href="{% url 'track' track.slug %}">{{ track.title }}</a></td>
 						<td>{{ track.id }} </td>
 						<td>{{ track.genre }}</td>
-						<td></td>
 						<td>{{ track.description }}</td>
 					</tr>
 				{% endfor %}
