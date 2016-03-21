@@ -59,7 +59,7 @@
 					<th>Description</th>
 				</tr>	
 
-				{% for track in track_list %}
+				{% for track in track_list.object_list %}
 					<tr>
 						<td><a href="{% url 'track' track.slug %}">{{ track.title }}</a></td>
 						<td>{{ track.id }} </td>
@@ -68,6 +68,10 @@
 					</tr>
 				{% endfor %}
 			</table>
+
+			<div id="pagination">
+				{% include 'core/paginator.html' with page_obj=track_list %}
+			</div>
 		{% else %}
 			<div class="panel-body">
 				<strong>There are no tracks present.</strong><br / >

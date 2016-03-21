@@ -18,297 +18,333 @@ from random import randrange
 
 # About FAQ page for the site
 def about(request):
-    context_dict = {'boldmessage': "Context Dict Message For About Page"}
-    return render(request, 'trec/about.html', context_dict)
+	context_dict = {'boldmessage': "Context Dict Message For About Page"}
+	return render(request, 'trec/about.html', context_dict)
 
 
 # The home / main page for the site
 def home(request):
-    context_dict = {}
-    return render(request, 'trec/home.html', context_dict)
+	context_dict = {}
+	return render(request, 'trec/home.html', context_dict)
 
 def random(request):
-    run_list = Run.objects.all()
-    rand_num = randrange(0, len(run_list))
+	run_list = Run.objects.all()
+	rand_num = randrange(0, len(run_list))
 
-    return redirect('run', run_slug=run_list[rand_num].slug)
+	return redirect('run', run_slug=run_list[rand_num].slug)
 
 def users(request):
-	return render(request, 'trec/users.html', {'users': Researcher.objects.all()})
+	users = Researcher.objects.all()
+	paginator = Paginator(users, 10)
+	page = request.GET.get('page')
+	max_page = paginator.num_pages
+
+	try:
+		users = paginator.page(page)
+	except (PageNotAnInteger, TypeError):
+		users = paginator.page(1)
+	except EmptyPage:
+		users = paginator.page(max_page)
+
+	return render(request, 'trec/users.html', {'users': users})
 
 # Used to register a user
 def register(request):
-    registered = False
+	registered = False
 
-    # Get the required info from the user and add as new researcher to database
-    if request.method == 'POST':
-        user_form = UserForm(data=request.POST)
-        profile_form = UserProfileForm(data=request.POST)
+	# Get the required info from the user and add as new researcher to database
+	if request.method == 'POST':
+		user_form = UserForm(data=request.POST)
+		profile_form = UserProfileForm(data=request.POST)
 
-        if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save()
+		if user_form.is_valid() and profile_form.is_valid():
+			user = user_form.save()
 
-            user.set_password(user.password)
-            user.save()
+			user.set_password(user.password)
+			user.save()
 
-            profile = profile_form.save(commit=False)
-            profile.user = user
+			profile = profile_form.save(commit=False)
+			profile.user = user
 
-            if 'picture' in request.FILES:
-                profile.picture = request.FILES['picture']
+			if 'picture' in request.FILES:
+				profile.picture = request.FILES['picture']
 
-            profile.save()
+			profile.save()
 
-            registered = True
-            # Add as researcher to db
-            populate_trec.add_researcher(user, user)
-        else:
-            for key in user_form.errors:
-                messages.error(request, "Field '"+key+"': "+user_form.errors.get(key)[0])
+			registered = True
+			# Add as researcher to db
+			populate_trec.add_researcher(user, user)
+		else:
+			for key in user_form.errors:
+				messages.error(request, "Field '"+key+"': "+user_form.errors.get(key)[0])
 
-            for key in profile_form.errors:
-                messages.error(request, "Field '"+key+"': "+profile_form.errors.get(key)[0])
+			for key in profile_form.errors:
+				messages.error(request, "Field '"+key+"': "+profile_form.errors.get(key)[0])
 
-    else:
-        user_form = UserForm()
-        profile_form = UserProfileForm()
+	else:
+		user_form = UserForm()
+		profile_form = UserProfileForm()
 
-    return render(request,
-                  'trec/register.html',
-                  {'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
+	return render(request,
+				  'trec/register.html',
+				  {'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
 
 
 # All runs for a given task
 def task(request, task_slug):
-    context_dict = {}
+	context_dict = {}
 
-    try:
-        # Get the specific task
-        task = Task.objects.get(slug=task_slug)
+	try:
+		# Get the specific task
+		task = Task.objects.get(slug=task_slug)
 
-        # Get the runs within that task and store into context dict along with task itself
-        runs = Run.objects.filter(task=task)
-        paginator = Paginator(runs, 10)
+		# Get the runs within that task and store into context dict along with task itself
+		runs = Run.objects.filter(task=task)
+		paginator = Paginator(runs, 10)
 
-        page = request.GET.get('page')
-        max_page = paginator.num_pages
+		page = request.GET.get('page')
+		max_page = paginator.num_pages
 
-        try:
-            runs = paginator.page(page)
-        except PageNotAnInteger:
-            runs = paginator.page(1)
-        except EmptyPage:
-            runs = paginator.page(max_page)
+		try:
+			runs = paginator.page(page)
+		except (PageNotAnInteger, TypeError):
+			runs = paginator.page(1)
+		except EmptyPage:
+			runs = paginator.page(max_page)
 
-        context_dict['runs'] = runs
-        context_dict['task'] = task
+		context_dict['runs'] = runs
+		context_dict['task'] = task
 
-        map_vals = [['', 'MAP Score']]
-        for run in runs.object_list:
-            map_vals.append([str(run.name), run.map_val])
+		map_vals = [['', 'MAP Score']]
+		for run in runs.object_list:
+			map_vals.append([str(run.name), run.map_val])
 
-        context_dict['map_vals'] = map_vals
+		context_dict['map_vals'] = map_vals
 
-    except Task.DoesNotExist:
-        messages.error(request, "This task does not seem to exist.")
-        pass
+	except Task.DoesNotExist:
+		messages.error(request, "This task does not seem to exist.")
+		pass
 
-    return render(request, 'trec/task.html', context_dict)
+	return render(request, 'trec/task.html', context_dict)
 
 
 # One specific run's details page
 def run(request, run_slug):
-    context_dict = {}
+	context_dict = {}
 
-    try:
-        # Get the specific run and store in context-dict: including all scores for graphs
-        run = Run.objects.get(slug=run_slug)
-        context_dict['run'] = run
-        context_dict['researcher'] = run.researcher
-        recalls = Recall_val.objects.filter(run=run)
-        recall_data = []
-        for r in recalls:
-            recall_data.append([r.recall_number, r.score])
-        recall_data = [['Recall', 'Precision']] + sorted(recall_data, key=lambda i: i[0])
-        context_dict['recall_data'] = recall_data
+	try:
+		# Get the specific run and store in context-dict: including all scores for graphs
+		run = Run.objects.get(slug=run_slug)
+		context_dict['run'] = run
+		context_dict['researcher'] = run.researcher
+		recalls = Recall_val.objects.filter(run=run)
+		recall_data = []
+		for r in recalls:
+			recall_data.append([r.recall_number, r.score])
+		recall_data = [['Recall', 'Precision']] + sorted(recall_data, key=lambda i: i[0])
+		context_dict['recall_data'] = recall_data
 
-        p_vals = P_value.objects.filter(run=run)
-        p_data = []
-        for p in p_vals:
-            p_data.append([p.p_number, p.score])
-        p_data = [['Number of Documents', 'Precision']] + sorted(p_data, key=lambda i: i[0])
-        context_dict['p_data'] = p_data
+		p_vals = P_value.objects.filter(run=run)
+		p_data = []
+		for p in p_vals:
+			p_data.append([p.p_number, p.score])
+		p_data = [['Number of Documents', 'Precision']] + sorted(p_data, key=lambda i: i[0])
+		context_dict['p_data'] = p_data
 
-    except Run.DoesNotExist:
-        messages.error(request, "This run does not seem to exist.")
-        pass
+	except Run.DoesNotExist:
+		messages.error(request, "This run does not seem to exist.")
+		pass
 
-    return render(request, 'trec/run.html', context_dict)
+	return render(request, 'trec/run.html', context_dict)
 
 
 # Task view to display all the tasks within a track
 def track(request, track_slug):
-    context_dict = {}
+	context_dict = {}
 
-    try:
-        # Get the specific track
-        track = Track.objects.get(slug=track_slug)
+	try:
+		# Get the specific track
+		track = Track.objects.get(slug=track_slug)
 
-        # Get the tasks and store info context dict
-        tasks = Task.objects.filter(track=track)
-        context_dict['tasks'] = tasks
-        context_dict['track'] = track
+		# Get the tasks and store info context dict
+		tasks = Task.objects.filter(track=track)
+		paginator = Paginator(tasks, 10)
 
-        task_average = [['', 'Average MAP Score:']]
+		page = request.GET.get('page')
+		max_page = paginator.num_pages
 
-        for task in tasks:
-            average = 0
-            runs = Run.objects.filter(task=task)
-            for run in runs:
-                average += run.map_val
-            average = average / len(runs)
-            task_average.append([str(task.title), average])
+		try:
+			tasks = paginator.page(page)
+		except (PageNotAnInteger, TypeError):
+			tasks = paginator.page(1)
+		except EmptyPage:
+			tasks = paginator.page(max_page)
 
-        context_dict['task_average'] = task_average
+		context_dict['tasks'] = tasks
+		context_dict['track'] = track
 
-    except Track.DoesNotExist:
-        messages.error(request, "This track does not seem to exist.")
-        pass
+		task_average = [['', 'Average MAP Score:']]
 
-    return render(request, 'trec/track.html', context_dict)
+		for task in tasks.object_list:
+			average = 0
+			runs = Run.objects.filter(task=task)
+			for run in runs:
+				average += run.map_val
+			average = average / len(runs)
+			task_average.append([str(task.title), average])
+
+		context_dict['task_average'] = task_average
+
+	except Track.DoesNotExist:
+		messages.error(request, "This track does not seem to exist.")
+		pass
+
+	return render(request, 'trec/track.html', context_dict)
 
 
 # The main tracks page - get all the tracks ordered alphabetically
 def tracks_list(request):
-    category_list = Track.objects.order_by("title")
-    context_dict = {'track_list': category_list}
+	category_list = Track.objects.order_by("title")
 
-    track_average = [['', 'Average Track MAP']]
+	paginator = Paginator(category_list, 10)
+	page = request.GET.get('page')
+	max_page = paginator.num_pages
 
-    for track in category_list:
-        average = 0
-        final = 0
-        tasks = Task.objects.filter(track=track)
-        for task in tasks:
-            runs = Run.objects.filter(task=task)
-            for run in runs:
-                average = average + run.map_val
-            average = average / len(runs)
-            final = final + average
-        final = final / len(tasks)
-        track_average.append([str(track.title), final])
+	try:
+		category_list = paginator.page(page)
+	except (PageNotAnInteger, TypeError):
+		category_list = paginator.page(1)
+	except EmptyPage:
+		category_list = paginator.page(max_page)
 
-    context_dict['track_average'] = track_average
+	context_dict = {'track_list': category_list}
 
-    return render(request, 'trec/tracks_list.html', context_dict)
+	track_average = [['', 'Average Track MAP']]
+
+	for track in category_list.object_list:
+		average = 0
+		final = 0
+		tasks = Task.objects.filter(track=track)
+		for task in tasks:
+			runs = Run.objects.filter(task=task)
+			for run in runs:
+				average = average + run.map_val
+			average = average / len(runs)
+			final = final + average
+		final = final / len(tasks)
+		track_average.append([str(track.title), final])
+
+	context_dict['track_average'] = track_average
+
+	return render(request, 'trec/tracks_list.html', context_dict)
 
 
 # User profile view for non-logged in users wishing to view
 # the profile details of a user who has uploaded a run
 def user(request, researcher_detail_slug):
-    context_dict = {}
-    user = User.objects.get(username=researcher_detail_slug)
-    research = Researcher.objects.get(user=user)
-    context_dict["researcher"] = research
-    context_dict["runs"] = Run.objects.filter(researcher=research)
+	context_dict = {}
+	user = User.objects.get(username=researcher_detail_slug)
+	research = Researcher.objects.get(user=user)
+	context_dict["researcher"] = research
+	context_dict["runs"] = Run.objects.filter(researcher=research)
 
-    return render(request, "trec/user_profile.html", context_dict)
+	return render(request, "trec/user_profile.html", context_dict)
 
 
 # Requires user log in 
 # Handles adding a new run to a task.
 def add_run(request, task_slug):
-    context_dict = {}
-    username = request.user
-    user = User.objects.get(username=username)
-    researcher = Researcher.objects.get(user=user)
-    task = Task.objects.get(slug=task_slug)
-    run_id = len(Run.objects.all()) + 1
+	context_dict = {}
+	username = request.user
+	user = User.objects.get(username=username)
+	researcher = Researcher.objects.get(user=user)
+	task = Task.objects.get(slug=task_slug)
+	run_id = len(Run.objects.all()) + 1
 
-    # Get the info via the AddRun form and create a new run.
-    if request.method == 'POST':
-        profile_form = AddRun(request.POST, request.FILES)
-        # profile_form = UploadFileForm(request.POST, request.FILES)
-        if profile_form.is_valid():
-            profile = profile_form.save(commit=False)
-            profile.task = task
-            profile.researcher = researcher
-            profile.run_id = run_id
+	# Get the info via the AddRun form and create a new run.
+	if request.method == 'POST':
+		profile_form = AddRun(request.POST, request.FILES)
+		# profile_form = UploadFileForm(request.POST, request.FILES)
+		if profile_form.is_valid():
+			profile = profile_form.save(commit=False)
+			profile.task = task
+			profile.researcher = researcher
+			profile.run_id = run_id
 
-            # we save this before calling trec_eval, as trec_eval needs the files to be stored in the file system.
-            profile.save();
+			# we save this before calling trec_eval, as trec_eval needs the files to be stored in the file system.
+			profile.save();
 
-            try:
-                # attempt to calculate stats with trec_eval.
-                profile.populate_with_trec_eval_data()
-                profile.save();
-                return redirect('task', task_slug=task_slug)
+			try:
+				# attempt to calculate stats with trec_eval.
+				profile.populate_with_trec_eval_data()
+				profile.save();
+				return redirect('task', task_slug=task_slug)
 
-            except subprocess.CalledProcessError:
-                # add error message for user.
-                profile_form._errors['result_file'] = ErrorList(["Could not process run file."])
-                # clean up the attempt to add a run.
-                profile.delete()
+			except subprocess.CalledProcessError:
+				# add error message for user.
+				profile_form._errors['result_file'] = ErrorList(["Could not process run file."])
+				# clean up the attempt to add a run.
+				profile.delete()
 
-        for key in profile_form.errors:
-            messages.error(request, "Field '"+key+"': "+profile_form.errors.get(key)[0])
-    else:
-        profile_form = AddRun(instance=request.user)
+		for key in profile_form.errors:
+			messages.error(request, "Field '"+key+"': "+profile_form.errors.get(key)[0])
+	else:
+		profile_form = AddRun(instance=request.user)
 
-    context_dict['profile_form'] = profile_form
-    context_dict['task'] = task
+	context_dict['profile_form'] = profile_form
+	context_dict['task'] = task
 
-    return render(request, "trec/add_run.html", context_dict)
+	return render(request, "trec/add_run.html", context_dict)
 
 
 # Requires user log in 
 # Handles user profile editing by fetching researcher data and altering the database
 def edit_profile(request):
-    context_dict = {}
-    username = request.user
-    user = User.objects.get(username=username)
-    research = Researcher.objects.get(user=user)
-    context_dict['edit'] = True
+	context_dict = {}
+	username = request.user
+	user = User.objects.get(username=username)
+	research = Researcher.objects.get(user=user)
+	context_dict['edit'] = True
 
-    # Get the info via the edit user form and update the researcher in question
-    if request.method == 'POST':
-        profile_form = EditUserInfoForm(request.POST, request.FILES)
+	# Get the info via the edit user form and update the researcher in question
+	if request.method == 'POST':
+		profile_form = EditUserInfoForm(request.POST, request.FILES)
 
-        if profile_form.is_valid():
-            profile = profile_form.save(commit=False)
+		if profile_form.is_valid():
+			profile = profile_form.save(commit=False)
 
-            # Handle profile picture change - test this as unsure if working
-            if 'picture' in request.FILES:
-                profile.picture = request.FILES['picture']
-                research.profile_picture = profile.picture
+			# Handle profile picture change - test this as unsure if working
+			if 'picture' in request.FILES:
+				profile.picture = request.FILES['picture']
+				research.profile_picture = profile.picture
 
-            # Update other categories before saving to db and returning
-            research.display_name = profile.display_name
-            research.website = profile.website
-            research.organisation = profile.organisation
-            research.save()
+			# Update other categories before saving to db and returning
+			research.display_name = profile.display_name
+			research.website = profile.website
+			research.organisation = profile.organisation
+			research.save()
 
-            return redirect('profile')
+			return redirect('profile')
 
-        else:
-            for key in profile_form.errors:
-                messages.error(request, "Field '"+key+"': "+profile_form.errors.get(key)[0])
+		else:
+			for key in profile_form.errors:
+				messages.error(request, "Field '"+key+"': "+profile_form.errors.get(key)[0])
 
-    else:
-        profile_form = UserProfileForm(instance=request.user)
+	else:
+		profile_form = UserProfileForm(instance=request.user)
 
-    context_dict['profile_form'] = profile_form
-    context_dict['researcher'] = research
+	context_dict['profile_form'] = profile_form
+	context_dict['researcher'] = research
 
-    return render(request, "trec/profile.html", context_dict)
+	return render(request, "trec/profile.html", context_dict)
 
 
 def profile(request):
-    username = request.user
-    user = User.objects.get(username=username)
-    research = Researcher.objects.get(user=user)
-    context_dict = {}
-    context_dict['researcher'] = research
-    context_dict["runs"] = Run.objects.filter(researcher=research)
-    
-    return render(request, "trec/profile.html", context_dict)
+	username = request.user
+	user = User.objects.get(username=username)
+	research = Researcher.objects.get(user=user)
+	context_dict = {}
+	context_dict['researcher'] = research
+	context_dict["runs"] = Run.objects.filter(researcher=research)
+	
+	return render(request, "trec/profile.html", context_dict)
