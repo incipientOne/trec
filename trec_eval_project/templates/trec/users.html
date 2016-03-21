@@ -29,7 +29,7 @@
 			{% for user in users.object_list  %}
 				<tr>
 					<td><a href="{% url 'user' user.slug %}">{{ user.display_name }}</a> </td>
-					<td></td>
+					<td>{{ user.number_of_runs }}</td>
 					<td>{{ user.organisation }}</td>
 				</tr>
 			{% endfor %}

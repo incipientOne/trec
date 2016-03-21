@@ -40,12 +40,15 @@ class Researcher(models.Model):
     website = models.URLField(blank=True)
     display_name = models.CharField(max_length=128)
     organisation = models.CharField(max_length=128)
+    number_of_runs = models.IntegerField(default=0)
     
     slug = models.SlugField()
     
     # Slum Mckenzie up these URLS
     def save(self, *args, **kwargs):
         self.slug = slugify(self.user.username)
+        researchers_runs = Run.objects.filter(researcher=self)
+        self.number_of_runs = len(researchers_runs)
         super(Researcher, self).save(*args, **kwargs)
     
     def __unicode__(self):
@@ -112,6 +115,7 @@ class Run(models.Model):
 
     def save(self, *args, **kwargs):
         super(Run, self).save()
+        self.researcher.save()
 
         self.slug = slugify(self.run_id)
 
