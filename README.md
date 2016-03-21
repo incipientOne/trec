@@ -1,3 +1,6 @@
+Username mapping:
+Michelle Dove : 2142931d
+
 # Trec eval app #
 
 This application is used to manage trec eval data. Follow the guidelines below to setup the project.
