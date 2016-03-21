@@ -3,7 +3,7 @@ import subprocess
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponsePermanentRedirect
 from trec.models import Track, Task, Researcher, Run, User, Recall_val, P_value, Run_type, Query_type, Feedback_type
 
 from trec.forms import UserForm, UserProfileForm, EditUserInfoForm, AddRun
@@ -222,6 +222,7 @@ def add_run(request, task_slug):
                 # attempt to calculate stats with trec_eval.
                 profile.populate_with_trec_eval_data()
                 profile.save();
+                return HttpResponsePermanentRedirect('/trec/task/' + task_slug)
 
             except subprocess.CalledProcessError:
                 # add error message for user.
