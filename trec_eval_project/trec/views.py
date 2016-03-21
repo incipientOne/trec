@@ -236,6 +236,9 @@ def add_run(request, task_slug):
                 profile_form._errors['result_file'] = ErrorList(["Could not process run file."])
                 # clean up the attempt to add a run.
                 profile.delete()
+
+        for key in profile_form.errors:
+            messages.error(request, "Field '"+key+"': "+profile_form.errors.get(key)[0])
     else:
         profile_form = AddRun(instance=request.user)
 
@@ -275,7 +278,8 @@ def edit_profile(request):
             return redirect('profile')
 
         else:
-            print profile_form.errors
+            for key in profile_form.errors:
+                messages.error(request, "Field '"+key+"': "+profile_form.errors.get(key)[0])
 
     else:
         profile_form = UserProfileForm(instance=request.user)
@@ -293,4 +297,5 @@ def profile(request):
     context_dict = {}
     context_dict['researcher'] = research
     context_dict["runs"] = Run.objects.filter(researcher=research)
+    
     return render(request, "trec/profile.html", context_dict)

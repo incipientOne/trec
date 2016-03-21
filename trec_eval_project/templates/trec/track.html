@@ -1,34 +1,26 @@
 {% extends 'core/base.html' %}
 
+{% load staticfiles %} 
+
 {% block resources %}
  <!--Load the AJAX API-->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript" src='{% static 'run-graphs.js' %}'></script>
+	<script type="text/javascript">
+  		var data_basic = {{task_average|safe}};
 
-google.charts.load('current', {packages: ['corechart', 'bar']});
-google.charts.setOnLoadCallback(drawBasic);
-
-function drawBasic() {
-
-      var data = google.visualization.arrayToDataTable({{task_average|safe}});
-
-      var options = {
-        title: 'Average MAP Per Task',
-        chartArea: {width: '50%'},
-        hAxis: {
-          title: 'Average MAP Score',
-          minValue: 0
-        },
-        vAxis: {
-          title: 'Tasks'
-        }
-      };
-
-      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-
-      chart.draw(data, options);
-    }
-    </script>
+	  	var options_basic = {
+			title: 'Average MAP Per Task',
+			chartArea: {width: '50%'},
+			hAxis: {
+			  title: 'Average MAP Score',
+			  minValue: 0
+			},
+			vAxis: {
+			  title: 'Tasks'
+			}
+	  	};
+	</script>
 {% endblock %}
 
 
@@ -40,39 +32,39 @@ function drawBasic() {
 {% endblock %}
 
 {% block content %}
-    {% if track %}
-    	
-    	<div id="chart_div"></div>
-    
-        <div class="larger-text"> Tasks for track "{{ track.title }}"</div>
-                    
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                This is the page for all of the tasks of a given track - select a task and see the associated run table / graph
-            </div>
-                    
-            {% if tasks %}
-                <table class="table table-hover">       
-                    <tr>
-                        <th>Task Title</th>
-                        <th>Year</th>
-                        <th>Description</th>
-                    </tr>
+	{% if track %}
+		
+		<div id="chart_div"></div>
+	
+		<div class="larger-text"> Tasks for track "{{ track.title }}"</div>
+					
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				This is the page for all of the tasks of a given track - select a task and see the associated run table / graph
+			</div>
+					
+			{% if tasks %}
+				<table class="table table-hover">       
+					<tr>
+						<th>Task Title</th>
+						<th>Year</th>
+						<th>Description</th>
+					</tr>
 
-                    {% for task in tasks %}
-                        <tr>
-                            <td><a href="{% url 'task' task.slug %}">{{ task.slug }}</a></td>
-                            <td>{{ task.year }}</td>
-                            <td>{{ task.description }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-                            
-            {% else %}
-                    <strong>No tasks currently in this track.</strong>
-            {% endif %}
-        </div>
-    {% else %}
-        The track {{ track.title }} does not exist!
-    {% endif %}
+					{% for task in tasks %}
+						<tr>
+							<td><a href="{% url 'task' task.slug %}">{{ task.slug }}</a></td>
+							<td>{{ task.year }}</td>
+							<td>{{ task.description }}</td>
+						</tr>
+					{% endfor %}
+				</table>
+							
+			{% else %}
+					<strong>No tasks currently in this track.</strong>
+			{% endif %}
+		</div>
+	{% else %}
+		The track {{ track.title }} does not exist!
+	{% endif %}
 {% endblock %}
