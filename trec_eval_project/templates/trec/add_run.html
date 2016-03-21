@@ -10,14 +10,26 @@
 {% endblock %}
 
 {% block content %}    
-    <form id="profile_form" method="post" action="{% url 'add_run' task.slug %}" enctype="multipart/form-data">
+    <form id="profile_form" method="post" action="{% url 'add_run' task.slug %}" enctype="multipart/form-data" class="basic-form">
     	
     {% csrf_token %}
     
     <h3>Please add a new run:</h3>
-    
-    {{ profile_form.as_p }}
-    
+
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="name" placeholder="Enter name" value="">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea name="description" rows="10" cols="55" placeholder="Description..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="result_file">Upload file</label>
+            <input type="file" class="form-control" name="result_file" value="">
+        </div>
     <input type="submit" name="submit" value="Add new run">
 	
 	</form>
