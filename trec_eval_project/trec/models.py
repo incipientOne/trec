@@ -113,7 +113,7 @@ class Run(models.Model):
     def save(self, *args, **kwargs):
         super(Run, self).save()
 
-        self.slug = slugify(self.run_id)    
+        self.slug = slugify(self.run_id)
 
     def __unicode__(self):
         return self.name
