@@ -1,7 +1,11 @@
 Username mapping / team members:
+
 Michelle Dove : 2142931d
+
 Yiannis Kathidjiotis: 2082011K
+
 Joseph O'Hagan: 2136120o
+
 Michal Vinárek: 2148003v 
 
 # Trec eval app #
