@@ -1,6 +1,7 @@
 import subprocess
 
 from django.core.exceptions import ValidationError
+from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from django.forms.utils import ErrorList
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponsePermanentRedirect
@@ -87,11 +88,23 @@ def task(request, task_slug):
 
         # Get the runs within that task and store into context dict along with task itself
         runs = Run.objects.filter(task=task)
+        paginator = Paginator(runs, 10)
+
+        page = request.GET.get('page')
+        max_page = paginator.num_pages
+
+        try:
+            runs = paginator.page(page)
+        except PageNotAnInteger:
+            runs = paginator.page(1)
+        except EmptyPage:
+            runs = paginator.page(max_page)
+
         context_dict['runs'] = runs
         context_dict['task'] = task
 
         map_vals = [['', 'MAP Score']]
-        for run in runs:
+        for run in runs.object_list:
             map_vals.append([str(run.name), run.map_val])
 
         context_dict['map_vals'] = map_vals

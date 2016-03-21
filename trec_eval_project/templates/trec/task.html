@@ -59,7 +59,7 @@
 						<th>P20</th>
 					</tr>
 					
-					{% for run in runs %}
+					{% for run in runs.object_list %}
 						<tr>
 							<td><a href="{% url 'run' run.slug %}">{{ run.name }}</td>
 							<td><a href="{% url 'user' run.researcher.slug %}">{{ run.researcher }}</td>
@@ -69,6 +69,9 @@
 						</tr>
 					{% endfor %}
 				</table>
+				<div id="pagination">
+				    {% include 'core/paginator.html' with page_obj=runs %}
+				</div>
 							
 			{% else %}
 					<strong>No runs currently in this task.</strong>
