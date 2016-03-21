@@ -26,7 +26,9 @@ Firstly make sure you are working on a clean pip environment.
 
 `cd trec_eval_project/`
 
-install a compiled copy of the trec_eval program in the 'trec_eval' directory called 'trec_eval'
+Download trec_eval_latest.tar.gz from https://github.com/leifos/wad/tree/master/projects/trec
+
+Compile the application (`make trec_eval.c`) and copy the resultant trec_eval binary into trec_eval directory within the project (trec/trec_eval_project/trec_eval).
 
 `python manage.py migrate`
 
