@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 from trec_eval.trec_wrapper import trec_wrapper
-from trec_eval_project.settings import MEDIA_ROOT
+from trec_eval_project.settings import BASE_DIR
 import os.path
 
 # Enumerated types for Run:
@@ -75,7 +75,7 @@ class Task(models.Model):
     task_url = models.URLField()
     description = models.TextField()
     year = models.IntegerField()
-    judgements_file = models.FileField(upload_to='qrels')
+    judgements_file = models.FileField(upload_to='qrels/')
 
     slug = models.SlugField()
 
@@ -121,8 +121,8 @@ class Run(models.Model):
     def populate_with_trec_eval_data(self):
         if self.map_val == None:
             # file paths for the qrel and results files.
-            qrel_path = os.path.join(MEDIA_ROOT, self.task.judgements_file.url)
-            results_path = os.path.join(MEDIA_ROOT, self.result_file.url)
+            qrel_path = os.path.join(BASE_DIR, 'static', self.task.judgements_file.url[1:])
+            results_path = os.path.join(BASE_DIR, 'static', self.result_file.url[1:])
 
             # calculate map, p_10, p_20.
             map, rMap, pMap = trec_wrapper(qrel_path, results_path)
