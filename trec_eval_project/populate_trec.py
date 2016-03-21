@@ -60,14 +60,17 @@ def populate():
                     # add_Task('test_track_1', 'test_task_1', 'http://www.google.com', 'Description - A simple task...', 1990, test_qrel)
 
     # Now go in search of runs all tracks / tasks and upload to database
-    for track in os.listdir(runs_path):
-        if not track.startswith('.'):
-            for run in os.listdir(runs_path + track):
-                if not run.startswith('.'):
-                    run_id = run_id + 1
-                    add_run(get_rand_user(user_list), get_task_name(qrel_path, track), 'test_run' + str(run_id),
-                            'Description of run', runs_path + track + '/' + run, Run_type.AUTOMATIC, Query_type.OTHER,
-                            Feedback_type.NONE, run_id, False)
+    # repeat it a few times to bulk up database
+
+    for a in xrange(0,10):
+        for track in os.listdir(runs_path):
+            if not track.startswith('.'):
+                for run in os.listdir(runs_path + track):
+                    if not run.startswith('.'):
+                        run_id = run_id + 1
+                        add_run(get_rand_user(user_list), get_task_name(qrel_path, track), 'test_run' + str(run_id),
+                                'Description of run', runs_path + track + '/' + run, Run_type.AUTOMATIC, Query_type.OTHER,
+                                Feedback_type.NONE, run_id, False)
 
 
 def get_rand_user(user_list):
