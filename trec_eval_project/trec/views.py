@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponsePermanentRedirect
+from django.contrib import messages
 from trec.models import Track, Task, Researcher, Run, User, Recall_val, P_value, Run_type, Query_type, Feedback_type
 
 from trec.forms import UserForm, UserProfileForm, EditUserInfoForm, AddRun
@@ -62,7 +63,11 @@ def register(request):
             populate_trec.add_researcher(user, user)
 
         else:
-            print user_form.errors, profile_form.errors
+            for key in user_form.errors:
+                messages.error(request, "Field '"+key+"': "+user_form.errors.get(key)[0])
+
+            for key in profile_form.errors:
+                messages.error(request, "Field '"+key+"': "+profile_form.errors.get(key)[0])
 
     else:
         user_form = UserForm()
