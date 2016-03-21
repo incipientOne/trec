@@ -61,7 +61,6 @@ def register(request):
             registered = True
             # Add as researcher to db
             populate_trec.add_researcher(user, user)
-
         else:
             for key in user_form.errors:
                 messages.error(request, "Field '"+key+"': "+user_form.errors.get(key)[0])
@@ -98,6 +97,7 @@ def task(request, task_slug):
         context_dict['map_vals'] = map_vals
 
     except Task.DoesNotExist:
+        messages.error(request, "This task does not seem to exist.")
         pass
 
     return render(request, 'trec/task.html', context_dict)
@@ -127,6 +127,7 @@ def run(request, run_slug):
         context_dict['p_data'] = p_data
 
     except Run.DoesNotExist:
+        messages.error(request, "This run does not seem to exist.")
         pass
 
     return render(request, 'trec/run.html', context_dict)
@@ -158,6 +159,7 @@ def track(request, track_slug):
         context_dict['task_average'] = task_average
 
     except Track.DoesNotExist:
+        messages.error(request, "This track does not seem to exist.")
         pass
 
     return render(request, 'trec/track.html', context_dict)
@@ -227,7 +229,7 @@ def add_run(request, task_slug):
                 # attempt to calculate stats with trec_eval.
                 profile.populate_with_trec_eval_data()
                 profile.save();
-                return HttpResponsePermanentRedirect('/trec/task/' + task_slug)
+                return redirect('task', task_slug=task_slug)
 
             except subprocess.CalledProcessError:
                 # add error message for user.
