@@ -21,4 +21,5 @@ urlpatterns = patterns('',
 	url(r'^profile/$', views.profile, name='profile'),															# For users to edit their profile details
 
 	url(r'^random/$', views.random, name='random'),
+	url(r'admin/$', views.admin, name='admin'),
 )

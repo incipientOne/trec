@@ -24,9 +24,8 @@
 	</H2>
 
 		
-	{% if track_list %}
+	{% if tracks %}
 		<table class="table table-hover">
-			{% for track in track_list %}
 				<tr>
 				<th>Title</th>
 				<th>ID</th>
@@ -34,6 +33,8 @@
 				<th>#runs</th>
 				<th>Description</th>
 				</tr>
+			{% for track in tracks.object_list %}
+
 				<tr>
 				<td><a href="{% url 'task' track.slug %}">{{ track.title }}</a></td>
 				<th>{{ track.id }} </td>
@@ -43,6 +44,9 @@
 				</tr>
 			{% endfor %}
 		</table>
+			<div id="pagination">
+				{% include 'core/paginator.html' with page_obj=users %}
+			</div>
 	{% else %}
 			<strong>There are no tracks present.</strong><br / >
 	{% endif %}

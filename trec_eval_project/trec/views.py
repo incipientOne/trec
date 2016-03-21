@@ -48,6 +48,21 @@ def users(request):
 
 	return render(request, 'trec/users.html', {'users': users})
 
+def admin(request):
+	tracks = Track.objects.all()
+	paginator = Paginator(tracks, 10)
+	page = request.GET.get('page')
+	max_page = paginator.num_pages
+
+	try:
+		tracks = paginator.page(page)
+	except (PageNotAnInteger, TypeError):
+		tracks = paginator.page(1)
+	except EmptyPage:
+		tracks = paginator.page(max_page)
+
+	return render(request, 'trec/admin.html', {'tracks': tracks})
+
 # Used to register a user
 def register(request):
 	registered = False
