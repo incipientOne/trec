@@ -22,12 +22,14 @@ def about(request):
 
 # The home / main page for the site
 def home(request):
+    context_dict = {}
+    return render(request, 'trec/home.html', context_dict)
+
+def random(request):
     run_list = Run.objects.all()
     rand_num = randrange(0, len(run_list))
 
-    context_dict = {'random_run': run_list[rand_num]}
-    return render(request, 'trec/home.html', context_dict)
-    
+    return redirect('run', run_slug=run_list[rand_num].slug)
 
 def users(request):
 	return render(request, 'trec/users.html', {'users': Researcher.objects.all()})

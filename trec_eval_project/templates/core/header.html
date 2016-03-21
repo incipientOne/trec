@@ -3,6 +3,7 @@
 {% url 'about' as url_about %}
 {% url 'register' as url_register %}
 {% url 'profile' as url_profile %}
+{% url 'users' as url_users %}
 
 <nav class="navbar navbar-default" id="main-nav">
 	<div class="container-fluid">
@@ -20,7 +21,7 @@
 				<li {% if url_home == request.path %}class = "active-tile"{% endif %}>
 					<a href="{% url 'home' %}">Home</a>
 				</li>
-				<li>
+				<li {% if url_users == request.path %}class = "active-tile"{% endif %}>
 					<a href="{% url 'users' %}">Users</a>
 				</li>
 				<li {% if url_tracks == request.path %}class = "active-tile"{% endif %}>
@@ -28,6 +29,9 @@
 				</li>
 				<li {% if url_about == request.path %}class = "active-tile"{% endif %}>
 					<a href="{% url 'about' %}">About</a>
+				</li>
+				<li>
+					<a href="{% url 'random' %}">RANDOM RUN</a>
 				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right menu-tiles">
