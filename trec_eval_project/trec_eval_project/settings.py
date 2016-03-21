@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+from django.contrib import messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # Not sure which is correct - both seem to work - someone with more knowledge check
@@ -90,13 +91,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages'
 )
 
-BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'components')
-
-BOWER_INSTALLED_APPS = (
-    'jquery',
-    'bootstrap',
-)
-
 WSGI_APPLICATION = 'trec_eval_project.wsgi.application'
 
 
@@ -159,6 +153,10 @@ STATICFILES_DIRS = (
     os.path.join(STATIC_ROOT, 'jquery', 'dist'),
     os.path.join(STATIC_ROOT, 'images'),
 )
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
+}
 
 
 # Login and Registation Stuff

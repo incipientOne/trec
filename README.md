@@ -32,6 +32,4 @@ Compile the application (`make trec_eval.c`) and copy the resultant trec_eval bi
 
 `python manage.py migrate`
 
-`python manage.py collectstatic`
-
 Now you can run server/do stuff.

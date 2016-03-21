@@ -2,6 +2,10 @@
 
 {% block title %}Register{% endblock %}
 
+{% block breadcrumbs %}
+	<li class="active">Registration</li>
+{% endblock %}
+
 {% block content %}
 
 	<h1>Register</h1>
@@ -13,19 +17,43 @@
 	{% else %}
 		You are currently not registered so sign up here and have a trec-tastic time!<br/>
 		Don't worry you can set a profile picture / update these details later.
-		<form id="user_form" method="post" action="/trec/register/" enctype="multipart/form-data">
-
-			{% csrf_token %}
-
-				<form id="user_form" method="post" action="/trec/register/" enctype="multipart/form-data">
+		<form id="user_form" method="post" action="/trec/register/" enctype="multipart/form-data" class="basic-form">
 
 			{% csrf_token %}
 
 			<!-- Display each form. The as_p method wraps each element in a paragraph
 			(<p>) element. This ensures each element appears on a new line,
 			making everything look neater. -->
-			{{ user_form.as_p }}
-			{{ profile_form.as_p }}
+
+			<div class="form-group">
+		    	<label for="display_name">Username</label>
+		    	<input type="text" class="form-control" name="username" placeholder="Enter username" value="">
+		    </div>
+
+		    <div class="form-group">
+		    	<label for="website">E-mail address</label>
+		    	<input type="text" class="form-control" name="email" placeholder="Enter website" value="">
+		    </div>
+
+		    <div class="form-group">
+		    	<label for="">Password</label>
+		    	<input type="password" class="form-control" name="password" placeholder="Enter e-mail" value="">
+		    </div>
+
+		    <div class="form-group">
+		    	<label for="display_name">Display name</label>
+		    	<input type="text" class="form-control"name="display_name" placeholder="Enter display name" value="">
+		    </div>
+
+		    <div class="form-group">
+		    	<label for="website">Website</label>
+		    	<input type="text" class="form-control" name="website" placeholder="Enter website" value="">
+		    </div>
+
+		    <div class="form-group">
+		    	<label for="">Organization</label>
+		    	<input type="text" class="form-control" name="organisation" placeholder="Enter organization name" value="">
+		    </div>
 
 			<!-- Provide a button to click to submit the form. -->
 			<input type="submit" name="submit" value="Register" />

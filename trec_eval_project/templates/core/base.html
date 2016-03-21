@@ -25,6 +25,11 @@
 		  		<li><a href="{% url 'home' %}">TREC</a></li>
 		  		{% block breadcrumbs %}{% endblock %}
 			</ol>
+
+			{% for message in messages %}
+			    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+			{% endfor %}
+			
 			{% block content %}{% endblock %} 
 		</div>
 	</body>
